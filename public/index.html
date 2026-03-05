@@ -1,732 +1,991 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UEFA Country Ranking — Live Coefficient</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #f5f5f5;
-      --white: #ffffff;
-      --border: #dddddd;
-      --border-dark: #bbbbbb;
-      --text: #333333;
-      --muted: #777777;
-      --header-bg: #2c3e50;
-      --header-text: #ffffff;
-      --link: #2980b9;
-
-      /* Zone colors — same as original site */
-      --cl-direct: #4a90d9;
-      --cl-qual:   #8fb8e8;
-      --el-direct: #e67e22;
-      --el-qual:   #f0a060;
-      --ecl:       #27ae60;
-      --ecl-light: #6ec49a;
-
-      /* Competition badge colors */
-      --cl-bg:  #dceefb;
-      --cl-txt: #1a5276;
-      --el-bg:  #fde8d2;
-      --el-txt: #784212;
-      --ecl-bg: #d5f5e3;
-      --ecl-txt:#1d6a3a;
-
-      --row-hover: #f0f4f8;
-      --row-alt:   #fafafa;
-      --separator: 2px solid #aaaaaa;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Open Sans', sans-serif;
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    /* ── HEADER ── */
-    header {
-      background: var(--header-bg);
-      color: var(--header-text);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    header h1 {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-    header h1 span { color: #7fb3d3; }
-    .nav-links { display: flex; gap: 16px; }
-    .nav-links a {
-      color: #bdc3c7;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 4px 0;
-      border-bottom: 2px solid transparent;
-      transition: all 0.15s;
-    }
-    .nav-links a:hover, .nav-links a.active {
-      color: #fff;
-      border-bottom-color: #7fb3d3;
-    }
-
-    /* ── SUBHEADER / CONTROLS ── */
-    .controls-bar {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      padding: 8px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .season-nav {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .season-nav button {
-      background: var(--white);
-      border: 1px solid var(--border-dark);
-      border-radius: 3px;
-      padding: 3px 8px;
-      cursor: pointer;
-      font-size: 13px;
-      color: var(--link);
-      font-family: inherit;
-      transition: background 0.1s;
-    }
-    .season-nav button:hover { background: #eaf2fb; }
-    .season-nav select {
-      border: 1px solid var(--border-dark);
-      border-radius: 3px;
-      padding: 3px 6px;
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      background: var(--white);
-      cursor: pointer;
-    }
-
-    .updated {
-      margin-left: auto;
-      font-size: 11px;
-      color: var(--muted);
-      font-style: italic;
-    }
-
-    .live-dot {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      color: #c0392b;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    .live-dot::before {
-      content: '';
-      width: 7px; height: 7px;
-      background: #c0392b;
-      border-radius: 50%;
-      animation: blink 1.2s ease-in-out infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
-    /* ── MAIN LAYOUT ── */
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 12px 16px 48px;
-    }
-
-    /* ── TABLE ── */
-    .table-wrap {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12.5px;
-    }
-
-    /* Header row */
-    thead th {
-      background: #ecf0f1;
-      border-bottom: 2px solid var(--border-dark);
-      padding: 7px 8px;
-      text-align: right;
-      font-weight: 700;
-      font-size: 11px;
-      color: #555;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      white-space: nowrap;
-    }
-    thead th.th-rank   { text-align: center; width: 36px; }
-    thead th.th-change { text-align: center; width: 28px; }
-    thead th.th-zone   { width: 5px; padding: 0; }
-    thead th.th-clubs  { text-align: center; width: 50px; }
-    thead th.th-country{ text-align: left; min-width: 120px; }
-
-    /* Body rows */
-    tbody tr {
-      border-bottom: 1px solid #eeeeee;
-      cursor: pointer;
-      transition: background 0.1s;
-    }
-    tbody tr:hover { background: var(--row-hover); }
-    tbody tr.zone-sep { border-top: var(--separator); }
-    tbody tr.expanded { background: #f0f6fc; }
-    tbody tr.expanded:hover { background: #e8f1f9; }
-
-    td {
-      padding: 6px 8px;
-      text-align: right;
-      vertical-align: middle;
-    }
-
-    /* Zone stripe */
-    td.td-zone {
-      padding: 0;
-      width: 5px;
-    }
-    .zone-bar {
-      width: 5px;
-      height: 100%;
-      min-height: 32px;
-      display: block;
-    }
-
-    /* Rank */
-    td.td-rank {
-      text-align: center;
-      font-weight: 700;
-      color: #555;
-      font-size: 12px;
-    }
-    td.td-rank.top3 { color: #c8a200; }
-
-    /* Change */
-    td.td-change { text-align: center; }
-    .ch-up   { color: #27ae60; font-size: 11px; font-weight: 700; }
-    .ch-down { color: #c0392b; font-size: 11px; font-weight: 700; }
-    .ch-same { color: #bbb; font-size: 11px; }
-
-    /* Country cell */
-    td.td-country { text-align: left; }
-    .country-inner {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-    .flag { font-size: 16px; line-height: 1; flex-shrink: 0; }
-    .cname { font-weight: 600; font-size: 12.5px; }
-    .club-status-icons {
-      display: flex;
-      gap: 2px;
-      margin-left: 2px;
-    }
-    .csi {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-    .csi.cl  { background: var(--cl-direct); }
-    .csi.el  { background: var(--el-direct); }
-    .csi.ecl { background: var(--ecl); }
-    .csi.out { background: #bbb; }
-
-    /* Total */
-    td.td-total {
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    /* Year cells */
-    td.td-y {
-      font-size: 12px;
-      color: #555;
-      min-width: 58px;
-    }
-    td.td-y.y-current { color: var(--link); font-weight: 600; }
-
-    /* Clubs count */
-    td.td-clubs { text-align: center; font-size: 11.5px; color: var(--muted); }
-    .clubs-frac { white-space: nowrap; }
-    .clubs-active { color: var(--link); font-weight: 600; }
-
-    /* ── DETAIL ROW ── */
-    tr.detail-row td {
-      padding: 0;
-      border-bottom: 2px solid var(--border-dark);
-    }
-    .detail-box {
-      background: #f7fafd;
-      border-top: 1px solid #d0e3f0;
-      padding: 10px 14px 12px;
-    }
-    .detail-box h4 {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-    }
-    .clubs-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-    .club-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 4px 8px;
-      font-size: 11.5px;
-    }
-    .club-chip.out {
-      opacity: 0.55;
-    }
-    .club-chip .comp-tag {
-      font-size: 9.5px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      padding: 1px 4px;
-      border-radius: 2px;
-    }
-    .comp-tag.cl  { background: var(--cl-bg);  color: var(--cl-txt); }
-    .comp-tag.el  { background: var(--el-bg);  color: var(--el-txt); }
-    .comp-tag.ecl { background: var(--ecl-bg); color: var(--ecl-txt); }
-
-    .club-pts { font-weight: 700; color: var(--text); font-size: 12px; }
-    .club-name { color: var(--text); }
-    .club-chip.out .club-name { text-decoration: line-through; color: var(--muted); }
-
-    /* ── LEGEND ── */
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 10px;
-      font-size: 11px;
-      color: var(--muted);
-      padding: 8px 0;
-      border-top: 1px solid var(--border);
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .legend-bar {
-      width: 12px; height: 12px;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
-    /* ── INFO SECTION ── */
-    .info-section {
-      margin-top: 24px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 16px;
-    }
-    .info-section h2 {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 6px;
-    }
-    .info-section h3 {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin: 14px 0 6px;
-    }
-    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-    .pts-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
-    .pts-table th { background: #f5f5f5; padding: 5px 8px; text-align: left; font-weight: 700; border: 1px solid var(--border); color: #555; font-size: 11px; text-transform: uppercase; }
-    .pts-table td { padding: 4px 8px; border: 1px solid var(--border); text-align: center; }
-    .pts-table td:first-child { text-align: left; }
-
-    /* ── EMPTY/LOADING ── */
-    .empty-row td {
-      text-align: center;
-      color: var(--muted);
-      padding: 24px;
-      font-style: italic;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      .td-y:not(.y-current) { display: none; }
-      thead th:not(.th-rank):not(.th-change):not(.th-zone):not(.th-country):not(.th-total):not([data-y="1"]) { display: none; }
-      .updated { display: none; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>UEFA Country Ranking — Live</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f4f4f4;--white:#fff;--bd:#ddd;--bd2:#bbb;
+  --text:#222;--muted:#777;--link:#2870b5;--hdr:#1e3a5f;
+  --cl:#3b82f6;--cl2:#dbeafe;--cl3:#1e3a8a;
+  --el:#f97316;--el2:#fed7aa;--el3:#7c2d12;
+  --ecl:#16a34a;--ecl2:#bbf7d0;--ecl3:#14532d;
+  --red:#dc2626;--green:#16a34a;--gold:#b8860b;
+  --bonus:#7c3aed;--bonus2:#ede9fe;--bonus3:#4c1d95;
+}
+body{background:var(--bg);color:var(--text);font-family:'Open Sans',sans-serif;font-size:13px;line-height:1.4}
+/* HEADER */
+header{background:var(--hdr);color:#fff;display:flex;align-items:stretch;flex-wrap:wrap;padding:0 16px}
+.hbrand{padding:10px 16px 10px 0;display:flex;align-items:center;border-right:1px solid rgba(255,255,255,.15)}
+.hbrand h1{font-size:17px;font-weight:700}.hbrand h1 span{color:#7ec8e3}
+nav{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{display:flex;align-items:center;padding:0 13px;color:rgba(255,255,255,.7);text-decoration:none;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;cursor:pointer}
+nav a:hover{color:#fff;background:rgba(255,255,255,.07)}
+nav a.active{color:#fff;border-bottom-color:#7ec8e3}
+.hright{margin-left:auto;display:flex;align-items:center;gap:10px;padding-left:12px}
+.livepill{display:inline-flex;align-items:center;gap:5px;background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.4);border-radius:99px;padding:3px 10px;font-size:10px;font-weight:700;color:#fca5a5;letter-spacing:.08em;text-transform:uppercase}
+.livepill::before{content:'';width:6px;height:6px;background:#ef4444;border-radius:50%;animation:blink 1.3s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+/* CTRL */
+.ctrlbar{background:var(--white);border-bottom:1px solid var(--bd);padding:7px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.snav{display:flex;align-items:center;gap:4px}
+.snav button{background:var(--white);border:1px solid var(--bd2);border-radius:3px;padding:3px 9px;cursor:pointer;font-size:13px;color:var(--link);font-family:inherit}
+.snav button:hover{background:#eaf2fb}
+.snav select{border:1px solid var(--bd2);border-radius:3px;padding:3px 6px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;background:var(--white)}
+.upd{margin-left:auto;font-size:11px;color:var(--muted);font-style:italic}
+/* SEARCH */
+.sbar{background:var(--white);border-bottom:1px solid var(--bd);padding:6px 16px}
+.sw{position:relative;max-width:340px}
+.sw input{width:100%;border:1px solid var(--bd2);border-radius:3px;padding:5px 10px 5px 28px;font-family:inherit;font-size:12.5px;outline:none}
+.sw input:focus{border-color:var(--link)}
+.sw::before{content:'🔍';position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:12px;pointer-events:none}
+.srdrop{position:absolute;top:calc(100% + 2px);left:0;right:0;background:var(--white);border:1px solid var(--bd2);border-radius:3px;box-shadow:0 4px 14px rgba(0,0,0,.12);z-index:200;max-height:300px;overflow-y:auto;display:none}
+.srdrop.open{display:block}
+.sri{padding:7px 12px;cursor:pointer;display:flex;align-items:center;gap:8px;border-bottom:1px solid #f0f0f0;font-size:12px}
+.sri:hover{background:#f0f6fb}.sri:last-child{border-bottom:none}
+.srsec{padding:4px 12px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;background:#f8f8f8;border-bottom:1px solid var(--bd)}
+.srrank{font-size:11px;color:var(--muted);width:22px;text-align:right;flex-shrink:0}
+.srpts{margin-left:auto;font-weight:700;font-size:12px;color:var(--link)}
+/* CONTAINER */
+.wrap{max-width:1020px;margin:0 auto;padding:12px 16px 60px}
+/* WIDGET */
+.wid{background:var(--white);border:1px solid var(--bd);border-radius:3px;margin-bottom:12px;overflow:hidden}
+.wh{color:#fff;padding:8px 14px;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between}
+.wh h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
+.wh .wico{font-size:11px;transition:transform .2s}
+.wb{display:none;padding:12px 14px}.wb.open{display:block}
+/* FIXTURES */
+.mrow{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:12px}
+.mrow:last-child{border-bottom:none}
+.mcomp{width:38px;text-align:center;font-size:9px;font-weight:700;padding:2px 3px;border-radius:2px;flex-shrink:0}
+.mcomp.cl{background:var(--cl2);color:var(--cl3)}.mcomp.el{background:var(--el2);color:var(--el3)}.mcomp.ecl{background:var(--ecl2);color:var(--ecl3)}
+.mtime{width:88px;font-size:11px;color:var(--muted);flex-shrink:0}
+.mteams{flex:1;font-weight:600}
+.mteams .vs{font-weight:400;color:var(--muted);margin:0 4px}
+.mscore{font-weight:700;font-size:13px;min-width:36px;text-align:center}
+.mscore.live{color:var(--red);animation:scorefl 2s ease-in-out infinite}
+@keyframes scorefl{0%,100%{opacity:1}50%{opacity:.4}}
+.livetag{font-size:9.5px;color:var(--red);font-weight:700;animation:blink .9s ease-in-out infinite}
+/* MAIN TABLE */
+.twrap{background:var(--white);border:1px solid var(--bd);border-radius:3px;overflow-x:auto}
+table.mt{width:100%;border-collapse:collapse;font-size:12.5px}
+table.mt thead th{background:#ecf0f1;border-bottom:2px solid var(--bd2);padding:7px 8px;text-align:right;font-weight:700;font-size:11px;color:#555;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;cursor:pointer;user-select:none}
+table.mt thead th:hover{background:#dde4e8}
+table.mt thead th.thl{text-align:left}table.mt thead th.thc{text-align:center}table.mt thead th.nos{cursor:default}
+table.mt thead th.sa::after{content:' ↑'}table.mt thead th.sd::after{content:' ↓'}
+table.mt tbody tr{border-bottom:1px solid #eee;cursor:pointer;transition:background .08s}
+table.mt tbody tr:hover{background:#f0f6fc}
+table.mt tbody tr.sep{border-top:2px solid #999}
+table.mt tbody tr.exp{background:#eef5fc}
+table.mt td{padding:6px 8px;text-align:right;vertical-align:middle}
+td.tdz{padding:0;width:5px}.zb{display:block;width:5px;min-height:30px}
+td.tdr{text-align:center;font-weight:700;color:#666;font-size:12px}td.tdr.gld{color:var(--gold)}
+td.tdc{text-align:center}
+.cup{color:var(--green);font-size:10.5px;font-weight:700}.cdn{color:var(--red);font-size:10.5px;font-weight:700}.csm{color:#bbb;font-size:10.5px}
+td.tdct{text-align:left}
+.ctry{display:flex;align-items:center;gap:7px}
+.fl{font-size:16px;line-height:1;flex-shrink:0}.cn{font-weight:600}
+.dots{display:flex;gap:2px;margin-left:2px}
+.dot{width:7px;height:7px;border-radius:50%}
+.dot.cl{background:var(--cl)}.dot.el{background:var(--el)}.dot.ecl{background:var(--ecl)}.dot.out{background:#ccc}
+.liveico{font-size:9px;margin-left:3px;animation:blink 1.1s ease-in-out infinite;color:var(--red)}
+td.tdt{font-weight:700;font-size:13px}
+td.tdy{font-size:12px;color:#555;min-width:54px}td.tdy.yc{color:var(--link);font-weight:600}
+td.tdcl{text-align:center;font-size:11.5px;color:var(--muted)}.caf{color:var(--link);font-weight:600}
+/* DETAIL ROW */
+tr.drow td{padding:0;border-bottom:2px solid var(--bd2)}
+.dbox{background:#f5f9fd;border-top:1px solid #c5daf0;padding:10px 14px 14px}
+.dbox h4{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+.cgrid{display:flex;flex-wrap:wrap;gap:5px}
+.chip{display:inline-flex;align-items:center;gap:5px;background:var(--white);border:1px solid var(--bd);border-radius:3px;padding:4px 8px;font-size:11.5px}
+.chip.out{opacity:.5}
+.ctag{font-size:9.5px;font-weight:700;padding:1px 4px;border-radius:2px}
+.ctag.cl{background:var(--cl2);color:var(--cl3)}.ctag.el{background:var(--el2);color:var(--el3)}.ctag.ecl{background:var(--ecl2);color:var(--ecl3)}
+.cpts{font-weight:700;font-size:12px}
+/* RACE */
+.gb{display:inline-block;padding:1px 5px;border-radius:3px;font-size:10px;font-weight:700}
+.gd{background:#fee2e2;color:#991b1b}.gw{background:#fef3c7;color:#92400e}.gs{background:#d1fae5;color:#065f46}
+.bbadge{display:inline-flex;align-items:center;gap:4px;background:var(--bonus2);border:1px solid #c4b5fd;border-radius:3px;padding:2px 7px;font-size:10px;font-weight:700;color:var(--bonus)}
+/* CLUBS */
+.csrow{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.csrow input,.csrow select{border:1px solid var(--bd2);border-radius:3px;padding:5px 8px;font-family:inherit;font-size:12.5px;outline:none;background:var(--white)}
+.csrow input{flex:1;min-width:140px}.csrow input:focus{border-color:var(--link)}
+.chl{background:#fffbdb!important}
+/* STATS PAGE */
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.scard{background:var(--white);border:1px solid var(--bd);border-radius:3px;padding:14px}
+.scard h3{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.srow{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f0f0f0;font-size:12px}
+.srow:last-child{border-bottom:none}
+.slabel{color:var(--muted)}.sval{font-weight:700}
+.sval.better{color:var(--green)}.sval.worse{color:var(--red)}
+.cselrow{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.cselrow select{flex:1;min-width:150px;border:1px solid var(--bd2);border-radius:3px;padding:6px 8px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;background:var(--white)}
+.fullcard{background:var(--white);border:1px solid var(--bd);border-radius:3px;padding:14px;margin-top:14px}
+.fullcard h3{font-size:13px;font-weight:700;margin-bottom:12px}
+.histctrl{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.histctrl select{flex:1;min-width:150px;border:1px solid var(--bd2);border-radius:3px;padding:5px 8px;font-family:inherit;font-size:12.5px;cursor:pointer;background:var(--white)}
+.histctrl button{background:var(--link);color:#fff;border:none;border-radius:3px;padding:6px 14px;cursor:pointer;font-size:12.5px;font-family:inherit;font-weight:600}
+.histctrl button:hover{background:#1e5ea3}
+/* SIM & PRED */
+.simgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.simcard{background:var(--white);border:1px solid var(--bd);border-radius:3px;padding:14px}
+.simcard h3{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:12px}
+.smatch{display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:12px}
+.smatch:last-child{border-bottom:none}
+.steam{font-weight:600;flex:1;min-width:60px}
+.steam.away{text-align:right}
+.sbts{display:flex;gap:3px;flex-shrink:0}
+.sb{background:var(--white);border:1px solid var(--bd2);border-radius:3px;padding:3px 8px;cursor:pointer;font-size:11px;font-family:inherit;transition:all .1s}
+.sb:hover{background:#f0f4f8}
+.sb.aw{background:#d1fae5;border-color:#6ee7b7;color:#065f46;font-weight:700}
+.sb.dr{background:#fef3c7;border-color:#fcd34d;color:#92400e;font-weight:700}
+.sb.lw{background:#fee2e2;border-color:#fca5a5;color:#991b1b;font-weight:700}
+.improw{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:12px}
+.improw:last-child{border-bottom:none}
+.imd{font-weight:700}.imd.pos{color:var(--green)}.imd.neg{color:var(--red)}.imd.neu{color:var(--muted)}
+.simreset{background:#f0f4f8;border:1px solid var(--bd2);border-radius:3px;padding:5px 12px;cursor:pointer;font-size:12px;font-family:inherit;margin-top:10px}
+.simreset:hover{background:#e2eaf4}
+.pinfobox{background:#fffbeb;border:1px solid #fcd34d;border-radius:3px;padding:10px 14px;font-size:12px;color:#78350f;margin-bottom:14px;line-height:1.7}
+.ptable{width:100%;border-collapse:collapse;font-size:12px}
+.ptable th{background:#f0f4f8;padding:6px 8px;text-align:left;font-size:10.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--bd)}
+.ptable td{padding:5px 8px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+.ptable tr:hover td{background:#f7fafd}
+.pbar{height:8px;border-radius:4px;display:inline-block;vertical-align:middle}
+/* INFO */
+.icard{background:var(--white);border:1px solid var(--bd);border-radius:3px;padding:16px;margin-bottom:12px}
+.icard h2{font-size:14px;font-weight:700;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.icard h3{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:14px 0 6px}
+.ig{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:10px}
+.pt{width:100%;border-collapse:collapse;font-size:11.5px}
+.pt th{background:#f5f5f5;padding:5px 8px;text-align:left;font-weight:700;border:1px solid var(--bd);color:#555;font-size:10.5px;text-transform:uppercase}
+.pt td{padding:4px 8px;border:1px solid var(--bd);text-align:center}.pt td:first-child{text-align:left}
+/* LEGEND */
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-size:11px;color:var(--muted);padding:7px 0;border-top:1px solid var(--bd)}
+.li{display:flex;align-items:center;gap:4px}.lb{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+@media(max-width:700px){
+  .statgrid,.simgrid{grid-template-columns:1fr}
+  td.tdy:not(.yc){display:none}
+  .hright,.upd{display:none}
+}
+</style>
 </head>
 <body>
-
 <header>
-  <h1>UEFA <span>Country</span> Ranking</h1>
-  <nav class="nav-links">
-    <a href="#" class="active" id="tab-ranking">Country Ranking</a>
-    <a href="#" id="tab-info">Points System</a>
+  <div class="hbrand"><h1>UEFA <span>Country</span> Ranking</h1></div>
+  <nav>
+    <a class="active" data-tab="ranking">🏆 Country Ranking</a>
+    <a data-tab="race">🏁 Race for Spots</a>
+    <a data-tab="clubs">⚽ Club Ranking</a>
+    <a data-tab="stats">📊 History &amp; Compare</a>
+    <a data-tab="sim">🎮 Simulator &amp; Prediction</a>
+    <a data-tab="info">ℹ️ Info</a>
   </nav>
+  <div class="hright">
+    <span class="livepill">Live</span>
+    <span id="lstatus" style="font-size:11px;color:rgba(255,255,255,.5)"></span>
+  </div>
 </header>
 
-<div class="controls-bar">
-  <div class="season-nav">
-    <button id="btn-prev">◀</button>
-    <select id="sel-season"></select>
-    <button id="btn-next">▶</button>
+<div class="ctrlbar">
+  <div class="snav">
+    <button id="bprev">◀</button>
+    <select id="ssel"></select>
+    <button id="bnext">▶</button>
   </div>
-  <span class="live-dot" id="live-label">LIVE</span>
-  <span class="updated" id="updated-label"></span>
+  <span class="upd" id="updlbl"></span>
 </div>
 
-<div class="container">
+<div class="sbar" id="sbar">
+  <div class="sw">
+    <input type="text" id="gsearch" placeholder="Search country or club…" autocomplete="off"/>
+    <div class="srdrop" id="srdrop"></div>
+  </div>
+</div>
 
-  <!-- RANKING VIEW -->
-  <div id="view-ranking">
-    <div class="table-wrap">
-      <table id="main-table">
-        <thead>
-          <tr>
-            <th class="th-rank">#</th>
-            <th class="th-change">±</th>
-            <th class="th-zone"></th>
-            <th class="th-country">Country</th>
-            <th class="th-clubs">Clubs</th>
-            <th class="th-total">Total</th>
-            <th data-y="1" id="h-y1">Y1</th>
-            <th data-y="2" id="h-y2">Y2</th>
-            <th data-y="3" id="h-y3">Y3</th>
-            <th data-y="4" id="h-y4">Y4</th>
-            <th data-y="5" id="h-y5">Y5</th>
-          </tr>
-        </thead>
-        <tbody id="tbody">
-          <tr class="empty-row"><td colspan="11">Loading…</td></tr>
-        </tbody>
-      </table>
+<div class="wrap">
+
+<!-- ═══ TAB: RANKING ═══ -->
+<div id="tab-ranking">
+  <div class="wid">
+    <div class="wh" style="background:#2c5282" onclick="toggleW('fixb','fixico')">
+      <h3>📅 Upcoming UEFA Matches</h3><span class="wico" id="fixico">▼</span>
     </div>
+    <div class="wb" id="fixb"><div id="fixlist" style="color:var(--muted);font-style:italic;font-size:12px">Loading…</div></div>
+  </div>
+  <div class="twrap">
+    <table class="mt" id="mtable">
+      <thead><tr>
+        <th class="thc nos" style="width:36px">#</th>
+        <th class="thc nos" style="width:28px">±</th>
+        <th class="nos" style="width:5px;padding:0"></th>
+        <th class="thl" data-sort="name">Country</th>
+        <th class="thc nos">Clubs</th>
+        <th data-sort="total">Total</th>
+        <th id="hy1" data-sort="y1">Y1</th>
+        <th id="hy2" data-sort="y2">Y2</th>
+        <th id="hy3" data-sort="y3">Y3</th>
+        <th id="hy4" data-sort="y4">Y4</th>
+        <th id="hy5" data-sort="y5">Y5</th>
+      </tr></thead>
+      <tbody id="tbody"><tr><td colspan="11" style="text-align:center;padding:20px;color:var(--muted)">Loading…</td></tr></tbody>
+    </table>
+  </div>
+  <div class="legend">
+    <span style="font-weight:700;color:#444;margin-right:4px">Zone:</span>
+    <span class="li"><span class="lb" style="background:#3b82f6"></span>CL direct (1–4)</span>
+    <span class="li"><span class="lb" style="background:#93c5fd"></span>CL qualifying (5–10)</span>
+    <span class="li"><span class="lb" style="background:#f97316"></span>EL direct (5–6)</span>
+    <span class="li"><span class="lb" style="background:#fdba74"></span>EL qualifying (7–15)</span>
+    <span class="li"><span class="lb" style="background:#16a34a"></span>ECL (16–55)</span>
+  </div>
+</div>
 
-    <div class="legend">
-      <span style="font-weight:600; color:#444; margin-right:4px;">Zone:</span>
-      <span class="legend-item"><span class="legend-bar" style="background:var(--cl-direct)"></span> CL direct</span>
-      <span class="legend-item"><span class="legend-bar" style="background:var(--cl-qual)"></span> CL qualifying</span>
-      <span class="legend-item"><span class="legend-bar" style="background:var(--el-direct)"></span> EL direct</span>
-      <span class="legend-item"><span class="legend-bar" style="background:var(--el-qual)"></span> EL qualifying</span>
-      <span class="legend-item"><span class="legend-bar" style="background:var(--ecl)"></span> ECL direct/qualifying</span>
-      <span class="legend-item" style="margin-left:12px">
-        <span style="color:#27ae60; font-weight:700">▲</span> Gained places
-        &nbsp;<span style="color:#c0392b; font-weight:700">▼</span> Lost places
-      </span>
+<!-- ═══ TAB: RACE FOR SPOTS ═══ -->
+<div id="tab-race" style="display:none">
+  <div style="background:var(--bonus2);border:1px solid #c4b5fd;border-radius:3px;padding:10px 14px;font-size:12px;color:var(--bonus3);margin-bottom:12px;line-height:1.7">
+    <strong>🏆 Bonus place rule:</strong> The <strong>2 associations earning the most points this season (Y1 coefficient)</strong> each receive an extra European starting place for the next cycle (2027-28). The table below ranks all associations by current-season points only.
+  </div>
+  <div class="twrap">
+    <table style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead><tr style="background:#f0f4f8;border-bottom:1px solid var(--bd)">
+        <th style="padding:6px 8px;font-size:10.5px;font-weight:700;color:#555;text-transform:uppercase;width:36px;text-align:center">#</th>
+        <th style="padding:6px 8px;font-size:10.5px;font-weight:700;color:#555;text-transform:uppercase;text-align:left">Country</th>
+        <th style="padding:6px 8px;font-size:10.5px;font-weight:700;color:#555;text-transform:uppercase;text-align:right">Y1 pts</th>
+        <th style="padding:6px 8px;font-size:10.5px;font-weight:700;color:#555;text-transform:uppercase;text-align:right">Gap ▲</th>
+        <th style="padding:6px 8px;font-size:10.5px;font-weight:700;color:#555;text-transform:uppercase;text-align:right">Gap ▼</th>
+        <th style="padding:6px 8px;font-size:10.5px;font-weight:700;color:#555;text-transform:uppercase">Active clubs</th>
+        <th style="padding:6px 8px;font-size:10.5px;font-weight:700;color:#555;text-transform:uppercase">Status</th>
+      </tr></thead>
+      <tbody id="racetb"></tbody>
+    </table>
+  </div>
+  <p style="font-size:11px;color:var(--muted);margin-top:8px">Sorted by Y1 only. Overall ranking not affected here. Top 2 = earn bonus place for 2027-28.</p>
+</div>
+
+<!-- ═══ TAB: CLUBS ═══ -->
+<div id="tab-clubs" style="display:none">
+  <div class="csrow">
+    <input type="text" id="cq" placeholder="Search club or country…"/>
+    <select id="ccomp"><option value="">All competitions</option><option value="CL">Champions League</option><option value="EL">Europa League</option><option value="ECL">Conference League</option></select>
+    <select id="cstat"><option value="">All status</option><option value="active">Active</option><option value="out">Eliminated</option></select>
+  </div>
+  <div class="twrap">
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+      <thead><tr>
+        <th style="background:#ecf0f1;border-bottom:2px solid var(--bd2);padding:7px 8px;text-align:center;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;width:44px">#</th>
+        <th style="background:#ecf0f1;border-bottom:2px solid var(--bd2);padding:7px 8px;text-align:left;font-size:11px;font-weight:700;color:#555;text-transform:uppercase">Club</th>
+        <th style="background:#ecf0f1;border-bottom:2px solid var(--bd2);padding:7px 8px;text-align:left;font-size:11px;font-weight:700;color:#555;text-transform:uppercase">Country</th>
+        <th style="background:#ecf0f1;border-bottom:2px solid var(--bd2);padding:7px 8px;text-align:center;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;width:50px">Comp</th>
+        <th style="background:#ecf0f1;border-bottom:2px solid var(--bd2);padding:7px 8px;text-align:right;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;width:72px">Points</th>
+        <th style="background:#ecf0f1;border-bottom:2px solid var(--bd2);padding:7px 8px;text-align:center;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;width:72px">Status</th>
+      </tr></thead>
+      <tbody id="clubtb"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ TAB: HISTORY & COMPARE ═══ -->
+<div id="tab-stats" style="display:none">
+
+  <!-- History chart -->
+  <div class="wid" style="margin-bottom:14px">
+    <div class="wh" style="background:#1e3a5f;cursor:default"><h3>📈 Y1 Coefficient history — last 10 seasons</h3></div>
+    <div style="padding:14px">
+      <div class="histctrl">
+        <select id="hs1"></select>
+        <select id="hs2"><option value="">— 2nd country —</option></select>
+        <select id="hs3"><option value="">— 3rd country —</option></select>
+        <button onclick="drawHistChart()">Update chart</button>
+      </div>
+      <div style="position:relative;height:240px"><canvas id="histchart"></canvas></div>
     </div>
   </div>
 
-  <!-- INFO VIEW -->
-  <div id="view-info" style="display:none">
-    <div class="info-section">
-      <h2>Calculation of UEFA Country Ranking</h2>
-      <p style="font-size:12.5px; color:#555; line-height:1.7;">
-        The UEFA Country Ranking (also known as the UEFA coefficient) allows comparison of the strength of national associations. A country's total coefficient = sum of its annual coefficients over the last 5 seasons. Each season's coefficient = total club points ÷ number of clubs entered.
-      </p>
-      <div class="info-grid" style="margin-top:14px">
-        <div>
-          <h3>Match Points</h3>
-          <table class="pts-table">
-            <tr><th>Result</th><th>CL</th><th>EL</th><th>ECL</th></tr>
-            <tr><td>Win (group/KO)</td><td>2</td><td>2</td><td>2</td></tr>
-            <tr><td>Draw (group/KO)</td><td>1</td><td>1</td><td>1</td></tr>
-            <tr><td>Win (qualifying)</td><td>1</td><td>1</td><td>1</td></tr>
-            <tr><td>Draw (qualifying)</td><td>0.5</td><td>0.5</td><td>0.5</td></tr>
-          </table>
+  <!-- Compare -->
+  <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">⚖️ Side-by-side comparison</div>
+  <div class="cselrow">
+    <select id="cmpa"></select>
+    <span style="align-self:center;font-weight:700;color:var(--muted);flex-shrink:0">vs</span>
+    <select id="cmpb"></select>
+    <button onclick="renderCompare()" style="background:var(--link);color:#fff;border:none;border-radius:3px;padding:6px 18px;cursor:pointer;font-size:13px;font-family:inherit;font-weight:600;flex-shrink:0">Compare</button>
+  </div>
+  <div id="cmpout"></div>
+</div>
+
+<!-- ═══ TAB: SIMULATOR & PREDICTION ═══ -->
+<div id="tab-sim" style="display:none">
+
+  <!-- Simulator -->
+  <div class="wid" style="margin-bottom:14px">
+    <div class="wh" style="background:#1e3a5f;cursor:default"><h3>🎮 Match Simulator — set results to see ranking impact</h3></div>
+    <div style="padding:14px">
+      <div class="simgrid">
+        <div class="simcard">
+          <h3>Upcoming matches — pick a result</h3>
+          <div id="simmatches">Loading…</div>
+          <button class="simreset" onclick="resetSim()">↺ Reset all</button>
         </div>
-        <div>
-          <h3>Bonus Points</h3>
-          <table class="pts-table">
-            <tr><th>Round</th><th>CL</th><th>EL</th><th>ECL</th></tr>
-            <tr><td>League phase entry</td><td>4</td><td>—</td><td>—</td></tr>
-            <tr><td>1st in league phase</td><td>—</td><td>4</td><td>2</td></tr>
-            <tr><td>2nd in league phase</td><td>—</td><td>2</td><td>1</td></tr>
-            <tr><td>Round of 16</td><td>1.5</td><td>1</td><td>—</td></tr>
-            <tr><td>Quarter-finals</td><td>1.5</td><td>1</td><td>0.5</td></tr>
-            <tr><td>Semi-finals</td><td>1.5</td><td>1</td><td>0.5</td></tr>
-            <tr><td>Final</td><td>1.5</td><td>1</td><td>0.5</td></tr>
-          </table>
-        </div>
-        <div>
-          <h3>European spots by ranking (2027-28)</h3>
-          <table class="pts-table">
-            <tr><th>Rank</th><th>CL</th><th>EL</th><th>ECL</th></tr>
-            <tr><td>1–4</td><td>4 direct</td><td>2 direct</td><td>1 qual</td></tr>
-            <tr><td>5</td><td>3 + 1Q</td><td>2 direct</td><td>1 qual</td></tr>
-            <tr><td>6</td><td>2 + 1Q</td><td>1 + 1Q</td><td>1 qual</td></tr>
-            <tr><td>7</td><td>1 + 1Q</td><td>1 + 1Q</td><td>1 qual</td></tr>
-            <tr><td>8–10</td><td>1 + 1Q</td><td>2 qual</td><td>1 qual</td></tr>
-            <tr><td>11–12</td><td>2 qual</td><td>2 qual</td><td>1 qual</td></tr>
-            <tr><td>13–15</td><td>2 qual</td><td>1 qual</td><td>2 qual</td></tr>
-            <tr><td>16–34</td><td>1 qual</td><td>1 qual</td><td>2 qual</td></tr>
-            <tr><td>35–50</td><td>1 qual</td><td>—</td><td>3 qual</td></tr>
-            <tr><td>51–55</td><td>1 qual</td><td>—</td><td>2 qual</td></tr>
-          </table>
+        <div class="simcard">
+          <h3>Impact on country Y1 coefficient</h3>
+          <div id="simimpact" style="color:var(--muted);font-style:italic;font-size:12px">Set a match result to see impact…</div>
         </div>
       </div>
     </div>
   </div>
 
-</div><!-- /container -->
+  <!-- Prediction -->
+  <div class="wid">
+    <div class="wh" style="background:#1e5038;cursor:default"><h3>🔮 End-of-season rank prediction (Monte Carlo)</h3></div>
+    <div style="padding:14px">
+      <div class="pinfobox">
+        <strong>Methodology:</strong> For each country with active clubs, remaining points are estimated using avg pts/match this season × expected remaining matches. 1 000 Monte Carlo simulations generate probability distributions. Countries with no active clubs have fixed totals.
+      </div>
+      <div style="overflow-x:auto">
+        <table class="ptable" id="ptable">
+          <thead><tr>
+            <th style="width:40px;text-align:center">Now #</th>
+            <th>Country</th>
+            <th style="text-align:right">Current total</th>
+            <th style="text-align:right">Projected total</th>
+            <th style="text-align:right">Proj. rank</th>
+            <th style="min-width:110px">Top-5 chance</th>
+            <th style="min-width:110px">Top-10 chance</th>
+          </tr></thead>
+          <tbody id="predtb"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- ═══ TAB: INFO ═══ -->
+<div id="tab-info" style="display:none">
+  <div class="icard">
+    <h2>How is the UEFA Country Coefficient calculated?</h2>
+    <p style="font-size:12.5px;color:#555;line-height:1.75"><strong>Total coefficient = Y1 + Y2 + Y3 + Y4 + Y5</strong> (sum of last 5 season coefficients). Each season's coefficient = total club points ÷ number of clubs entered that season.</p>
+    <div class="ig">
+      <div>
+        <h3>Match Points</h3>
+        <table class="pt">
+          <tr><th>Result</th><th>CL</th><th>EL</th><th>ECL</th></tr>
+          <tr><td>Win (group/KO)</td><td>2</td><td>2</td><td>2</td></tr>
+          <tr><td>Draw (group/KO)</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>Win (qualifying)</td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>Draw (qualifying)</td><td>0.5</td><td>0.5</td><td>0.5</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>Bonus Points (2024+ format)</h3>
+        <table class="pt">
+          <tr><th>Achievement</th><th>CL</th><th>EL</th><th>ECL</th></tr>
+          <tr><td>League phase entry</td><td>4</td><td>—</td><td>—</td></tr>
+          <tr><td>1st in league phase</td><td>—</td><td>4</td><td>2</td></tr>
+          <tr><td>2nd in league phase</td><td>—</td><td>2</td><td>1</td></tr>
+          <tr><td>R16 / QF / SF / F</td><td>1.5ea</td><td>1ea</td><td>0.5ea</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>European spots by rank → 2027-28</h3>
+        <table class="pt">
+          <tr><th>Rank</th><th>CL</th><th>EL</th><th>ECL</th></tr>
+          <tr><td>1–4</td><td>4 direct</td><td>2 direct</td><td>1Q</td></tr>
+          <tr><td>5</td><td>3+1Q</td><td>2 direct</td><td>1Q</td></tr>
+          <tr><td>6</td><td>2+1Q</td><td>1+1Q</td><td>1Q</td></tr>
+          <tr><td>7</td><td>1+1Q</td><td>1+1Q</td><td>1Q</td></tr>
+          <tr><td>8–10</td><td>1+1Q</td><td>2Q</td><td>1Q</td></tr>
+          <tr><td>11–15</td><td>2Q</td><td>1–2Q</td><td>1–2Q</td></tr>
+          <tr><td>16–55</td><td>1Q</td><td>1Q</td><td>2–3Q</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>Reading the table</h3>
+        <p style="font-size:12px;color:#555;line-height:1.8">
+          <strong>Total</strong> = Y1+Y2+Y3+Y4+Y5<br>
+          <strong>Y1</strong> = current season (live)<br>
+          <strong>Coloured dots</strong> = 🔵CL 🟠EL 🟢ECL (grey=out)<br>
+          <strong>⚽</strong> = club playing right now<br>
+          <strong style="color:var(--bonus)">🏆 Bonus place:</strong> top 2 in Y1 race
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
 <script>
-// ── CONFIG ──────────────────────────────────────────────────────────────────
-const SEASONS = [
-  "2025-26","2024-25","2023-24","2022-23","2021-22","2020-21",
-  "2019-20","2018-19","2017-18","2016-17","2015-16","2014-15",
-  "2013-14","2012-13","2011-12","2010-11","2009-10","2008-09"
-];
-
-const ZONE_COLORS = {
-  cl_direct: '#4a90d9',
-  cl_qual:   '#8fb8e8',
-  el_direct: '#e67e22',
-  el_qual:   '#f0a060',
-  ecl:       '#27ae60',
-  ecl_light: '#6ec49a',
-  none:      '#e0e0e0'
+// ══════════════════════════════════════════════════════════
+// EMBEDDED HISTORICAL DATA
+// ══════════════════════════════════════════════════════════
+const HIST={
+"2024-25":{season:"2024-25",updated:"2025-07-01T00:00:00Z",zone_thresholds:{cl_direct:4,cl_qual:10,el_direct:6,el_qual:15,ecl_qual:55},countries:[
+{rank:1,prev_rank:2,name:"Spain",code:"ESP",flag:"🇪🇸",total:112.928,y1:27.928,y2:19.071,y3:21.000,y4:18.857,y5:26.072,clubs_total:5,clubs_active:0,clubs:[{name:"Real Madrid",pts:32,active:false,comp:"CL"},{name:"Barcelona",pts:26,active:false,comp:"CL"},{name:"Atlético Madrid",pts:24,active:false,comp:"CL"},{name:"Villarreal",pts:7,active:false,comp:"EL"},{name:"Athletic Bilbao",pts:14,active:false,comp:"EL"}]},
+{rank:2,prev_rank:1,name:"England",code:"ENG",flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",total:110.463,y1:27.464,y2:19.607,y3:20.892,y4:22.875,y5:19.625,clubs_total:6,clubs_active:0,clubs:[{name:"Man. City",pts:28,active:false,comp:"CL"},{name:"Arsenal",pts:24,active:false,comp:"CL"},{name:"Liverpool",pts:26,active:false,comp:"CL"},{name:"Chelsea",pts:14,active:false,comp:"CL"},{name:"Tottenham",pts:7,active:false,comp:"EL"},{name:"Aston Villa",pts:5,active:false,comp:"ECL"}]},
+{rank:3,prev_rank:3,name:"Germany",code:"GER",flag:"🇩🇪",total:91.748,y1:17.500,y2:18.748,y3:18.000,y4:16.870,y5:20.630,clubs_total:5,clubs_active:0,clubs:[{name:"Bayern",pts:24,active:false,comp:"CL"},{name:"Leverkusen",pts:18,active:false,comp:"CL"},{name:"Borussia Dortmund",pts:14,active:false,comp:"EL"},{name:"Stuttgart",pts:11,active:false,comp:"EL"},{name:"RB Leipzig",pts:9,active:false,comp:"ECL"}]},
+{rank:4,prev_rank:5,name:"France",code:"FRA",flag:"🇫🇷",total:84.313,y1:13.666,y2:13.333,y3:18.380,y4:19.800,y5:19.134,clubs_total:5,clubs_active:0,clubs:[{name:"Paris SG",pts:22,active:false,comp:"CL"},{name:"Monaco",pts:15,active:false,comp:"CL"},{name:"Lille",pts:17,active:false,comp:"CL"},{name:"Lyon",pts:8,active:false,comp:"EL"},{name:"Nice",pts:6,active:false,comp:"ECL"}]},
+{rank:5,prev_rank:4,name:"Italy",code:"ITA",flag:"🇮🇹",total:83.303,y1:18.071,y2:20.071,y3:21.071,y4:21.732,y5:2.358,clubs_total:5,clubs_active:0,clubs:[{name:"Inter",pts:21,active:false,comp:"CL"},{name:"Juventus",pts:16,active:false,comp:"EL"},{name:"Roma",pts:14,active:false,comp:"EL"},{name:"Atalanta",pts:16,active:false,comp:"ECL"},{name:"Fiorentina",pts:9,active:false,comp:"ECL"}]},
+{rank:6,prev_rank:6,name:"Portugal",code:"POR",flag:"🇵🇹",total:69.467,y1:13.800,y2:12.400,y3:13.200,y4:13.267,y5:16.800,clubs_total:4,clubs_active:0,clubs:[{name:"Sporting CP",pts:19,active:false,comp:"CL"},{name:"Benfica",pts:14,active:false,comp:"CL"},{name:"Porto",pts:11,active:false,comp:"EL"},{name:"Braga",pts:9,active:false,comp:"ECL"}]},
+{rank:7,prev_rank:7,name:"Netherlands",code:"NED",flag:"🇳🇱",total:68.113,y1:12.600,y2:12.400,y3:15.300,y4:17.650,y5:10.163,clubs_total:4,clubs_active:0,clubs:[{name:"PSV",pts:20,active:false,comp:"CL"},{name:"Feyenoord",pts:16,active:false,comp:"CL"},{name:"Ajax",pts:8,active:false,comp:"EL"},{name:"AZ Alkmaar",pts:6,active:false,comp:"ECL"}]},
+{rank:8,prev_rank:8,name:"Belgium",code:"BEL",flag:"🇧🇪",total:62.850,y1:8.700,y2:8.700,y3:14.500,y4:18.950,y5:12.000,clubs_total:4,clubs_active:0,clubs:[{name:"Club Brugge",pts:14,active:false,comp:"CL"},{name:"Anderlecht",pts:7,active:false,comp:"EL"},{name:"Gent",pts:9,active:false,comp:"ECL"},{name:"Cercle Brugge",pts:5,active:false,comp:"ECL"}]},
+{rank:9,prev_rank:9,name:"Scotland",code:"SCO",flag:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",total:45.050,y1:8.000,y2:7.500,y3:6.550,y4:5.000,y5:18.000,clubs_total:4,clubs_active:0,clubs:[{name:"Celtic",pts:18,active:false,comp:"CL"},{name:"Rangers",pts:8,active:false,comp:"EL"},{name:"Hearts",pts:3,active:false,comp:"ECL"},{name:"Aberdeen",pts:3,active:false,comp:"ECL"}]},
+{rank:10,prev_rank:10,name:"Austria",code:"AUT",flag:"🇦🇹",total:42.850,y1:8.750,y2:8.000,y3:6.750,y4:6.250,y5:13.100,clubs_total:4,clubs_active:0,clubs:[{name:"Salzburg",pts:15,active:false,comp:"CL"},{name:"Sturm Graz",pts:14,active:false,comp:"CL"},{name:"LASK",pts:5,active:false,comp:"EL"},{name:"Wolfsberger",pts:1,active:false,comp:"ECL"}]},
+{rank:11,prev_rank:11,name:"Türkiye",code:"TUR",flag:"🇹🇷",total:42.075,y1:7.800,y2:7.200,y3:13.500,y4:12.300,y5:1.275,clubs_total:4,clubs_active:0,clubs:[{name:"Galatasaray",pts:14,active:false,comp:"CL"},{name:"Fenerbahçe",pts:10,active:false,comp:"EL"},{name:"Beşiktaş",pts:8,active:false,comp:"EL"},{name:"Trabzonspor",pts:7,active:false,comp:"ECL"}]},
+{rank:12,prev_rank:12,name:"Poland",code:"POL",flag:"🇵🇱",total:37.000,y1:6.500,y2:5.750,y3:9.250,y4:9.500,y5:6.000,clubs_total:3,clubs_active:0,clubs:[{name:"Jagiellonia",pts:12,active:false,comp:"CL"},{name:"Lech Poznań",pts:8,active:false,comp:"EL"},{name:"Raków",pts:6,active:false,comp:"ECL"}]},
+{rank:13,prev_rank:13,name:"Czechia",code:"CZE",flag:"🇨🇿",total:36.825,y1:6.500,y2:6.500,y3:11.500,y4:13.000,y5:0,clubs_total:4,clubs_active:0,clubs:[{name:"Sparta Praha",pts:14,active:false,comp:"CL"},{name:"Slavia Praha",pts:8,active:false,comp:"EL"},{name:"Plzeň",pts:6,active:false,comp:"ECL"},{name:"Jablonec",pts:2,active:false,comp:"ECL"}]},
+{rank:14,prev_rank:14,name:"Greece",code:"GRE",flag:"🇬🇷",total:35.413,y1:5.200,y2:4.800,y3:11.913,y4:12.300,y5:1.200,clubs_total:4,clubs_active:0,clubs:[{name:"Olympiacos",pts:9,active:false,comp:"EL"},{name:"PAOK",pts:7,active:false,comp:"EL"},{name:"AEK Athens",pts:5,active:false,comp:"ECL"},{name:"Panathinaikos",pts:0,active:false,comp:"ECL"}]},
+{rank:15,prev_rank:15,name:"Denmark",code:"DEN",flag:"🇩🇰",total:29.856,y1:5.875,y2:5.750,y3:9.125,y4:9.106,y5:0,clubs_total:4,clubs_active:0,clubs:[{name:"FCK",pts:9,active:false,comp:"CL"},{name:"Midtjylland",pts:8,active:false,comp:"EL"},{name:"Brøndby",pts:6,active:false,comp:"ECL"},{name:"AGF",pts:0,active:false,comp:"ECL"}]},
+{rank:16,prev_rank:16,name:"Ukraine",code:"UKR",flag:"🇺🇦",total:33.613,y1:5.800,y2:3.300,y3:4.000,y4:4.500,y5:16.013,clubs_total:3,clubs_active:0,clubs:[{name:"Shakhtar",pts:11,active:false,comp:"CL"},{name:"Dynamo Kyiv",pts:6,active:false,comp:"EL"},{name:"Kryvbas",pts:0,active:false,comp:"ECL"}]},
+{rank:17,prev_rank:17,name:"Norway",code:"NOR",flag:"🇳🇴",total:28.338,y1:4.300,y2:9.188,y3:9.700,y4:10.000,y5:0,clubs_total:3,clubs_active:0,clubs:[{name:"Bodø/Glimt",pts:9,active:false,comp:"EL"},{name:"Rosenborg",pts:2,active:false,comp:"ECL"},{name:"Molde",pts:2,active:false,comp:"ECL"}]},
+{rank:18,prev_rank:18,name:"Switzerland",code:"SUI",flag:"🇨🇭",total:29.700,y1:6.350,y2:6.200,y3:7.950,y4:8.000,y5:1.200,clubs_total:4,clubs_active:0,clubs:[{name:"Young Boys",pts:10,active:false,comp:"CL"},{name:"Basel",pts:8,active:false,comp:"EL"},{name:"Lugano",pts:7,active:false,comp:"ECL"},{name:"Servette",pts:0,active:false,comp:"ECL"}]},
+{rank:19,prev_rank:19,name:"Croatia",code:"CRO",flag:"🇭🇷",total:26.906,y1:5.400,y2:5.000,y3:5.625,y4:5.100,y5:5.781,clubs_total:3,clubs_active:0,clubs:[{name:"Dinamo Zagreb",pts:11,active:false,comp:"CL"},{name:"Hajduk Split",pts:3,active:false,comp:"ECL"},{name:"Rijeka",pts:2,active:false,comp:"ECL"}]},
+{rank:20,prev_rank:20,name:"Serbia",code:"SRB",flag:"🇷🇸",total:27.750,y1:4.800,y2:4.600,y3:5.600,y4:5.000,y5:7.750,clubs_total:3,clubs_active:0,clubs:[{name:"Crvena Zvezda",pts:10,active:false,comp:"CL"},{name:"Partizan",pts:3,active:false,comp:"ECL"},{name:"Vojvodina",pts:1,active:false,comp:"ECL"}]}
+]},
+"2023-24":{season:"2023-24",updated:"2024-07-01T00:00:00Z",zone_thresholds:{cl_direct:4,cl_qual:10,el_direct:6,el_qual:15,ecl_qual:55},countries:[
+{rank:1,prev_rank:1,name:"Spain",code:"ESP",flag:"🇪🇸",total:111.000,y1:19.071,y2:21.000,y3:18.857,y4:26.072,y5:26.000,clubs_total:5,clubs_active:0,clubs:[{name:"Real Madrid",pts:27,active:false,comp:"CL"},{name:"Barcelona",pts:21,active:false,comp:"CL"},{name:"Atlético Madrid",pts:18,active:false,comp:"CL"},{name:"Real Betis",pts:9,active:false,comp:"EL"},{name:"Sevilla",pts:6,active:false,comp:"ECL"}]},
+{rank:2,prev_rank:2,name:"Germany",code:"GER",flag:"🇩🇪",total:92.748,y1:18.748,y2:18.000,y3:16.870,y4:20.630,y5:18.500,clubs_total:5,clubs_active:0,clubs:[{name:"Bayern",pts:26,active:false,comp:"CL"},{name:"Borussia Dortmund",pts:20,active:false,comp:"CL"},{name:"Leipzig",pts:16,active:false,comp:"CL"},{name:"Frankfurt",pts:10,active:false,comp:"EL"},{name:"Freiburg",pts:6,active:false,comp:"ECL"}]},
+{rank:3,prev_rank:3,name:"England",code:"ENG",flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",total:90.642,y1:19.607,y2:20.892,y3:22.875,y4:19.625,y5:7.643,clubs_total:6,clubs_active:0,clubs:[{name:"Man. City",pts:24,active:false,comp:"CL"},{name:"Arsenal",pts:18,active:false,comp:"CL"},{name:"Newcastle",pts:14,active:false,comp:"CL"},{name:"Man. Utd",pts:11,active:false,comp:"EL"},{name:"Liverpool",pts:10,active:false,comp:"EL"},{name:"West Ham",pts:9,active:false,comp:"ECL"}]},
+{rank:4,prev_rank:4,name:"Italy",code:"ITA",flag:"🇮🇹",total:83.071,y1:20.071,y2:21.071,y3:21.732,y4:2.358,y5:17.839,clubs_total:5,clubs_active:0,clubs:[{name:"Inter",pts:23,active:false,comp:"CL"},{name:"Napoli",pts:17,active:false,comp:"CL"},{name:"Lazio",pts:13,active:false,comp:"CL"},{name:"Fiorentina",pts:11,active:false,comp:"ECL"},{name:"Roma",pts:8,active:false,comp:"EL"}]},
+{rank:5,prev_rank:5,name:"France",code:"FRA",flag:"🇫🇷",total:80.647,y1:13.333,y2:18.380,y3:19.800,y4:19.134,y5:10.000,clubs_total:5,clubs_active:0,clubs:[{name:"Paris SG",pts:21,active:false,comp:"CL"},{name:"Lens",pts:8,active:false,comp:"CL"},{name:"Marseille",pts:6,active:false,comp:"EL"},{name:"Lille",pts:5,active:false,comp:"ECL"},{name:"Monaco",pts:5,active:false,comp:"ECL"}]},
+{rank:6,prev_rank:6,name:"Portugal",code:"POR",flag:"🇵🇹",total:72.267,y1:12.400,y2:13.200,y3:13.267,y4:16.800,y5:16.600,clubs_total:4,clubs_active:0,clubs:[{name:"Sporting CP",pts:17,active:false,comp:"CL"},{name:"Porto",pts:14,active:false,comp:"CL"},{name:"Benfica",pts:12,active:false,comp:"CL"},{name:"Braga",pts:9,active:false,comp:"EL"}]},
+{rank:7,prev_rank:7,name:"Netherlands",code:"NED",flag:"🇳🇱",total:67.913,y1:12.400,y2:15.300,y3:17.650,y4:10.163,y5:12.400,clubs_total:4,clubs_active:0,clubs:[{name:"PSV",pts:18,active:false,comp:"CL"},{name:"Feyenoord",pts:16,active:false,comp:"CL"},{name:"Ajax",pts:7,active:false,comp:"EL"},{name:"AZ Alkmaar",pts:7,active:false,comp:"ECL"}]},
+{rank:8,prev_rank:8,name:"Belgium",code:"BEL",flag:"🇧🇪",total:60.150,y1:8.700,y2:14.500,y3:18.950,y4:12.000,y5:6.000,clubs_total:3,clubs_active:0,clubs:[{name:"Club Brugge",pts:12,active:false,comp:"CL"},{name:"Union SG",pts:8,active:false,comp:"EL"},{name:"Genk",pts:5,active:false,comp:"ECL"}]},
+{rank:9,prev_rank:9,name:"Scotland",code:"SCO",flag:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",total:44.550,y1:7.500,y2:6.550,y3:5.000,y4:18.000,y5:7.500,clubs_total:4,clubs_active:0,clubs:[{name:"Celtic",pts:16,active:false,comp:"CL"},{name:"Rangers",pts:8,active:false,comp:"EL"},{name:"Aberdeen",pts:3,active:false,comp:"ECL"},{name:"Kilmarnock",pts:3,active:false,comp:"ECL"}]},
+{rank:10,prev_rank:10,name:"Austria",code:"AUT",flag:"🇦🇹",total:40.850,y1:8.000,y2:6.750,y3:6.250,y4:13.100,y5:6.750,clubs_total:4,clubs_active:0,clubs:[{name:"Salzburg",pts:14,active:false,comp:"CL"},{name:"Sturm Graz",pts:10,active:false,comp:"EL"},{name:"LASK",pts:4,active:false,comp:"ECL"},{name:"Austria Wien",pts:2,active:false,comp:"ECL"}]}
+]},
+"2022-23":{season:"2022-23",updated:"2023-07-01T00:00:00Z",zone_thresholds:{cl_direct:4,cl_qual:10,el_direct:6,el_qual:15,ecl_qual:55},countries:[
+{rank:1,prev_rank:1,name:"Spain",code:"ESP",flag:"🇪🇸",total:106.000,y1:21.000,y2:18.857,y3:26.072,y4:26.000,y5:14.071,clubs_total:5,clubs_active:0,clubs:[{name:"Real Madrid",pts:29,active:false,comp:"CL"},{name:"Barcelona",pts:22,active:false,comp:"CL"},{name:"Atlético Madrid",pts:16,active:false,comp:"CL"},{name:"Real Betis",pts:11,active:false,comp:"EL"},{name:"Villarreal",pts:8,active:false,comp:"EL"}]},
+{rank:2,prev_rank:2,name:"England",code:"ENG",flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",total:96.392,y1:20.892,y2:22.875,y3:19.625,y4:7.643,y5:25.357,clubs_total:6,clubs_active:0,clubs:[{name:"Man. City",pts:27,active:false,comp:"CL"},{name:"Chelsea",pts:21,active:false,comp:"CL"},{name:"Arsenal",pts:9,active:false,comp:"EL"},{name:"Man. Utd",pts:14,active:false,comp:"EL"},{name:"Tottenham",pts:8,active:false,comp:"ECL"},{name:"West Ham",pts:10,active:false,comp:"ECL"}]},
+{rank:3,prev_rank:3,name:"Germany",code:"GER",flag:"🇩🇪",total:87.870,y1:18.000,y2:16.870,y3:20.630,y4:18.500,y5:13.870,clubs_total:5,clubs_active:0,clubs:[{name:"Bayern",pts:22,active:false,comp:"CL"},{name:"Dortmund",pts:18,active:false,comp:"CL"},{name:"Leipzig",pts:13,active:false,comp:"CL"},{name:"Union Berlin",pts:8,active:false,comp:"EL"},{name:"Frankfurt",pts:11,active:false,comp:"ECL"}]},
+{rank:4,prev_rank:4,name:"Italy",code:"ITA",flag:"🇮🇹",total:82.071,y1:21.071,y2:21.732,y3:2.358,y4:17.839,y5:19.071,clubs_total:5,clubs_active:0,clubs:[{name:"Napoli",pts:24,active:false,comp:"CL"},{name:"Inter",pts:20,active:false,comp:"CL"},{name:"AC Milan",pts:16,active:false,comp:"CL"},{name:"Lazio",pts:12,active:false,comp:"EL"},{name:"Roma",pts:15,active:false,comp:"ECL"}]},
+{rank:5,prev_rank:5,name:"France",code:"FRA",flag:"🇫🇷",total:82.314,y1:18.380,y2:19.800,y3:19.134,y4:10.000,y5:15.000,clubs_total:5,clubs_active:0,clubs:[{name:"Paris SG",pts:19,active:false,comp:"CL"},{name:"Marseille",pts:12,active:false,comp:"CL"},{name:"Lyon",pts:10,active:false,comp:"EL"},{name:"Monaco",pts:8,active:false,comp:"ECL"},{name:"Rennes",pts:5,active:false,comp:"ECL"}]},
+{rank:6,prev_rank:6,name:"Portugal",code:"POR",flag:"🇵🇹",total:72.067,y1:13.200,y2:13.267,y3:16.800,y4:16.600,y5:12.200,clubs_total:4,clubs_active:0,clubs:[{name:"Benfica",pts:18,active:false,comp:"CL"},{name:"Porto",pts:15,active:false,comp:"CL"},{name:"Sporting CP",pts:12,active:false,comp:"CL"},{name:"Braga",pts:9,active:false,comp:"EL"}]},
+{rank:7,prev_rank:7,name:"Netherlands",code:"NED",flag:"🇳🇱",total:67.513,y1:15.300,y2:17.650,y3:10.163,y4:12.400,y5:12.000,clubs_total:4,clubs_active:0,clubs:[{name:"Feyenoord",pts:19,active:false,comp:"CL"},{name:"PSV",pts:14,active:false,comp:"CL"},{name:"AZ Alkmaar",pts:12,active:false,comp:"ECL"},{name:"Ajax",pts:8,active:false,comp:"CL"}]},
+{rank:8,prev_rank:8,name:"Belgium",code:"BEL",flag:"🇧🇪",total:57.950,y1:14.500,y2:18.950,y3:12.000,y4:6.000,y5:6.500,clubs_total:3,clubs_active:0,clubs:[{name:"Club Brugge",pts:18,active:false,comp:"CL"},{name:"Union SG",pts:12,active:false,comp:"EL"},{name:"Gent",pts:9,active:false,comp:"ECL"}]},
+{rank:9,prev_rank:9,name:"Scotland",code:"SCO",flag:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",total:43.550,y1:6.550,y2:5.000,y3:18.000,y4:7.500,y5:6.500,clubs_total:4,clubs_active:0,clubs:[{name:"Celtic",pts:14,active:false,comp:"CL"},{name:"Rangers",pts:8,active:false,comp:"EL"},{name:"Hearts",pts:3,active:false,comp:"ECL"},{name:"Aberdeen",pts:2,active:false,comp:"ECL"}]},
+{rank:10,prev_rank:10,name:"Austria",code:"AUT",flag:"🇦🇹",total:39.850,y1:6.750,y2:6.250,y3:13.100,y4:6.750,y5:7.000,clubs_total:4,clubs_active:0,clubs:[{name:"Salzburg",pts:15,active:false,comp:"CL"},{name:"Sturm Graz",pts:8,active:false,comp:"EL"},{name:"Wolfsberg",pts:3,active:false,comp:"ECL"},{name:"LASK",pts:1,active:false,comp:"ECL"}]}
+]}
 };
 
-let currentIdx = 0;
-let expandedCountry = null;
-let currentData = null;
+// Historical Y1 data per country (10 seasons: 2016-17 → 2025-26)
+const HY1={
+  "England":[17.5,19.0,18.0,20.3,22.875,21.3,19.607,20.892,27.464,22.292],
+  "Spain":[22.0,26.0,26.1,14.857,21.000,19.071,27.928,21.000,27.928,17.406],
+  "Germany":[18.5,16.5,18.8,18.5,16.87,20.63,18.0,18.748,17.5,17.571],
+  "Italy":[14.0,15.0,19.1,21.7,2.358,17.839,19.071,21.071,18.071,17.357],
+  "France":[12.0,12.5,10.0,13.5,15.0,19.134,10.0,19.8,13.666,14.964],
+  "Portugal":[10.5,12.2,13.0,13.3,16.6,12.2,13.267,12.4,13.8,16.6],
+  "Netherlands":[8.0,9.0,12.4,8.0,12.0,10.163,12.4,15.3,12.6,9.063],
+  "Belgium":[7.0,8.5,12.0,6.5,6.5,14.5,12.0,8.7,8.7,11.0],
+  "Scotland":[5.5,7.5,18.0,6.5,5.0,7.5,7.5,6.55,8.0,5.0],
+  "Austria":[6.5,7.0,6.75,6.25,13.1,6.75,8.0,6.75,8.75,4.1],
+  "Türkiye":[5.0,4.8,3.8,4.0,1.275,12.3,13.5,7.2,7.8,10.275],
+  "Czechia":[5.5,5.0,6.5,0,13.0,11.5,6.5,6.5,6.5,10.825],
+  "Poland":[3.0,3.0,0,6.0,9.5,9.25,5.75,6.5,15.25,0],
+  "Norway":[4.0,3.1,0,10.0,0,9.7,9.188,4.3,0,7.65],
+  "Greece":[4.0,5.2,1.2,12.3,11.913,4.8,5.2,12.9,5.2,12.9],
+  "Denmark":[3.5,4.0,3.2,5.0,9.106,9.125,5.75,5.875,0,11.75],
+  "Switzerland":[4.0,5.0,4.8,6.2,1.2,8.0,6.75,6.2,6.35,6.2],
+  "Croatia":[4.5,5.0,5.1,5.78,5.4,5.625,5.0,5.0,5.4,6.78],
+  "Serbia":[4.5,4.8,5.0,7.75,4.6,5.6,5.0,4.6,4.8,5.75],
+  "Ukraine":[6.0,7.0,8.0,16.0,4.0,4.5,3.3,3.0,5.8,6.81]
+};
+const HSEASONS=["16/17","17/18","18/19","19/20","20/21","21/22","22/23","23/24","24/25","25/26"];
+const COLORS=["#3b82f6","#f97316","#16a34a","#9333ea","#ef4444","#0ea5e9","#f59e0b","#64748b"];
 
-// ── SEASON SELECTOR ─────────────────────────────────────────────────────────
-const sel = document.getElementById('sel-season');
-SEASONS.forEach((s, i) => {
-  const o = document.createElement('option');
-  o.value = i; o.textContent = s;
-  sel.appendChild(o);
-});
-sel.addEventListener('change', () => { currentIdx = +sel.value; load(SEASONS[currentIdx]); });
-document.getElementById('btn-prev').addEventListener('click', () => {
-  if (currentIdx < SEASONS.length - 1) { sel.value = ++currentIdx; load(SEASONS[currentIdx]); }
-});
-document.getElementById('btn-next').addEventListener('click', () => {
-  if (currentIdx > 0) { sel.value = --currentIdx; load(SEASONS[currentIdx]); }
+// Fixtures (updated by scraper; homeCountry/awayCountry used for simulator)
+const FIXTURES=[
+  {date:"2026-03-10",time:"17:45",comp:"CL",round:"R16",home:"Galatasaray",homeFlag:"🇹🇷",homeCountry:"Türkiye",away:"Liverpool",awayFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",awayCountry:"England",score:null},
+  {date:"2026-03-10",time:"20:00",comp:"CL",round:"R16",home:"Atalanta BC",homeFlag:"🇮🇹",homeCountry:"Italy",away:"Bayern",awayFlag:"🇩🇪",awayCountry:"Germany",score:null},
+  {date:"2026-03-10",time:"20:00",comp:"CL",round:"R16",home:"Atlético Madrid",homeFlag:"🇪🇸",homeCountry:"Spain",away:"Tottenham",awayFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",awayCountry:"England",score:null},
+  {date:"2026-03-10",time:"20:00",comp:"CL",round:"R16",home:"Newcastle",homeFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",homeCountry:"England",away:"Barcelona",awayFlag:"🇪🇸",awayCountry:"Spain",score:null},
+  {date:"2026-03-11",time:"17:45",comp:"CL",round:"R16",home:"Leverkusen",homeFlag:"🇩🇪",homeCountry:"Germany",away:"Arsenal",awayFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",awayCountry:"England",score:null},
+  {date:"2026-03-11",time:"20:00",comp:"CL",round:"R16",home:"Paris SG",homeFlag:"🇫🇷",homeCountry:"France",away:"Chelsea",awayFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",awayCountry:"England",score:null},
+  {date:"2026-03-11",time:"20:00",comp:"CL",round:"R16",home:"Bodø/Glimt",homeFlag:"🇳🇴",homeCountry:"Norway",away:"Sporting CP",awayFlag:"🇵🇹",awayCountry:"Portugal",score:null},
+  {date:"2026-03-11",time:"20:00",comp:"CL",round:"R16",home:"Real Madrid",homeFlag:"🇪🇸",homeCountry:"Spain",away:"Man. City",awayFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",awayCountry:"England",score:null},
+];
+
+// ══════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════
+const SEASONS=["2025-26","2024-25","2023-24","2022-23","2021-22","2020-21","2019-20","2018-19","2017-18","2016-17","2015-16","2014-15","2013-14","2012-13","2011-12","2010-11","2009-10","2008-09"];
+let cIdx=0,cData=null,expCode=null,sortCol='rank',sortDir=1,allClubs=[];
+let simState={},histChart=null,cmpChart=null,statsInited=false;
+
+// ══════════════════════════════════════════════════════════
+// SEASON SELECTOR
+// ══════════════════════════════════════════════════════════
+const ssel=document.getElementById('ssel');
+SEASONS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=s;ssel.appendChild(o);});
+ssel.addEventListener('change',()=>{cIdx=+ssel.value;load(SEASONS[cIdx]);});
+document.getElementById('bprev').addEventListener('click',()=>{if(cIdx<SEASONS.length-1){ssel.value=++cIdx;load(SEASONS[cIdx]);}});
+document.getElementById('bnext').addEventListener('click',()=>{if(cIdx>0){ssel.value=--cIdx;load(SEASONS[cIdx]);}});
+
+// ══════════════════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════════════════
+const TABS=['ranking','race','clubs','stats','sim','info'];
+document.querySelectorAll('nav a[data-tab]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=a.dataset.tab;
+    document.querySelectorAll('nav a[data-tab]').forEach(x=>x.classList.remove('active'));
+    a.classList.add('active');
+    TABS.forEach(id=>document.getElementById('tab-'+id).style.display=id===t?'':'none');
+    document.getElementById('sbar').style.display=t==='ranking'?'':'none';
+    if(t==='clubs')renderClubs();
+    if(t==='stats'){initStats();if(!statsInited){drawHistChart();statsInited=true;}}
+    if(t==='sim'){renderSim();renderPrediction();}
+    if(t==='race')renderRace();
+  });
 });
 
-// ── TABS ─────────────────────────────────────────────────────────────────────
-document.getElementById('tab-ranking').addEventListener('click', e => {
-  e.preventDefault();
-  document.getElementById('view-ranking').style.display = '';
-  document.getElementById('view-info').style.display = 'none';
-  document.getElementById('tab-ranking').classList.add('active');
-  document.getElementById('tab-info').classList.remove('active');
-});
-document.getElementById('tab-info').addEventListener('click', e => {
-  e.preventDefault();
-  document.getElementById('view-ranking').style.display = 'none';
-  document.getElementById('view-info').style.display = '';
-  document.getElementById('tab-info').classList.add('active');
-  document.getElementById('tab-ranking').classList.remove('active');
-});
-
-// ── LOAD ────────────────────────────────────────────────────────────────────
-async function load(season) {
-  expandedCountry = null;
-  document.getElementById('tbody').innerHTML = '<tr class="empty-row"><td colspan="11">Loading ' + season + '…</td></tr>';
-
-  // Update year column headers
-  const [sy] = season.split('-');
-  const base = parseInt(sy);
-  for (let i = 1; i <= 5; i++) {
-    const yr = base - i + 1;
-    const el = document.getElementById('h-y' + i);
-    if (el) el.textContent = yr + '/' + String(yr + 1).slice(-2);
+// ══════════════════════════════════════════════════════════
+// LOAD
+// ══════════════════════════════════════════════════════════
+async function load(season){
+  expCode=null;
+  document.getElementById('tbody').innerHTML='<tr><td colspan="11" style="text-align:center;padding:20px;color:var(--muted)">Loading…</td></tr>';
+  const base=parseInt(season.split('-')[0]);
+  for(let i=1;i<=5;i++){const el=document.getElementById('hy'+i);if(el)el.textContent=(base-i+1)+'/'+(base-i+2).toString().slice(-2);}
+  let data=null;
+  try{const r=await fetch('/data/ranking_'+season+'.json?v='+Date.now());if(r.ok)data=await r.json();}catch(e){}
+  if(!data&&HIST[season])data=HIST[season];
+  cData=data;
+  if(data){
+    const d=new Date(data.updated),age=(Date.now()-d)/60000;
+    document.getElementById('updlbl').textContent='Updated '+d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    const s=document.getElementById('lstatus');
+    if(age<5){s.textContent='Just updated';s.style.color='#86efac';}
+    else if(age<60){s.textContent=Math.round(age)+'m ago';s.style.color='rgba(255,255,255,.6)';}
+    else{s.textContent=Math.round(age/60)+'h ago';s.style.color='rgba(255,255,255,.4)';}
   }
-
-  try {
-    const r = await fetch('/data/ranking_' + season + '.json');
-    if (!r.ok) throw new Error();
-    currentData = await r.json();
-  } catch {
-    currentData = null;
-  }
-
-  render(currentData, season);
+  buildClubList(data);
+  renderTable(data);
+  renderRace();
+  renderFixtures();
+  simState={};
 }
 
-// ── ZONE COLOR ───────────────────────────────────────────────────────────────
-function zoneColor(rank, z) {
-  if (rank <= z.cl_direct) return ZONE_COLORS.cl_direct;
-  if (rank <= z.cl_qual)   return ZONE_COLORS.cl_qual;
-  if (rank <= z.el_direct) return ZONE_COLORS.el_direct;
-  if (rank <= z.el_qual)   return ZONE_COLORS.el_qual;
-  if (rank <= z.ecl_qual)  return rank <= 34 ? ZONE_COLORS.ecl : ZONE_COLORS.ecl_light;
-  return ZONE_COLORS.none;
+// ══════════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════════
+function zoneColor(r,z){
+  if(r<=z.cl_direct)return'#3b82f6';
+  if(r<=z.cl_qual)return'#93c5fd';
+  if(r<=z.el_direct)return'#f97316';
+  if(r<=z.el_qual)return'#fdba74';
+  if(r<=z.ecl_qual)return r<=34?'#16a34a':'#86efac';
+  return'#e0e0e0';
+}
+const SEP=new Set([5,7,11,13,16,35,51]);
+function getLive(){
+  const now=new Date(),today=now.toISOString().slice(0,10),nm=now.getUTCHours()*60+now.getUTCMinutes();
+  const s=new Set();
+  FIXTURES.forEach(f=>{
+    if(f.date!==today)return;
+    const[fh,fm]=f.time.split(':').map(Number),start=fh*60+fm;
+    if(nm>=start&&nm<=start+110){s.add(f.home);s.add(f.away);}
+  });
+  return s;
 }
 
-// Separator ranks (line drawn BEFORE this rank)
-const SEP_RANKS = new Set([5, 7, 11, 13, 16, 35, 51]);
-
-// ── RENDER ───────────────────────────────────────────────────────────────────
-function render(data, season) {
-  const tbody = document.getElementById('tbody');
-  const updated = document.getElementById('updated-label');
-
-  if (!data) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="11">No data for ' + season + '.<br><small>Run the scraper to generate this season.</small></td></tr>';
-    updated.textContent = '';
+// ══════════════════════════════════════════════════════════
+// MAIN TABLE
+// ══════════════════════════════════════════════════════════
+function renderTable(data){
+  const tb=document.getElementById('tbody');
+  if(!data){
+    tb.innerHTML='<tr><td colspan="11" style="text-align:center;padding:24px;color:var(--muted)">No data for this season.<br><small style="font-size:11px">Run the scraper to populate it.</small></td></tr>';
     return;
   }
-
-  const d = new Date(data.updated);
-  updated.textContent = 'Updated ' + d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' })
-    + ' at ' + d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
-
-  const z = data.zone_thresholds;
-  tbody.innerHTML = '';
-
-  data.countries.forEach(c => {
-    const isSep = SEP_RANKS.has(c.rank);
-    const diff = c.prev_rank - c.rank;
-    const chHtml = diff > 0
-      ? `<span class="ch-up">▲${diff}</span>`
-      : diff < 0
-        ? `<span class="ch-down">▼${Math.abs(diff)}</span>`
-        : `<span class="ch-same">—</span>`;
-
-    // Club status dots (one per club, colored by competition or grey if out)
-    const dotsHtml = (c.clubs || []).map(cl => {
-      const cls = cl.active ? cl.comp.toLowerCase() : 'out';
-      return `<span class="csi ${cls}" title="${cl.name}: ${cl.pts} pts${cl.active ? ' (active)' : ' (eliminated)'}"></span>`;
-    }).join('');
-
-    const clubsLabel = c.clubs_total > 0
-      ? `<span class="clubs-frac"><span class="clubs-active">${c.clubs_active}</span>/${c.clubs_total}</span>`
-      : `<span style="color:#bbb">—</span>`;
-
-    const tr = document.createElement('tr');
-    if (isSep) tr.classList.add('zone-sep');
-    tr.dataset.code = c.code;
-    tr.innerHTML = `
-      <td class="td-rank ${c.rank <= 3 ? 'top3' : ''}">${c.rank}</td>
-      <td class="td-change">${chHtml}</td>
-      <td class="td-zone"><span class="zone-bar" style="background:${zoneColor(c.rank, z)}"></span></td>
-      <td class="td-country">
-        <div class="country-inner">
-          <span class="flag">${c.flag || ''}</span>
-          <span class="cname">${c.name}</span>
-          <div class="club-status-icons">${dotsHtml}</div>
-        </div>
-      </td>
-      <td class="td-clubs">${clubsLabel}</td>
-      <td class="td-total">${c.total.toFixed(3)}</td>
-      <td class="td-y y-current">${c.y1.toFixed(3)}</td>
-      <td class="td-y">${c.y2.toFixed(3)}</td>
-      <td class="td-y">${c.y3.toFixed(3)}</td>
-      <td class="td-y">${c.y4.toFixed(3)}</td>
-      <td class="td-y">${c.y5.toFixed(3)}</td>
-    `;
-
-    tr.addEventListener('click', () => toggleDetail(tr, c, z));
-    tbody.appendChild(tr);
+  const z=data.zone_thresholds,live=getLive();
+  let rows=[...data.countries].sort((a,b)=>{
+    const av=a[sortCol]??0,bv=b[sortCol]??0;
+    return typeof av==='string'?sortDir*av.localeCompare(bv):sortDir*(av-bv);
+  });
+  tb.innerHTML='';
+  rows.forEach(c=>{
+    const diff=(c.prev_rank||c.rank)-c.rank;
+    const chH=diff>0?`<span class="cup">▲${diff}</span>`:diff<0?`<span class="cdn">▼${Math.abs(diff)}</span>`:`<span class="csm">—</span>`;
+    const hasLive=(c.clubs||[]).some(cl=>cl.active&&live.has(cl.name));
+    const dotsH=(c.clubs||[]).map(cl=>`<span class="dot ${cl.active?cl.comp.toLowerCase():'out'}" title="${cl.name}: ${cl.pts}pts${live.has(cl.name)?' ⚽':''}"></span>`).join('');
+    const clubsL=c.clubs_total>0?`<span class="caf">${c.clubs_active}</span>/${c.clubs_total}`:`<span style="color:#ccc">—</span>`;
+    const tr=document.createElement('tr');
+    if(SEP.has(c.rank))tr.classList.add('sep');
+    if(expCode===c.code)tr.classList.add('exp');
+    tr.dataset.code=c.code;
+    tr.innerHTML=`
+      <td class="tdr ${c.rank<=3?'gld':''}">${c.rank}</td>
+      <td class="tdc">${chH}</td>
+      <td class="tdz"><span class="zb" style="background:${zoneColor(c.rank,z)}"></span></td>
+      <td class="tdct"><div class="ctry"><span class="fl">${c.flag||''}</span><span class="cn">${c.name}</span>${hasLive?'<span class="liveico">⚽</span>':''}<div class="dots">${dotsH}</div></div></td>
+      <td class="tdcl">${clubsL}</td>
+      <td class="tdt">${c.total.toFixed(3)}</td>
+      <td class="tdy yc">${c.y1.toFixed(3)}</td>
+      <td class="tdy">${c.y2.toFixed(3)}</td>
+      <td class="tdy">${c.y3.toFixed(3)}</td>
+      <td class="tdy">${c.y4.toFixed(3)}</td>
+      <td class="tdy">${c.y5.toFixed(3)}</td>`;
+    tr.addEventListener('click',()=>toggleDetail(tr,c));
+    tb.appendChild(tr);
   });
 }
 
-// ── DETAIL PANEL ─────────────────────────────────────────────────────────────
-function toggleDetail(tr, country, z) {
-  // Close if same row
-  const existing = document.querySelector('tr.detail-row');
-  if (existing) {
-    existing.previousElementSibling?.classList.remove('expanded');
-    existing.remove();
-    if (expandedCountry === country.code) {
-      expandedCountry = null;
-      return;
-    }
-  }
-
-  expandedCountry = country.code;
-  tr.classList.add('expanded');
-
-  const clubs = country.clubs || [];
-
-  const chipsHtml = clubs.length === 0
-    ? '<em style="color:#aaa; font-size:11.5px;">No clubs entered this season</em>'
-    : clubs
-        .sort((a, b) => b.pts - a.pts)
-        .map(cl => {
-          const compTag = `<span class="comp-tag ${cl.comp.toLowerCase()}">${cl.comp}</span>`;
-          const statusIcon = cl.active ? '🟢' : '⚫';
-          return `<div class="club-chip ${cl.active ? '' : 'out'}">
-            ${compTag}
-            <span class="club-name">${cl.name}</span>
-            <span class="club-pts">${cl.pts.toFixed(3)}</span>
-            <span title="${cl.active ? 'Still in competition' : 'Eliminated'}" style="font-size:9px">${statusIcon}</span>
-          </div>`;
-        }).join('');
-
-  const totalActive = clubs.filter(c => c.active).length;
-  const totalClubs = clubs.length;
-  const seasonPts = clubs.reduce((s, c) => s + c.pts, 0);
-  const coeff = totalClubs > 0 ? (seasonPts / country.clubs_total).toFixed(3) : '–';
-
-  const detailRow = document.createElement('tr');
-  detailRow.classList.add('detail-row');
-  detailRow.innerHTML = `
-    <td colspan="11">
-      <div class="detail-box">
-        <h4>
-          ${country.flag} ${country.name} — Club detail
-          &nbsp;·&nbsp; ${totalActive} club${totalActive !== 1 ? 's' : ''} still active / ${totalClubs} entered
-          &nbsp;·&nbsp; Season coefficient: <strong>${coeff}</strong>
-        </h4>
-        <div class="clubs-grid">${chipsHtml}</div>
-      </div>
-    </td>
-  `;
-
-  tr.after(detailRow);
+// ══════════════════════════════════════════════════════════
+// DETAIL ROW
+// ══════════════════════════════════════════════════════════
+function toggleDetail(tr,c){
+  document.querySelector('tr.drow')?.previousElementSibling?.classList.remove('exp');
+  document.querySelector('tr.drow')?.remove();
+  if(expCode===c.code){expCode=null;return;}
+  expCode=c.code;tr.classList.add('exp');
+  const clubs=(c.clubs||[]).slice().sort((a,b)=>b.pts-a.pts);
+  const live=getLive();
+  const coeff=c.clubs_total>0?(clubs.reduce((s,x)=>s+(+x.pts||0),0)/c.clubs_total).toFixed(3):'—';
+  const chips=clubs.length===0?'<em style="color:#aaa">No clubs entered</em>':clubs.map(cl=>{
+    const isL=cl.active&&live.has(cl.name);
+    const pts=typeof cl.pts==='number'?cl.pts.toFixed(3):cl.pts;
+    return`<div class="chip ${cl.active?'':'out'}"><span class="ctag ${cl.comp.toLowerCase()}">${cl.comp}</span><span>${cl.name}</span><span class="cpts">${pts}</span>${isL?'<span style="font-size:9px;color:var(--red);font-weight:700;animation:blink 1s ease-in-out infinite">⚽LIVE</span>':cl.active?'<span style="color:var(--green);font-size:10px">●</span>':'<span style="color:#ccc;font-size:10px">●</span>'}</div>`;
+  }).join('');
+  const det=document.createElement('tr');det.className='drow';
+  det.innerHTML=`<td colspan="11"><div class="dbox">
+    <h4>${c.flag} ${c.name} &nbsp;·&nbsp; ${c.clubs_active}/${c.clubs_total} clubs active &nbsp;·&nbsp; Season coeff: <strong>${coeff}</strong></h4>
+    <div class="cgrid">${chips}</div>
+  </div></td>`;
+  tr.after(det);
 }
 
-// ── AUTO-REFRESH ─────────────────────────────────────────────────────────────
-setInterval(() => {
-  const h = new Date().getUTCHours();
-  if (h >= 17 && h <= 23) load(SEASONS[currentIdx]);
-}, 3 * 60 * 1000);
+// ══════════════════════════════════════════════════════════
+// SORTING
+// ══════════════════════════════════════════════════════════
+document.querySelectorAll('table.mt thead th[data-sort]').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const col=th.dataset.sort;
+    sortDir=sortCol===col?-sortDir:(col==='rank'||col==='name'?1:-1);
+    sortCol=col;
+    document.querySelectorAll('table.mt thead th').forEach(t=>t.classList.remove('sa','sd'));
+    th.classList.add(sortDir===1?'sa':'sd');
+    renderTable(cData);
+  });
+});
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+// RACE FOR SPOTS (sorted by Y1)
+// ══════════════════════════════════════════════════════════
+function renderRace(){
+  const tb=document.getElementById('racetb');
+  if(!cData){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--muted)">Load a season first.</td></tr>';return;}
+  const sorted=[...cData.countries].sort((a,b)=>b.y1-a.y1).slice(0,20);
+  tb.innerHTML=sorted.map((c,i)=>{
+    const above=i>0?sorted[i-1].y1-c.y1:null;
+    const below=i<sorted.length-1?c.y1-sorted[i+1].y1:null;
+    const isBonus=i<2;
+    const ab=above!=null?`<span class="gb ${above<0.5?'gd':above<2?'gw':'gs'}">${above.toFixed(3)}</span>`:'—';
+    const bb=below!=null?`<span class="gb ${below<0.5?'gd':below<2?'gw':'gs'}">${below.toFixed(3)}</span>`:'—';
+    const active=(c.clubs||[]).filter(x=>x.active).map(cl=>`<span class="ctag ${cl.comp.toLowerCase()}" style="margin-right:3px;font-size:9.5px">${cl.name}</span>`).join('')||'<span style="color:#bbb;font-size:11px">—</span>';
+    return`<tr style="${isBonus?'background:#f5f0ff':''}" onmouseenter="this.style.background='${isBonus?'#ede9fe':'#f7fafd'}'" onmouseleave="this.style.background='${isBonus?'#f5f0ff':''}'">
+      <td style="text-align:center;font-weight:700;padding:5px 8px;color:${isBonus?'var(--bonus)':'#666'}">${i+1}</td>
+      <td style="padding:5px 8px"><span style="font-size:14px">${c.flag}</span> <strong>${c.name}</strong> <span style="color:var(--muted);font-size:11px">(#${c.rank})</span></td>
+      <td style="text-align:right;padding:5px 8px;font-weight:700;color:${isBonus?'var(--bonus)':'var(--text)'}">${c.y1.toFixed(3)}</td>
+      <td style="text-align:right;padding:5px 8px">${ab}</td>
+      <td style="text-align:right;padding:5px 8px">${bb}</td>
+      <td style="padding:5px 8px;font-size:11px">${active}</td>
+      <td style="padding:5px 8px">${isBonus?'<span class="bbadge">🏆 Bonus place</span>':''}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// FIXTURES
+// ══════════════════════════════════════════════════════════
+function renderFixtures(){
+  const el=document.getElementById('fixlist');
+  const today=new Date().toISOString().slice(0,10);
+  const live=getLive();
+  const upcoming=FIXTURES.filter(f=>f.date>=today).slice(0,10);
+  if(!upcoming.length){el.innerHTML='<em style="color:var(--muted)">No upcoming fixtures. Scraper will update automatically.</em>';return;}
+  el.innerHTML=upcoming.map(f=>{
+    const isL=live.has(f.home)||live.has(f.away);
+    const ds=new Date(f.date+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short'});
+    const scoreH=f.score?`<span class="mscore ${isL?'live':''}">${f.score}</span>`:`<span class="mscore" style="color:#aaa;font-size:11px">${f.time}</span>`;
+    return`<div class="mrow"><span class="mcomp ${f.comp.toLowerCase()}">${f.comp}</span><span class="mtime">${ds}</span><span class="mteams">${f.homeFlag} ${f.home} <span class="vs">vs</span> ${f.away} ${f.awayFlag}</span>${scoreH}${isL?'<span class="livetag">⚽ LIVE</span>':''}<span style="font-size:10px;color:var(--muted);flex-shrink:0">${f.round}</span></div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// CLUBS
+// ══════════════════════════════════════════════════════════
+function buildClubList(data){
+  allClubs=[];
+  if(!data)return;
+  data.countries.forEach(c=>(c.clubs||[]).forEach(cl=>{allClubs.push({country:c.name,flag:c.flag,code:c.code,name:cl.name,pts:+cl.pts||0,active:cl.active,comp:cl.comp});}));
+  allClubs.sort((a,b)=>b.pts-a.pts).forEach((c,i)=>c.rank=i+1);
+}
+function renderClubs(){
+  const q=document.getElementById('cq').value.toLowerCase().trim();
+  const comp=document.getElementById('ccomp').value;
+  const stat=document.getElementById('cstat').value;
+  const tb=document.getElementById('clubtb');
+  if(!allClubs.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--muted)">Select the 2025-26 season first.</td></tr>';return;}
+  let list=allClubs.filter(c=>(!q||c.name.toLowerCase().includes(q)||c.country.toLowerCase().includes(q))&&(!comp||c.comp===comp)&&(!stat||(stat==='active'?c.active:!c.active)));
+  if(!list.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--muted)">No clubs found.</td></tr>';return;}
+  tb.innerHTML=list.slice(0,300).map(cl=>`<tr class="${q&&cl.name.toLowerCase().includes(q)?'chl':''}">
+    <td style="text-align:center;font-weight:700;color:#666">${cl.rank}</td>
+    <td style="text-align:left;font-weight:600">${cl.name}</td>
+    <td style="text-align:left">${cl.flag} <span style="font-size:11px;color:var(--muted)">${cl.country}</span></td>
+    <td style="text-align:center"><span class="ctag ${cl.comp.toLowerCase()}">${cl.comp}</span></td>
+    <td style="text-align:right;font-weight:700">${cl.pts.toFixed(3)}</td>
+    <td style="text-align:center;font-size:11.5px">${cl.active?'<span style="color:var(--green);font-weight:700">Active</span>':'<span style="color:#aaa">Out</span>'}</td>
+  </tr>`).join('');
+  if(q)setTimeout(()=>document.querySelector('.chl')?.scrollIntoView({behavior:'smooth',block:'center'}),80);
+}
+['cq'].forEach(id=>document.getElementById(id).addEventListener('input',renderClubs));
+['ccomp','cstat'].forEach(id=>document.getElementById(id).addEventListener('change',renderClubs));
+
+// ══════════════════════════════════════════════════════════
+// GLOBAL SEARCH
+// ══════════════════════════════════════════════════════════
+const gsi=document.getElementById('gsearch'),srd=document.getElementById('srdrop');
+gsi.addEventListener('input',()=>{
+  const q=gsi.value.toLowerCase().trim();
+  if(!q||!cData){srd.classList.remove('open');return;}
+  const cm=cData.countries.filter(c=>c.name.toLowerCase().includes(q)||c.code.toLowerCase().includes(q)).slice(0,5);
+  const clm=allClubs.filter(c=>c.name.toLowerCase().includes(q)).slice(0,6);
+  if(!cm.length&&!clm.length){srd.classList.remove('open');return;}
+  let h='';
+  if(cm.length){h+='<div class="srsec">Countries</div>';h+=cm.map(c=>`<div class="sri" onclick="goToCountry('${c.code}')"><span class="srrank">${c.rank}</span><span style="font-size:15px">${c.flag}</span><strong>${c.name}</strong><span style="font-size:11px;color:var(--muted);margin-left:2px">${c.code}</span><span class="srpts">${c.total.toFixed(3)}</span></div>`).join('');}
+  if(clm.length){h+='<div class="srsec">Clubs</div>';h+=clm.map(cl=>`<div class="sri" onclick="goToClub(${JSON.stringify(cl.name)})"><span class="srrank">${cl.rank}</span><span style="font-size:15px">${cl.flag}</span><span>${cl.name}</span><span class="ctag ${cl.comp.toLowerCase()}" style="margin-left:4px">${cl.comp}</span><span class="srpts">${cl.pts.toFixed(3)}</span></div>`).join('');}
+  srd.innerHTML=h;srd.classList.add('open');
+});
+document.addEventListener('click',e=>{if(!e.target.closest('.sw'))srd.classList.remove('open');});
+function goToCountry(code){
+  srd.classList.remove('open');gsi.value='';
+  document.querySelector('nav a[data-tab="ranking"]').click();
+  setTimeout(()=>{
+    const row=document.querySelector(`tr[data-code="${code}"]`);
+    if(!row)return;
+    row.scrollIntoView({behavior:'smooth',block:'center'});
+    row.style.transition='background .3s';row.style.background='#fffbdb';
+    setTimeout(()=>row.style.background='',2500);
+    const c=cData?.countries.find(x=>x.code===code);
+    if(c)toggleDetail(row,c);
+  },150);
+}
+function goToClub(name){
+  srd.classList.remove('open');gsi.value='';
+  document.querySelector('nav a[data-tab="clubs"]').click();
+  document.getElementById('cq').value=name;
+  renderClubs();
+}
+
+// ══════════════════════════════════════════════════════════
+// HISTORY CHART
+// ══════════════════════════════════════════════════════════
+const ALL_C=Object.keys(HY1).sort();
+function initStats(){
+  if(statsInited)return;
+  ['hs1','hs2','hs3','cmpa','cmpb'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el.options.length>1)return;
+    ALL_C.forEach(name=>{const o=document.createElement('option');o.value=name;o.textContent=name;el.appendChild(o);});
+  });
+  document.getElementById('hs1').value='England';
+  document.getElementById('cmpa').value='England';
+  document.getElementById('cmpb').value='Spain';
+  // add countries from current data not in HY1
+  if(cData){
+    ['cmpa','cmpb'].forEach(id=>{
+      const el=document.getElementById(id);
+      cData.countries.forEach(c=>{
+        if(![...el.options].some(o=>o.value===c.name)){const o=document.createElement('option');o.value=c.name;o.textContent=c.flag+' '+c.name;el.appendChild(o);}
+      });
+    });
+  }
+}
+function drawHistChart(){
+  const picks=[document.getElementById('hs1').value,document.getElementById('hs2').value,document.getElementById('hs3').value].filter(Boolean);
+  const ctx=document.getElementById('histchart').getContext('2d');
+  if(histChart)histChart.destroy();
+  histChart=new Chart(ctx,{type:'line',data:{labels:HSEASONS,datasets:picks.map((name,i)=>({
+    label:name,data:HY1[name]||[],
+    borderColor:COLORS[i],backgroundColor:COLORS[i]+'20',
+    borderWidth:2,pointRadius:4,tension:.3,fill:false
+  }))},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:12},boxWidth:16}},tooltip:{callbacks:{label:v=>v.dataset.label+': '+v.raw.toFixed(3)}}},scales:{y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,.06)'},title:{display:true,text:'Y1 coefficient',font:{size:11}}},x:{ticks:{font:{size:11}},grid:{display:false}}}}});
+}
+
+// ══════════════════════════════════════════════════════════
+// COMPARE
+// ══════════════════════════════════════════════════════════
+function renderCompare(){
+  if(!cData)return;
+  const na=document.getElementById('cmpa').value,nb=document.getElementById('cmpb').value;
+  const ca=cData.countries.find(c=>c.name===na),cb=cData.countries.find(c=>c.name===nb);
+  if(!ca||!cb){document.getElementById('cmpout').innerHTML='<p style="color:var(--muted);font-size:12px">One or both countries not in this season\'s data.</p>';return;}
+
+  const fields=[['Rank','rank',true],['Total coefficient','total'],['This season (Y1)','y1'],['Y2','y2'],['Y3','y3'],['Y4','y4'],['Y5','y5'],['Clubs entered','clubs_total',true],['Clubs active','clubs_active',true]];
+  const statsHtml=(a,b)=>fields.map(([label,key,lower])=>{
+    const av=a[key]??'—',bv=b[key]??'—';
+    const better=typeof av==='number'&&typeof bv==='number'?(lower?av<bv:av>bv):null;
+    const worse=typeof av==='number'&&typeof bv==='number'?(lower?av>bv:av<bv):null;
+    const fmt=v=>typeof v==='number'?(key==='rank'||key==='clubs_total'||key==='clubs_active'?v:v.toFixed(3)):v;
+    return`<div class="srow"><span class="slabel">${label}</span><span class="sval ${better?'better':worse?'worse':''}">${fmt(av)}</span></div>`;
+  }).join('');
+  const clubsHtml=c=>(c.clubs||[]).slice().sort((a,b)=>b.pts-a.pts).map(cl=>`<div class="chip ${cl.active?'':'out'}" style="margin-bottom:3px"><span class="ctag ${cl.comp.toLowerCase()}">${cl.comp}</span>${cl.name}<span class="cpts">${(+cl.pts||0).toFixed(3)}</span>${cl.active?'<span style="color:var(--green);font-size:9px">●</span>':'<span style="color:#ccc;font-size:9px">●</span>'}</div>`).join('');
+
+  const chartId='cmpchart_'+Date.now();
+  document.getElementById('cmpout').innerHTML=`
+    <div class="statgrid">
+      <div class="scard"><h3><span style="font-size:20px">${ca.flag}</span>${ca.name} <span style="color:var(--muted);font-size:12px">#${ca.rank}</span></h3>
+        ${statsHtml(ca,cb)}
+        <div style="margin-top:12px"><div style="font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Clubs this season</div><div class="cgrid">${clubsHtml(ca)}</div></div>
+      </div>
+      <div class="scard"><h3><span style="font-size:20px">${cb.flag}</span>${cb.name} <span style="color:var(--muted);font-size:12px">#${cb.rank}</span></h3>
+        ${statsHtml(cb,ca)}
+        <div style="margin-top:12px"><div style="font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Clubs this season</div><div class="cgrid">${clubsHtml(cb)}</div></div>
+      </div>
+    </div>
+    <div class="fullcard"><h3>Year-by-year comparison (Y1 = current season)</h3><div style="position:relative;height:220px"><canvas id="${chartId}"></canvas></div></div>`;
+
+  // Bar chart Y1-Y5
+  if(cmpChart)cmpChart.destroy();
+  cmpChart=new Chart(document.getElementById(chartId).getContext('2d'),{type:'bar',data:{
+    labels:['Y1 (now)','Y2','Y3','Y4','Y5'],
+    datasets:[
+      {label:ca.name,data:[ca.y1,ca.y2,ca.y3,ca.y4,ca.y5],backgroundColor:'#3b82f680',borderColor:'#3b82f6',borderWidth:2},
+      {label:cb.name,data:[cb.y1,cb.y2,cb.y3,cb.y4,cb.y5],backgroundColor:'#f9731680',borderColor:'#f97316',borderWidth:2}
+    ]
+  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:12},boxWidth:16}},tooltip:{callbacks:{label:v=>v.dataset.label+': '+v.raw.toFixed(3)}}},scales:{y:{ticks:{font:{size:11}},grid:{color:'rgba(0,0,0,.06)'}},x:{ticks:{font:{size:11}},grid:{display:false}}}}});
+}
+
+// ══════════════════════════════════════════════════════════
+// SIMULATOR
+// ══════════════════════════════════════════════════════════
+function renderSim(){
+  const el=document.getElementById('simmatches');
+  el.innerHTML=FIXTURES.map((f,i)=>{
+    const st=simState[i]||null;
+    return`<div class="smatch">
+      <span class="mcomp ${f.comp.toLowerCase()}" style="flex-shrink:0">${f.comp}</span>
+      <span class="steam">${f.homeFlag} ${f.home}</span>
+      <div class="sbts">
+        <button class="sb ${st==='W'?'aw':''}" onclick="setSim(${i},'W')">W</button>
+        <button class="sb ${st==='D'?'dr':''}" onclick="setSim(${i},'D')">D</button>
+        <button class="sb ${st==='L'?'lw':''}" onclick="setSim(${i},'L')">L</button>
+      </div>
+      <span class="steam away">${f.away} ${f.awayFlag}</span>
+    </div>`;
+  }).join('');
+  renderSimImpact();
+}
+function setSim(i,result){simState[i]=simState[i]===result?null:result;renderSim();}
+function resetSim(){simState={};renderSim();}
+function renderSimImpact(){
+  const el=document.getElementById('simimpact');
+  if(!cData){el.innerHTML='<em style="color:var(--muted)">Load a season first.</em>';return;}
+  // Compute extra Y1 pts per country from simulated results
+  // In a KO round: win=2pts, draw=1pt each side, loss=0. Divide by clubs_total for country coeff impact.
+  const extra={};
+  Object.entries(simState).forEach(([idx,res])=>{
+    if(!res)return;
+    const f=FIXTURES[+idx];
+    const hPts=res==='W'?2:res==='D'?1:0;
+    const aPts=res==='L'?2:res==='D'?1:0;
+    const hc=cData.countries.find(c=>c.name===f.homeCountry);
+    const ac=cData.countries.find(c=>c.name===f.awayCountry);
+    if(hc&&hc.clubs_total>0)extra[f.homeCountry]=(extra[f.homeCountry]||0)+hPts/hc.clubs_total;
+    if(ac&&ac.clubs_total>0)extra[f.awayCountry]=(extra[f.awayCountry]||0)+aPts/ac.clubs_total;
+  });
+  const affected=Object.entries(extra).filter(([,v])=>v!==0);
+  if(!affected.length){el.innerHTML='<em style="color:var(--muted);font-size:12px">Click W / D / L on a match to see its effect on country coefficients.</em>';return;}
+  // Compute new ranking
+  const base=[...cData.countries].sort((a,b)=>b.total-a.total);
+  const simmed=base.map(c=>({...c,newTotal:c.total+(extra[c.name]||0)})).sort((a,b)=>b.newTotal-a.newTotal);
+  const changed=simmed.map((c,i)=>{
+    const oldR=base.findIndex(x=>x.name===c.name)+1;
+    return{...c,simRank:i+1,oldRank:oldR,delta:extra[c.name]||0};
+  }).filter(c=>c.delta!==0||c.simRank!==c.oldRank).slice(0,12);
+  el.innerHTML='<div style="font-size:11px;color:var(--muted);margin-bottom:8px">Y1 coefficient impact (per country club entered):</div>'
+    +changed.map(c=>{
+      const rd=c.oldRank-c.simRank;
+      const rdH=rd>0?`<span class="cup"> ▲${rd}</span>`:rd<0?`<span class="cdn"> ▼${Math.abs(rd)}</span>`:'';
+      return`<div class="improw"><span>${c.flag} <strong>${c.name}</strong> <span style="color:var(--muted);font-size:11px">#${c.oldRank}${rdH}</span></span><span class="imd ${c.delta>0?'pos':c.delta<0?'neg':'neu'}">${c.delta>0?'+':''}${c.delta.toFixed(3)}</span></div>`;
+    }).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// PREDICTION — Monte Carlo
+// ══════════════════════════════════════════════════════════
+function renderPrediction(){
+  if(!cData){document.getElementById('predtb').innerHTML='<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Load a season first.</td></tr>';return;}
+  const N=1000;
+  // Estimate pts per active club remaining
+  // Assume ~6 matches played so far, ~3 remaining (QF + SF + F for active clubs)
+  const PLAYED_EST=6,REMAINING=3;
+  const proj=cData.countries.map(c=>{
+    const n=c.clubs_total||1;
+    const totalPts=(c.clubs||[]).reduce((s,cl)=>s+(+cl.pts||0),0);
+    const activePts=(c.clubs||[]).filter(cl=>cl.active).reduce((s,cl)=>s+(+cl.pts||0),0);
+    const activeCount=(c.clubs||[]).filter(cl=>cl.active).length;
+    const avgPerMatch=activeCount>0&&PLAYED_EST>0?(activePts/activeCount)/PLAYED_EST:0;
+    const expectedExtra=activeCount>0?(activeCount*avgPerMatch*REMAINING)/n:0;
+    return{...c,expectedExtra,projTotal:c.total+expectedExtra,variance:Math.max(0.1,expectedExtra*0.5)};
+  });
+  // Monte Carlo
+  const rankCounts={};
+  proj.forEach(c=>{rankCounts[c.code]={};});
+  for(let s=0;s<N;s++){
+    const trial=proj.map(c=>({code:c.code,score:c.projTotal+(Math.random()*2-1)*c.variance}));
+    trial.sort((a,b)=>b.score-a.score);
+    trial.forEach((c,i)=>{rankCounts[c.code][i+1]=(rankCounts[c.code][i+1]||0)+1;});
+  }
+  const projSorted=[...proj].sort((a,b)=>b.projTotal-a.projTotal);
+  const tb=document.getElementById('predtb');
+  tb.innerHTML=projSorted.slice(0,20).map((c,i)=>{
+    const rc=rankCounts[c.code]||{};
+    const top5=Object.entries(rc).filter(([r])=>+r<=5).reduce((s,[,v])=>s+v,0)/N*100;
+    const top10=Object.entries(rc).filter(([r])=>+r<=10).reduce((s,[,v])=>s+v,0)/N*100;
+    const rDelta=c.rank-(i+1);
+    const rH=rDelta>0?`<span class="cup">▲${rDelta}</span>`:rDelta<0?`<span class="cdn">▼${Math.abs(rDelta)}</span>`:`<span class="csm">—</span>`;
+    const t5c=top5>60?'#16a34a':top5>30?'#f97316':'#3b82f6';
+    const t10c=top10>70?'#16a34a':top10>40?'#f97316':'#3b82f6';
+    return`<tr>
+      <td style="text-align:center;font-weight:700;color:#666">${c.rank}</td>
+      <td><span style="font-size:14px">${c.flag}</span> <strong>${c.name}</strong></td>
+      <td style="text-align:right;font-weight:700">${c.total.toFixed(3)}</td>
+      <td style="text-align:right"><strong style="color:var(--link)">${c.projTotal.toFixed(3)}</strong> <span style="font-size:10px;color:var(--muted)">(+${c.expectedExtra.toFixed(3)})</span></td>
+      <td style="text-align:right;font-weight:700">${i+1} ${rH}</td>
+      <td><div style="display:flex;align-items:center;gap:5px"><span class="pbar" style="width:${Math.max(4,top5*1.1)}px;background:${t5c}"></span><span style="font-size:11px;font-weight:700;color:${t5c}">${top5.toFixed(0)}%</span></div></td>
+      <td><div style="display:flex;align-items:center;gap:5px"><span class="pbar" style="width:${Math.max(4,top10*1.1)}px;background:${t10c}"></span><span style="font-size:11px;font-weight:700;color:${t10c}">${top10.toFixed(0)}%</span></div></td>
+    </tr>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// WIDGET TOGGLE
+// ══════════════════════════════════════════════════════════
+function toggleW(bodyId,iconId){
+  const b=document.getElementById(bodyId),ico=document.getElementById(iconId);
+  const open=b.classList.toggle('open');
+  if(ico)ico.style.transform=open?'rotate(180deg)':'';
+}
+
+// ══════════════════════════════════════════════════════════
+// AUTO-REFRESH
+// ══════════════════════════════════════════════════════════
+setInterval(()=>{
+  const h=new Date().getUTCHours();
+  if(h>=17&&h<=23)load(SEASONS[cIdx]);
+  else{renderFixtures();renderTable(cData);}
+},60000);
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
 load(SEASONS[0]);
 </script>
 </body>
