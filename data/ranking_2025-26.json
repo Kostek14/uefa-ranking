@@ -1,0 +1,33 @@
+{
+  "season": "2025-26",
+  "updated": "2026-03-04T14:49:00Z",
+  "countries": [
+    { "rank": 1, "prev_rank": 1, "name": "Spain", "code": "ESP", "flag": "🇪🇸", "total": 107.713, "y1": 20.857, "y2": 27.928, "y3": 19.071, "y4": 21.000, "y5": 18.857, "clubs": 5, "active_clubs": 3, "competitions": ["CL","EL","ECL"] },
+    { "rank": 2, "prev_rank": 2, "name": "England", "code": "ENG", "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "total": 96.926, "y1": 22.357, "y2": 20.928, "y3": 20.214, "y4": 17.214, "y5": 16.214, "clubs": 5, "active_clubs": 4, "competitions": ["CL","EL","ECL"] },
+    { "rank": 3, "prev_rank": 3, "name": "Germany", "code": "GER", "flag": "🇩🇪", "total": 86.748, "y1": 18.500, "y2": 17.500, "y3": 18.748, "y4": 16.000, "y5": 16.000, "clubs": 5, "active_clubs": 3, "competitions": ["CL","EL","ECL"] },
+    { "rank": 4, "prev_rank": 4, "name": "France", "code": "FRA", "flag": "🇫🇷", "total": 66.832, "y1": 14.000, "y2": 13.666, "y3": 13.333, "y4": 13.166, "y5": 12.666, "clubs": 5, "active_clubs": 2, "competitions": ["CL","EL","ECL"] },
+    { "rank": 5, "prev_rank": 6, "name": "Portugal", "code": "POR", "flag": "🇵🇹", "total": 65.200, "y1": 16.400, "y2": 13.800, "y3": 12.400, "y4": 11.800, "y5": 10.800, "clubs": 4, "active_clubs": 2, "competitions": ["CL","EL","ECL"] },
+    { "rank": 6, "prev_rank": 5, "name": "Italy", "code": "ITA", "flag": "🇮🇹", "total": 64.516, "y1": 13.875, "y2": 14.250, "y3": 13.375, "y4": 11.500, "y5": 11.516, "clubs": 5, "active_clubs": 3, "competitions": ["CL","EL","ECL"] },
+    { "rank": 7, "prev_rank": 7, "name": "Netherlands", "code": "NED", "flag": "🇳🇱", "total": 58.700, "y1": 13.200, "y2": 12.600, "y3": 12.400, "y4": 10.800, "y5": 9.700, "clubs": 4, "active_clubs": 2, "competitions": ["CL","EL","ECL"] },
+    { "rank": 8, "prev_rank": 9, "name": "Belgium", "code": "BEL", "flag": "🇧🇪", "total": 42.900, "y1": 9.600, "y2": 8.700, "y3": 8.700, "y4": 8.200, "y5": 7.700, "clubs": 4, "active_clubs": 1, "competitions": ["EL","ECL"] },
+    { "rank": 9, "prev_rank": 8, "name": "Austria", "code": "AUT", "flag": "🇦🇹", "total": 41.250, "y1": 10.125, "y2": 8.750, "y3": 8.000, "y4": 7.250, "y5": 7.125, "clubs": 3, "active_clubs": 2, "competitions": ["EL","ECL"] },
+    { "rank": 10, "prev_rank": 10, "name": "Scotland", "code": "SCO", "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "total": 38.250, "y1": 9.375, "y2": 8.000, "y3": 7.500, "y4": 7.125, "y5": 6.250, "clubs": 3, "active_clubs": 1, "competitions": ["CL","ECL"] },
+    { "rank": 11, "prev_rank": 11, "name": "Türkiye", "code": "TUR", "flag": "🇹🇷", "total": 36.200, "y1": 8.800, "y2": 7.800, "y3": 7.200, "y4": 6.600, "y5": 5.800, "clubs": 4, "active_clubs": 2, "competitions": ["CL","EL"] },
+    { "rank": 12, "prev_rank": 13, "name": "Czech Republic", "code": "CZE", "flag": "🇨🇿", "total": 31.000, "y1": 7.000, "y2": 6.500, "y3": 6.500, "y4": 5.500, "y5": 5.500, "clubs": 3, "active_clubs": 1, "competitions": ["ECL"] },
+    { "rank": 13, "prev_rank": 12, "name": "Switzerland", "code": "SUI", "flag": "🇨🇭", "total": 30.850, "y1": 7.100, "y2": 6.350, "y3": 6.200, "y4": 5.700, "y5": 5.500, "clubs": 3, "active_clubs": 1, "competitions": ["CL","ECL"] },
+    { "rank": 14, "prev_rank": 14, "name": "Denmark", "code": "DEN", "flag": "🇩🇰", "total": 28.375, "y1": 6.875, "y2": 5.875, "y3": 5.750, "y4": 5.250, "y5": 4.625, "clubs": 3, "active_clubs": 1, "competitions": ["ECL"] },
+    { "rank": 15, "prev_rank": 15, "name": "Ukraine", "code": "UKR", "flag": "🇺🇦", "total": 27.200, "y1": 6.600, "y2": 5.800, "y3": 5.200, "y4": 5.000, "y5": 4.600, "clubs": 3, "active_clubs": 1, "competitions": ["ECL"] },
+    { "rank": 16, "prev_rank": 16, "name": "Croatia", "code": "CRO", "flag": "🇭🇷", "total": 25.600, "y1": 6.200, "y2": 5.400, "y3": 5.000, "y4": 4.800, "y5": 4.200, "clubs": 3, "active_clubs": 1, "competitions": ["ECL"] },
+    { "rank": 17, "prev_rank": 17, "name": "Greece", "code": "GRE", "flag": "🇬🇷", "total": 24.400, "y1": 5.800, "y2": 5.200, "y3": 4.800, "y4": 4.600, "y5": 4.000, "clubs": 3, "active_clubs": 1, "competitions": ["ECL"] },
+    { "rank": 18, "prev_rank": 19, "name": "Serbia", "code": "SRB", "flag": "🇷🇸", "total": 22.800, "y1": 5.400, "y2": 4.800, "y3": 4.600, "y4": 4.200, "y5": 3.800, "clubs": 3, "active_clubs": 1, "competitions": ["ECL"] },
+    { "rank": 19, "prev_rank": 18, "name": "Russia", "code": "RUS", "flag": "🇷🇺", "total": 22.000, "y1": 0.000, "y2": 0.000, "y3": 5.600, "y4": 8.600, "y5": 7.800, "clubs": 0, "active_clubs": 0, "competitions": [] },
+    { "rank": 20, "prev_rank": 20, "name": "Norway", "code": "NOR", "flag": "🇳🇴", "total": 20.500, "y1": 4.900, "y2": 4.300, "y3": 4.100, "y4": 3.800, "y5": 3.400, "clubs": 2, "active_clubs": 1, "competitions": ["ECL"] }
+  ],
+  "zone_thresholds": {
+    "cl_direct": 4,
+    "cl_qual": 10,
+    "el_direct": 6,
+    "el_qual": 15,
+    "ecl_qual": 55
+  }
+}
