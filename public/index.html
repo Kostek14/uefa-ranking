@@ -3,762 +3,731 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UEFA Country Ranking — Live Coefficients</title>
+  <title>UEFA Country Ranking — Live Coefficient</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ─── RESET & BASE ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0a0c10;
-      --surface:   #111520;
-      --surface2:  #181d2a;
-      --border:    rgba(255,255,255,0.07);
-      --accent:    #00c4ff;
-      --gold:      #f5c842;
-      --green:     #3ddc84;
-      --red:       #ff4d6d;
-      --text:      #e8eaf0;
-      --muted:     #6b7499;
-      --cl:        #00c4ff;
-      --el:        #ff7a00;
-      --ecl:       #00c853;
+      --bg: #f5f5f5;
+      --white: #ffffff;
+      --border: #dddddd;
+      --border-dark: #bbbbbb;
+      --text: #333333;
+      --muted: #777777;
+      --header-bg: #2c3e50;
+      --header-text: #ffffff;
+      --link: #2980b9;
+
+      /* Zone colors — same as original site */
+      --cl-direct: #4a90d9;
+      --cl-qual:   #8fb8e8;
+      --el-direct: #e67e22;
+      --el-qual:   #f0a060;
+      --ecl:       #27ae60;
+      --ecl-light: #6ec49a;
+
+      /* Competition badge colors */
+      --cl-bg:  #dceefb;
+      --cl-txt: #1a5276;
+      --el-bg:  #fde8d2;
+      --el-txt: #784212;
+      --ecl-bg: #d5f5e3;
+      --ecl-txt:#1d6a3a;
+
+      --row-hover: #f0f4f8;
+      --row-alt:   #fafafa;
+      --separator: 2px solid #aaaaaa;
     }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Syne', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      line-height: 1.4;
     }
 
-    /* ─── BACKGROUND GRID ─── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,196,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,196,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ─── HEADER ─── */
+    /* ── HEADER ── */
     header {
-      position: relative;
-      z-index: 10;
-      padding: 2rem 2rem 0;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .header-top {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
       flex-wrap: wrap;
+      gap: 8px;
     }
-
-    .logo-block h1 {
-      font-size: clamp(1.5rem, 4vw, 2.4rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-    }
-    .logo-block h1 span {
-      color: var(--accent);
-    }
-    .logo-block .subtitle {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-top: 0.3rem;
-    }
-
-    /* Live badge */
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255,77,109,0.12);
-      border: 1px solid rgba(255,77,109,0.4);
-      border-radius: 999px;
-      padding: 0.4rem 1rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
+    header h1 {
+      font-size: 18px;
       font-weight: 700;
-      color: var(--red);
-      letter-spacing: 0.12em;
+      letter-spacing: 0.02em;
     }
-    .live-badge .dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--red);
-      animation: pulse 1.4s ease-in-out infinite;
+    header h1 span { color: #7fb3d3; }
+    .nav-links { display: flex; gap: 16px; }
+    .nav-links a {
+      color: #bdc3c7;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.7); }
+    .nav-links a:hover, .nav-links a.active {
+      color: #fff;
+      border-bottom-color: #7fb3d3;
     }
 
-    /* ─── NAV / SEASON SELECTOR ─── */
-    .controls {
-      max-width: 1200px;
-      margin: 1.5rem auto 0;
-      padding: 0 2rem;
+    /* ── SUBHEADER / CONTROLS ── */
+    .controls-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 12px;
       flex-wrap: wrap;
-      position: relative;
-      z-index: 10;
     }
 
     .season-nav {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.3rem;
+      gap: 4px;
     }
-
-    .season-btn {
-      background: none;
-      border: none;
-      color: var(--muted);
+    .season-nav button {
+      background: var(--white);
+      border: 1px solid var(--border-dark);
+      border-radius: 3px;
+      padding: 3px 8px;
       cursor: pointer;
-      padding: 0.4rem 0.8rem;
-      border-radius: 7px;
-      font-size: 1.1rem;
-      transition: all 0.15s;
-      line-height: 1;
+      font-size: 13px;
+      color: var(--link);
+      font-family: inherit;
+      transition: background 0.1s;
     }
-    .season-btn:hover { color: var(--text); background: var(--surface2); }
-
-    .season-select {
-      background: none;
-      border: none;
-      color: var(--text);
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      outline: none;
-      padding: 0.3rem 0.5rem;
-    }
-    .season-select option {
-      background: #181d2a;
-      color: var(--text);
-    }
-
-    /* Tabs */
-    .tabs {
-      display: flex;
-      gap: 0.4rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.3rem;
-    }
-    .tab-btn {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-family: 'Syne', sans-serif;
-      font-size: 0.8rem;
+    .season-nav button:hover { background: #eaf2fb; }
+    .season-nav select {
+      border: 1px solid var(--border-dark);
+      border-radius: 3px;
+      padding: 3px 6px;
+      font-family: inherit;
+      font-size: 13px;
       font-weight: 600;
+      color: var(--text);
+      background: var(--white);
       cursor: pointer;
-      padding: 0.4rem 0.9rem;
-      border-radius: 7px;
-      transition: all 0.15s;
-      letter-spacing: 0.05em;
     }
-    .tab-btn.active {
-      background: var(--accent);
-      color: #000;
-    }
-    .tab-btn:not(.active):hover { color: var(--text); background: var(--surface2); }
 
-    /* Updated timestamp */
-    .updated-at {
+    .updated {
       margin-left: auto;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
+      font-size: 11px;
       color: var(--muted);
+      font-style: italic;
     }
 
-    /* ─── MAIN TABLE ─── */
-    main {
-      max-width: 1200px;
-      margin: 1.5rem auto 0;
-      padding: 0 2rem 4rem;
-      position: relative;
-      z-index: 10;
+    .live-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: #c0392b;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .live-dot::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: #c0392b;
+      border-radius: 50%;
+      animation: blink 1.2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    /* ── MAIN LAYOUT ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 12px 16px 48px;
     }
 
-    .table-wrapper {
-      background: var(--surface);
+    /* ── TABLE ── */
+    .table-wrap {
+      background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
+      border-radius: 3px;
+      overflow-x: auto;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.88rem;
+      font-size: 12.5px;
     }
 
+    /* Header row */
     thead th {
-      background: var(--surface2);
-      padding: 0.85rem 1rem;
+      background: #ecf0f1;
+      border-bottom: 2px solid var(--border-dark);
+      padding: 7px 8px;
       text-align: right;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--muted);
+      font-weight: 700;
+      font-size: 11px;
+      color: #555;
       text-transform: uppercase;
-      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.05em;
       white-space: nowrap;
     }
-    thead th:nth-child(1),
-    thead th:nth-child(2),
-    thead th:nth-child(3) { text-align: center; }
-    thead th:nth-child(4) { text-align: left; }
+    thead th.th-rank   { text-align: center; width: 36px; }
+    thead th.th-change { text-align: center; width: 28px; }
+    thead th.th-zone   { width: 5px; padding: 0; }
+    thead th.th-clubs  { text-align: center; width: 50px; }
+    thead th.th-country{ text-align: left; min-width: 120px; }
 
+    /* Body rows */
     tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.12s;
-      animation: fadeIn 0.3s ease both;
+      border-bottom: 1px solid #eeeeee;
+      cursor: pointer;
+      transition: background 0.1s;
     }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: var(--surface2); }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    tbody tr:hover { background: var(--row-hover); }
+    tbody tr.zone-sep { border-top: var(--separator); }
+    tbody tr.expanded { background: #f0f6fc; }
+    tbody tr.expanded:hover { background: #e8f1f9; }
 
     td {
-      padding: 0.8rem 1rem;
+      padding: 6px 8px;
       text-align: right;
-      white-space: nowrap;
+      vertical-align: middle;
     }
 
-    /* Rank column */
-    .td-rank {
-      text-align: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--muted);
-      width: 48px;
-    }
-    .td-rank.top3 { color: var(--gold); }
-
-    /* Change indicator */
-    .td-change {
-      text-align: center;
-      width: 32px;
-    }
-    .change-up   { color: var(--green); font-size: 0.75rem; }
-    .change-down { color: var(--red); font-size: 0.75rem; }
-    .change-same { color: var(--muted); font-size: 0.65rem; }
-
-    /* Zone stripe on left */
-    .td-zone {
-      width: 4px;
+    /* Zone stripe */
+    td.td-zone {
       padding: 0;
+      width: 5px;
+    }
+    .zone-bar {
+      width: 5px;
+      height: 100%;
+      min-height: 32px;
+      display: block;
     }
 
-    /* Country */
-    .td-country {
-      text-align: left;
+    /* Rank */
+    td.td-rank {
+      text-align: center;
+      font-weight: 700;
+      color: #555;
+      font-size: 12px;
     }
-    .country-cell {
+    td.td-rank.top3 { color: #c8a200; }
+
+    /* Change */
+    td.td-change { text-align: center; }
+    .ch-up   { color: #27ae60; font-size: 11px; font-weight: 700; }
+    .ch-down { color: #c0392b; font-size: 11px; font-weight: 700; }
+    .ch-same { color: #bbb; font-size: 11px; }
+
+    /* Country cell */
+    td.td-country { text-align: left; }
+    .country-inner {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 7px;
     }
-    .flag { font-size: 1.35rem; line-height: 1; }
-    .country-name { font-weight: 700; font-size: 0.9rem; }
-    .competition-icons {
+    .flag { font-size: 16px; line-height: 1; flex-shrink: 0; }
+    .cname { font-weight: 600; font-size: 12.5px; }
+    .club-status-icons {
       display: flex;
-      gap: 3px;
-      margin-top: 2px;
+      gap: 2px;
+      margin-left: 2px;
     }
-    .comp-dot {
+    .csi {
       width: 7px; height: 7px;
       border-radius: 50%;
+      display: inline-block;
     }
-    .comp-dot.cl  { background: var(--cl); }
-    .comp-dot.el  { background: var(--el); }
-    .comp-dot.ecl { background: var(--ecl); }
+    .csi.cl  { background: var(--cl-direct); }
+    .csi.el  { background: var(--el-direct); }
+    .csi.ecl { background: var(--ecl); }
+    .csi.out { background: #bbb; }
 
-    /* Total score */
-    .td-total {
-      font-weight: 800;
-      font-size: 1rem;
-      color: var(--text);
+    /* Total */
+    td.td-total {
+      font-weight: 700;
+      font-size: 13px;
     }
 
-    /* Year columns */
-    .td-year {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
+    /* Year cells */
+    td.td-y {
+      font-size: 12px;
+      color: #555;
+      min-width: 58px;
+    }
+    td.td-y.y-current { color: var(--link); font-weight: 600; }
+
+    /* Clubs count */
+    td.td-clubs { text-align: center; font-size: 11.5px; color: var(--muted); }
+    .clubs-frac { white-space: nowrap; }
+    .clubs-active { color: var(--link); font-weight: 600; }
+
+    /* ── DETAIL ROW ── */
+    tr.detail-row td {
+      padding: 0;
+      border-bottom: 2px solid var(--border-dark);
+    }
+    .detail-box {
+      background: #f7fafd;
+      border-top: 1px solid #d0e3f0;
+      padding: 10px 14px 12px;
+    }
+    .detail-box h4 {
+      font-size: 11px;
+      font-weight: 700;
       color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
     }
-    .td-year.current { color: var(--accent); font-weight: 700; }
-
-    /* Zone background rows */
-    tr.zone-cl-direct  td { background: rgba(0,196,255,0.04); }
-    tr.zone-cl-qual    td { background: rgba(0,196,255,0.02); }
-    tr.zone-separator td {
-      border-top: 2px dashed rgba(255,255,255,0.15) !important;
-    }
-
-    /* ─── LEGEND ─── */
-    .legend {
-      margin-top: 1.5rem;
+    .clubs-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.2rem;
-      font-size: 0.75rem;
+      gap: 5px;
+    }
+    .club-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 4px 8px;
+      font-size: 11.5px;
+    }
+    .club-chip.out {
+      opacity: 0.55;
+    }
+    .club-chip .comp-tag {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+    .comp-tag.cl  { background: var(--cl-bg);  color: var(--cl-txt); }
+    .comp-tag.el  { background: var(--el-bg);  color: var(--el-txt); }
+    .comp-tag.ecl { background: var(--ecl-bg); color: var(--ecl-txt); }
+
+    .club-pts { font-weight: 700; color: var(--text); font-size: 12px; }
+    .club-name { color: var(--text); }
+    .club-chip.out .club-name { text-decoration: line-through; color: var(--muted); }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+      font-size: 11px;
       color: var(--muted);
+      padding: 8px 0;
+      border-top: 1px solid var(--border);
     }
     .legend-item {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 5px;
     }
-    .legend-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
+    .legend-bar {
+      width: 12px; height: 12px;
+      border-radius: 2px;
       flex-shrink: 0;
     }
 
-    /* ─── DETAIL PANEL ─── */
-    .detail-panel {
-      display: none;
-      margin-top: 1.5rem;
-      background: var(--surface);
+    /* ── INFO SECTION ── */
+    .info-section {
+      margin-top: 24px;
+      background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
+      border-radius: 3px;
+      padding: 16px;
     }
-    .detail-panel.open { display: block; animation: fadeIn 0.2s ease; }
-    .detail-panel h3 {
-      font-size: 1.1rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    /* ─── INFO BOX ─── */
-    .info-box {
-      margin-top: 2rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem 2rem;
-    }
-    .info-box h2 {
-      font-size: 1rem;
+    .info-section h2 {
+      font-size: 14px;
       font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
     }
     .info-section h3 {
-      font-size: 0.8rem;
+      font-size: 12px;
       font-weight: 700;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.6rem;
+      letter-spacing: 0.06em;
+      margin: 14px 0 6px;
     }
-    .points-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.78rem;
-    }
-    .points-table th {
-      text-align: left;
-      color: var(--muted);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      padding: 0.3rem 0.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .points-table td {
-      padding: 0.35rem 0.5rem;
-      text-align: center;
-      color: var(--text);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .points-table td:first-child { text-align: left; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .pts-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+    .pts-table th { background: #f5f5f5; padding: 5px 8px; text-align: left; font-weight: 700; border: 1px solid var(--border); color: #555; font-size: 11px; text-transform: uppercase; }
+    .pts-table td { padding: 4px 8px; border: 1px solid var(--border); text-align: center; }
+    .pts-table td:first-child { text-align: left; }
 
-    /* ─── EMPTY / LOADING ─── */
-    .loading {
+    /* ── EMPTY/LOADING ── */
+    .empty-row td {
       text-align: center;
-      padding: 3rem;
       color: var(--muted);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 0.1em;
+      padding: 24px;
+      font-style: italic;
     }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      header, .controls, main { padding-left: 1rem; padding-right: 1rem; }
-      .td-year:not(.current) { display: none; }
-      .updated-at { display: none; }
-      thead th.hide-mobile { display: none; }
-      td.hide-mobile { display: none; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .td-y:not(.y-current) { display: none; }
+      thead th:not(.th-rank):not(.th-change):not(.th-zone):not(.th-country):not(.th-total):not([data-y="1"]) { display: none; }
+      .updated { display: none; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="header-top">
-    <div class="logo-block">
-      <h1>UEFA <span>Country</span> Ranking</h1>
-      <div class="subtitle">Coefficient · Live · All Seasons</div>
-    </div>
-    <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
-      <div class="live-badge"><span class="dot"></span> LIVE</div>
-      <div style="font-family:'Space Mono',monospace; font-size:0.65rem; color:var(--muted);" id="live-status">Checking match status…</div>
-    </div>
-  </div>
+  <h1>UEFA <span>Country</span> Ranking</h1>
+  <nav class="nav-links">
+    <a href="#" class="active" id="tab-ranking">Country Ranking</a>
+    <a href="#" id="tab-info">Points System</a>
+  </nav>
 </header>
 
-<div class="controls">
+<div class="controls-bar">
   <div class="season-nav">
-    <button class="season-btn" id="prev-season">◀</button>
-    <select class="season-select" id="season-select"></select>
-    <button class="season-btn" id="next-season">▶</button>
+    <button id="btn-prev">◀</button>
+    <select id="sel-season"></select>
+    <button id="btn-next">▶</button>
   </div>
-
-  <div class="tabs">
-    <button class="tab-btn active" data-view="ranking">🏆 Ranking</button>
-    <button class="tab-btn" data-view="info">ℹ️ Points System</button>
-  </div>
-
-  <div class="updated-at" id="updated-at"></div>
+  <span class="live-dot" id="live-label">LIVE</span>
+  <span class="updated" id="updated-label"></span>
 </div>
 
-<main>
+<div class="container">
+
   <!-- RANKING VIEW -->
   <div id="view-ranking">
-    <div class="table-wrapper">
-      <table id="ranking-table">
+    <div class="table-wrap">
+      <table id="main-table">
         <thead>
           <tr>
-            <th style="text-align:center">#</th>
-            <th style="text-align:center">±</th>
-            <th style="width:4px; padding:0;"></th>
-            <th style="text-align:left">Country</th>
-            <th>Total</th>
-            <th id="col-y1" class="current">Y1</th>
-            <th id="col-y2" class="hide-mobile">Y2</th>
-            <th id="col-y3" class="hide-mobile">Y3</th>
-            <th id="col-y4" class="hide-mobile">Y4</th>
-            <th id="col-y5" class="hide-mobile">Y5</th>
+            <th class="th-rank">#</th>
+            <th class="th-change">±</th>
+            <th class="th-zone"></th>
+            <th class="th-country">Country</th>
+            <th class="th-clubs">Clubs</th>
+            <th class="th-total">Total</th>
+            <th data-y="1" id="h-y1">Y1</th>
+            <th data-y="2" id="h-y2">Y2</th>
+            <th data-y="3" id="h-y3">Y3</th>
+            <th data-y="4" id="h-y4">Y4</th>
+            <th data-y="5" id="h-y5">Y5</th>
           </tr>
         </thead>
-        <tbody id="ranking-body">
-          <tr><td colspan="10" class="loading">Loading data…</td></tr>
+        <tbody id="tbody">
+          <tr class="empty-row"><td colspan="11">Loading…</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--cl)"></div> Champions League</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--el)"></div> Europa League</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--ecl)"></div> Conf. League</div>
-      <div class="legend-item" style="gap:0.3rem;">
-        <span style="color:var(--green); font-size:0.9rem;">▲</span> Improved
-        <span style="color:var(--red); font-size:0.9rem; margin-left:0.5rem;">▼</span> Declined
-      </div>
+      <span style="font-weight:600; color:#444; margin-right:4px;">Zone:</span>
+      <span class="legend-item"><span class="legend-bar" style="background:var(--cl-direct)"></span> CL direct</span>
+      <span class="legend-item"><span class="legend-bar" style="background:var(--cl-qual)"></span> CL qualifying</span>
+      <span class="legend-item"><span class="legend-bar" style="background:var(--el-direct)"></span> EL direct</span>
+      <span class="legend-item"><span class="legend-bar" style="background:var(--el-qual)"></span> EL qualifying</span>
+      <span class="legend-item"><span class="legend-bar" style="background:var(--ecl)"></span> ECL direct/qualifying</span>
+      <span class="legend-item" style="margin-left:12px">
+        <span style="color:#27ae60; font-weight:700">▲</span> Gained places
+        &nbsp;<span style="color:#c0392b; font-weight:700">▼</span> Lost places
+      </span>
     </div>
   </div>
 
   <!-- INFO VIEW -->
-  <div id="view-info" style="display:none;">
-    <div class="info-box">
-      <h2>How is the UEFA Country Coefficient calculated?</h2>
-      <div class="info-grid">
-        <div class="info-section">
+  <div id="view-info" style="display:none">
+    <div class="info-section">
+      <h2>Calculation of UEFA Country Ranking</h2>
+      <p style="font-size:12.5px; color:#555; line-height:1.7;">
+        The UEFA Country Ranking (also known as the UEFA coefficient) allows comparison of the strength of national associations. A country's total coefficient = sum of its annual coefficients over the last 5 seasons. Each season's coefficient = total club points ÷ number of clubs entered.
+      </p>
+      <div class="info-grid" style="margin-top:14px">
+        <div>
           <h3>Match Points</h3>
-          <table class="points-table">
-            <thead><tr><th>Result</th><th>CL</th><th>EL</th><th>ECL</th></tr></thead>
-            <tbody>
-              <tr><td>Win (group/KO)</td><td>2</td><td>2</td><td>2</td></tr>
-              <tr><td>Draw (group/KO)</td><td>1</td><td>1</td><td>1</td></tr>
-              <tr><td>Win (qualifying)</td><td>1</td><td>1</td><td>1</td></tr>
-              <tr><td>Draw (qualifying)</td><td>0.5</td><td>0.5</td><td>0.5</td></tr>
-            </tbody>
+          <table class="pts-table">
+            <tr><th>Result</th><th>CL</th><th>EL</th><th>ECL</th></tr>
+            <tr><td>Win (group/KO)</td><td>2</td><td>2</td><td>2</td></tr>
+            <tr><td>Draw (group/KO)</td><td>1</td><td>1</td><td>1</td></tr>
+            <tr><td>Win (qualifying)</td><td>1</td><td>1</td><td>1</td></tr>
+            <tr><td>Draw (qualifying)</td><td>0.5</td><td>0.5</td><td>0.5</td></tr>
           </table>
         </div>
-        <div class="info-section">
+        <div>
           <h3>Bonus Points</h3>
-          <table class="points-table">
-            <thead><tr><th>Round</th><th>CL</th><th>EL</th><th>ECL</th></tr></thead>
-            <tbody>
-              <tr><td>Group stage entry</td><td>4</td><td>—</td><td>—</td></tr>
-              <tr><td>1st in group</td><td>—</td><td>4</td><td>2</td></tr>
-              <tr><td>2nd in group</td><td>—</td><td>2</td><td>1</td></tr>
-              <tr><td>Round of 16</td><td>5</td><td>1</td><td>—</td></tr>
-              <tr><td>Quarter-finals</td><td>1</td><td>1</td><td>—</td></tr>
-              <tr><td>Semi-finals</td><td>1</td><td>1</td><td>1</td></tr>
-              <tr><td>Final</td><td>1</td><td>1</td><td>1</td></tr>
-            </tbody>
+          <table class="pts-table">
+            <tr><th>Round</th><th>CL</th><th>EL</th><th>ECL</th></tr>
+            <tr><td>League phase entry</td><td>4</td><td>—</td><td>—</td></tr>
+            <tr><td>1st in league phase</td><td>—</td><td>4</td><td>2</td></tr>
+            <tr><td>2nd in league phase</td><td>—</td><td>2</td><td>1</td></tr>
+            <tr><td>Round of 16</td><td>1.5</td><td>1</td><td>—</td></tr>
+            <tr><td>Quarter-finals</td><td>1.5</td><td>1</td><td>0.5</td></tr>
+            <tr><td>Semi-finals</td><td>1.5</td><td>1</td><td>0.5</td></tr>
+            <tr><td>Final</td><td>1.5</td><td>1</td><td>0.5</td></tr>
           </table>
         </div>
-        <div class="info-section">
-          <h3>Distribution (Top 10)</h3>
-          <table class="points-table">
-            <thead><tr><th>Place</th><th>CL</th><th>EL</th><th>ECL</th></tr></thead>
-            <tbody>
-              <tr><td>1–4</td><td>4 direct</td><td>2 direct</td><td>1 qual</td></tr>
-              <tr><td>5</td><td>3 + 1 qual</td><td>2 direct</td><td>1 qual</td></tr>
-              <tr><td>6</td><td>2 + 1 qual</td><td>1 + 1 qual</td><td>1 qual</td></tr>
-              <tr><td>7</td><td>1 + 1 qual</td><td>1 + 1 qual</td><td>1 qual</td></tr>
-              <tr><td>8–10</td><td>1 + 1 qual</td><td>2 qual</td><td>1 qual</td></tr>
-            </tbody>
+        <div>
+          <h3>European spots by ranking (2027-28)</h3>
+          <table class="pts-table">
+            <tr><th>Rank</th><th>CL</th><th>EL</th><th>ECL</th></tr>
+            <tr><td>1–4</td><td>4 direct</td><td>2 direct</td><td>1 qual</td></tr>
+            <tr><td>5</td><td>3 + 1Q</td><td>2 direct</td><td>1 qual</td></tr>
+            <tr><td>6</td><td>2 + 1Q</td><td>1 + 1Q</td><td>1 qual</td></tr>
+            <tr><td>7</td><td>1 + 1Q</td><td>1 + 1Q</td><td>1 qual</td></tr>
+            <tr><td>8–10</td><td>1 + 1Q</td><td>2 qual</td><td>1 qual</td></tr>
+            <tr><td>11–12</td><td>2 qual</td><td>2 qual</td><td>1 qual</td></tr>
+            <tr><td>13–15</td><td>2 qual</td><td>1 qual</td><td>2 qual</td></tr>
+            <tr><td>16–34</td><td>1 qual</td><td>1 qual</td><td>2 qual</td></tr>
+            <tr><td>35–50</td><td>1 qual</td><td>—</td><td>3 qual</td></tr>
+            <tr><td>51–55</td><td>1 qual</td><td>—</td><td>2 qual</td></tr>
           </table>
-        </div>
-        <div class="info-section">
-          <h3>Principle</h3>
-          <p style="font-size:0.8rem; color:var(--muted); line-height:1.7;">
-            Each club earns points for its country. The country's annual coefficient = sum of all club points ÷ number of clubs entered. The <strong style="color:var(--text)">total coefficient</strong> = sum of the last 5 annual coefficients. The season Y1 uses the <em>current ongoing season</em>.
-          </p>
         </div>
       </div>
     </div>
   </div>
-</main>
+
+</div><!-- /container -->
 
 <script>
-// ─── CONFIG ───────────────────────────────────────────────────────────────────
+// ── CONFIG ──────────────────────────────────────────────────────────────────
 const SEASONS = [
   "2025-26","2024-25","2023-24","2022-23","2021-22","2020-21",
   "2019-20","2018-19","2017-18","2016-17","2015-16","2014-15",
   "2013-14","2012-13","2011-12","2010-11","2009-10","2008-09"
 ];
 
-let currentSeasonIdx = 0;
+const ZONE_COLORS = {
+  cl_direct: '#4a90d9',
+  cl_qual:   '#8fb8e8',
+  el_direct: '#e67e22',
+  el_qual:   '#f0a060',
+  ecl:       '#27ae60',
+  ecl_light: '#6ec49a',
+  none:      '#e0e0e0'
+};
+
+let currentIdx = 0;
+let expandedCountry = null;
 let currentData = null;
 
-// ─── SEASON SELECTOR ──────────────────────────────────────────────────────────
-const select = document.getElementById('season-select');
+// ── SEASON SELECTOR ─────────────────────────────────────────────────────────
+const sel = document.getElementById('sel-season');
 SEASONS.forEach((s, i) => {
-  const opt = document.createElement('option');
-  opt.value = i;
-  opt.textContent = s;
-  select.appendChild(opt);
+  const o = document.createElement('option');
+  o.value = i; o.textContent = s;
+  sel.appendChild(o);
+});
+sel.addEventListener('change', () => { currentIdx = +sel.value; load(SEASONS[currentIdx]); });
+document.getElementById('btn-prev').addEventListener('click', () => {
+  if (currentIdx < SEASONS.length - 1) { sel.value = ++currentIdx; load(SEASONS[currentIdx]); }
+});
+document.getElementById('btn-next').addEventListener('click', () => {
+  if (currentIdx > 0) { sel.value = --currentIdx; load(SEASONS[currentIdx]); }
 });
 
-select.addEventListener('change', () => {
-  currentSeasonIdx = parseInt(select.value);
-  loadSeason(SEASONS[currentSeasonIdx]);
+// ── TABS ─────────────────────────────────────────────────────────────────────
+document.getElementById('tab-ranking').addEventListener('click', e => {
+  e.preventDefault();
+  document.getElementById('view-ranking').style.display = '';
+  document.getElementById('view-info').style.display = 'none';
+  document.getElementById('tab-ranking').classList.add('active');
+  document.getElementById('tab-info').classList.remove('active');
 });
-document.getElementById('prev-season').addEventListener('click', () => {
-  if (currentSeasonIdx < SEASONS.length - 1) {
-    currentSeasonIdx++;
-    select.value = currentSeasonIdx;
-    loadSeason(SEASONS[currentSeasonIdx]);
-  }
-});
-document.getElementById('next-season').addEventListener('click', () => {
-  if (currentSeasonIdx > 0) {
-    currentSeasonIdx--;
-    select.value = currentSeasonIdx;
-    loadSeason(SEASONS[currentSeasonIdx]);
-  }
+document.getElementById('tab-info').addEventListener('click', e => {
+  e.preventDefault();
+  document.getElementById('view-ranking').style.display = 'none';
+  document.getElementById('view-info').style.display = '';
+  document.getElementById('tab-info').classList.add('active');
+  document.getElementById('tab-ranking').classList.remove('active');
 });
 
-// ─── TABS ─────────────────────────────────────────────────────────────────────
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const view = btn.dataset.view;
-    document.getElementById('view-ranking').style.display = view === 'ranking' ? '' : 'none';
-    document.getElementById('view-info').style.display   = view === 'info'    ? '' : 'none';
-  });
-});
+// ── LOAD ────────────────────────────────────────────────────────────────────
+async function load(season) {
+  expandedCountry = null;
+  document.getElementById('tbody').innerHTML = '<tr class="empty-row"><td colspan="11">Loading ' + season + '…</td></tr>';
 
-// ─── LOAD DATA ────────────────────────────────────────────────────────────────
-async function loadSeason(season) {
-  document.getElementById('ranking-body').innerHTML =
-    '<tr><td colspan="10" class="loading">Loading ' + season + '…</td></tr>';
-
-  // Update column headers with actual years
-  const [start] = season.split('-');
-  const sy = parseInt(start);
+  // Update year column headers
+  const [sy] = season.split('-');
+  const base = parseInt(sy);
   for (let i = 1; i <= 5; i++) {
-    const col = document.getElementById('col-y' + i);
-    if (col) {
-      const yr = sy - i + 1;
-      col.textContent = (yr + '-' + String(yr+1).slice(-2));
-      col.className = i === 1 ? 'current' : 'hide-mobile';
-    }
+    const yr = base - i + 1;
+    const el = document.getElementById('h-y' + i);
+    if (el) el.textContent = yr + '/' + String(yr + 1).slice(-2);
   }
 
   try {
-    // Try to fetch from /data/ folder (populated by scraper)
-    const res = await fetch(`/data/ranking_${season}.json`);
-    if (!res.ok) throw new Error('No data');
-    currentData = await res.json();
-  } catch(e) {
-    // Fallback: show placeholder for unsupported seasons
+    const r = await fetch('/data/ranking_' + season + '.json');
+    if (!r.ok) throw new Error();
+    currentData = await r.json();
+  } catch {
     currentData = null;
   }
 
-  renderTable(currentData, season);
+  render(currentData, season);
 }
 
-// ─── RENDER TABLE ─────────────────────────────────────────────────────────────
-function renderTable(data, season) {
-  const tbody = document.getElementById('ranking-body');
+// ── ZONE COLOR ───────────────────────────────────────────────────────────────
+function zoneColor(rank, z) {
+  if (rank <= z.cl_direct) return ZONE_COLORS.cl_direct;
+  if (rank <= z.cl_qual)   return ZONE_COLORS.cl_qual;
+  if (rank <= z.el_direct) return ZONE_COLORS.el_direct;
+  if (rank <= z.el_qual)   return ZONE_COLORS.el_qual;
+  if (rank <= z.ecl_qual)  return rank <= 34 ? ZONE_COLORS.ecl : ZONE_COLORS.ecl_light;
+  return ZONE_COLORS.none;
+}
+
+// Separator ranks (line drawn BEFORE this rank)
+const SEP_RANKS = new Set([5, 7, 11, 13, 16, 35, 51]);
+
+// ── RENDER ───────────────────────────────────────────────────────────────────
+function render(data, season) {
+  const tbody = document.getElementById('tbody');
+  const updated = document.getElementById('updated-label');
 
   if (!data) {
-    tbody.innerHTML = `<tr><td colspan="10" class="loading">
-      No data available for ${season}.<br>
-      <small style="color:var(--muted)">Run the scraper to populate this season.</small>
-    </td></tr>`;
-    document.getElementById('updated-at').textContent = '';
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="11">No data for ' + season + '.<br><small>Run the scraper to generate this season.</small></td></tr>';
+    updated.textContent = '';
     return;
   }
 
-  // Updated timestamp
-  if (data.updated) {
-    const d = new Date(data.updated);
-    document.getElementById('updated-at').textContent =
-      'Updated ' + d.toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
-  }
+  const d = new Date(data.updated);
+  updated.textContent = 'Updated ' + d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' })
+    + ' at ' + d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
 
-  // Zone thresholds
-  const z = data.zone_thresholds || { cl_direct:4, cl_qual:10, el_direct:6, el_qual:15 };
-  const separators = [z.cl_direct, z.cl_qual, z.el_direct, z.el_qual];
-
+  const z = data.zone_thresholds;
   tbody.innerHTML = '';
 
-  data.countries.forEach((c, idx) => {
-    const isSeparator = separators.includes(c.rank - 1);
-    let zoneClass = '';
-    if (c.rank <= z.cl_direct)      zoneClass = 'zone-cl-direct';
-    else if (c.rank <= z.cl_qual)   zoneClass = 'zone-cl-qual';
-
+  data.countries.forEach(c => {
+    const isSep = SEP_RANKS.has(c.rank);
     const diff = c.prev_rank - c.rank;
-    const changeHtml = diff > 0
-      ? `<span class="change-up">▲${diff}</span>`
+    const chHtml = diff > 0
+      ? `<span class="ch-up">▲${diff}</span>`
       : diff < 0
-        ? `<span class="change-down">▼${Math.abs(diff)}</span>`
-        : `<span class="change-same">—</span>`;
+        ? `<span class="ch-down">▼${Math.abs(diff)}</span>`
+        : `<span class="ch-same">—</span>`;
 
-    const compsHtml = (c.competitions || []).map(comp =>
-      `<div class="comp-dot ${comp.toLowerCase()}"></div>`
-    ).join('');
+    // Club status dots (one per club, colored by competition or grey if out)
+    const dotsHtml = (c.clubs || []).map(cl => {
+      const cls = cl.active ? cl.comp.toLowerCase() : 'out';
+      return `<span class="csi ${cls}" title="${cl.name}: ${cl.pts} pts${cl.active ? ' (active)' : ' (eliminated)'}"></span>`;
+    }).join('');
 
-    const row = document.createElement('tr');
-    if (zoneClass) row.classList.add(zoneClass);
-    if (isSeparator) row.classList.add('zone-separator');
+    const clubsLabel = c.clubs_total > 0
+      ? `<span class="clubs-frac"><span class="clubs-active">${c.clubs_active}</span>/${c.clubs_total}</span>`
+      : `<span style="color:#bbb">—</span>`;
 
-    row.style.animationDelay = (idx * 0.025) + 's';
-    row.innerHTML = `
+    const tr = document.createElement('tr');
+    if (isSep) tr.classList.add('zone-sep');
+    tr.dataset.code = c.code;
+    tr.innerHTML = `
       <td class="td-rank ${c.rank <= 3 ? 'top3' : ''}">${c.rank}</td>
-      <td class="td-change">${changeHtml}</td>
-      <td class="td-zone" style="background:${zoneColor(c.rank, z)}"></td>
+      <td class="td-change">${chHtml}</td>
+      <td class="td-zone"><span class="zone-bar" style="background:${zoneColor(c.rank, z)}"></span></td>
       <td class="td-country">
-        <div class="country-cell">
+        <div class="country-inner">
           <span class="flag">${c.flag || ''}</span>
-          <div>
-            <div class="country-name">${c.name}</div>
-            <div class="competition-icons">${compsHtml}</div>
-          </div>
+          <span class="cname">${c.name}</span>
+          <div class="club-status-icons">${dotsHtml}</div>
         </div>
       </td>
+      <td class="td-clubs">${clubsLabel}</td>
       <td class="td-total">${c.total.toFixed(3)}</td>
-      <td class="td-year current">${fmt(c.y1)}</td>
-      <td class="td-year hide-mobile">${fmt(c.y2)}</td>
-      <td class="td-year hide-mobile">${fmt(c.y3)}</td>
-      <td class="td-year hide-mobile">${fmt(c.y4)}</td>
-      <td class="td-year hide-mobile">${fmt(c.y5)}</td>
+      <td class="td-y y-current">${c.y1.toFixed(3)}</td>
+      <td class="td-y">${c.y2.toFixed(3)}</td>
+      <td class="td-y">${c.y3.toFixed(3)}</td>
+      <td class="td-y">${c.y4.toFixed(3)}</td>
+      <td class="td-y">${c.y5.toFixed(3)}</td>
     `;
-    tbody.appendChild(row);
+
+    tr.addEventListener('click', () => toggleDetail(tr, c, z));
+    tbody.appendChild(tr);
   });
-
-  updateLiveStatus(data);
 }
 
-function fmt(v) {
-  return typeof v === 'number' ? v.toFixed(3) : '–';
-}
-
-function zoneColor(rank, z) {
-  if (rank <= z.cl_direct) return 'rgba(0,196,255,0.7)';
-  if (rank <= z.cl_qual)   return 'rgba(0,196,255,0.3)';
-  if (rank <= z.el_direct) return 'rgba(255,122,0,0.7)';
-  if (rank <= z.el_qual)   return 'rgba(255,122,0,0.3)';
-  if (rank <= 15)          return 'rgba(61,220,132,0.5)';
-  return 'rgba(255,255,255,0.05)';
-}
-
-// ─── LIVE STATUS ──────────────────────────────────────────────────────────────
-function updateLiveStatus(data) {
-  const el = document.getElementById('live-status');
-  if (!data) { el.textContent = ''; return; }
-
-  const d = new Date(data.updated);
-  const now = new Date();
-  const ageMin = (now - d) / 60000;
-
-  if (ageMin < 5) {
-    el.textContent = 'Data is fresh · Updated ' + Math.round(ageMin) + 'm ago';
-    el.style.color = 'var(--green)';
-  } else if (ageMin < 60) {
-    el.textContent = 'Updated ' + Math.round(ageMin) + 'm ago';
-    el.style.color = 'var(--accent)';
-  } else {
-    el.textContent = 'Last update ' + Math.round(ageMin / 60) + 'h ago';
-    el.style.color = 'var(--muted)';
+// ── DETAIL PANEL ─────────────────────────────────────────────────────────────
+function toggleDetail(tr, country, z) {
+  // Close if same row
+  const existing = document.querySelector('tr.detail-row');
+  if (existing) {
+    existing.previousElementSibling?.classList.remove('expanded');
+    existing.remove();
+    if (expandedCountry === country.code) {
+      expandedCountry = null;
+      return;
+    }
   }
+
+  expandedCountry = country.code;
+  tr.classList.add('expanded');
+
+  const clubs = country.clubs || [];
+
+  const chipsHtml = clubs.length === 0
+    ? '<em style="color:#aaa; font-size:11.5px;">No clubs entered this season</em>'
+    : clubs
+        .sort((a, b) => b.pts - a.pts)
+        .map(cl => {
+          const compTag = `<span class="comp-tag ${cl.comp.toLowerCase()}">${cl.comp}</span>`;
+          const statusIcon = cl.active ? '🟢' : '⚫';
+          return `<div class="club-chip ${cl.active ? '' : 'out'}">
+            ${compTag}
+            <span class="club-name">${cl.name}</span>
+            <span class="club-pts">${cl.pts.toFixed(3)}</span>
+            <span title="${cl.active ? 'Still in competition' : 'Eliminated'}" style="font-size:9px">${statusIcon}</span>
+          </div>`;
+        }).join('');
+
+  const totalActive = clubs.filter(c => c.active).length;
+  const totalClubs = clubs.length;
+  const seasonPts = clubs.reduce((s, c) => s + c.pts, 0);
+  const coeff = totalClubs > 0 ? (seasonPts / country.clubs_total).toFixed(3) : '–';
+
+  const detailRow = document.createElement('tr');
+  detailRow.classList.add('detail-row');
+  detailRow.innerHTML = `
+    <td colspan="11">
+      <div class="detail-box">
+        <h4>
+          ${country.flag} ${country.name} — Club detail
+          &nbsp;·&nbsp; ${totalActive} club${totalActive !== 1 ? 's' : ''} still active / ${totalClubs} entered
+          &nbsp;·&nbsp; Season coefficient: <strong>${coeff}</strong>
+        </h4>
+        <div class="clubs-grid">${chipsHtml}</div>
+      </div>
+    </td>
+  `;
+
+  tr.after(detailRow);
 }
 
-// ─── AUTO-REFRESH (every 3 min during live) ───────────────────────────────────
-function autoRefresh() {
-  const now = new Date();
-  const h = now.getUTCHours();
-  // Rough match windows: 17–23 UTC (CL/EL/ECL kickoffs)
-  if (h >= 17 && h <= 23) {
-    loadSeason(SEASONS[currentSeasonIdx]);
-  }
-}
-setInterval(autoRefresh, 3 * 60 * 1000);
+// ── AUTO-REFRESH ─────────────────────────────────────────────────────────────
+setInterval(() => {
+  const h = new Date().getUTCHours();
+  if (h >= 17 && h <= 23) load(SEASONS[currentIdx]);
+}, 3 * 60 * 1000);
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-loadSeason(SEASONS[0]);
+// ── INIT ─────────────────────────────────────────────────────────────────────
+load(SEASONS[0]);
 </script>
 </body>
 </html>
