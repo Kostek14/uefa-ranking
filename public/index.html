@@ -614,7 +614,10 @@ function renderTable(data){
     const chH=diff>0?`<span class="cup">▲${diff}</span>`:diff<0?`<span class="cdn">▼${Math.abs(diff)}</span>`:`<span class="csm">—</span>`;
     const hasLive=(c.clubs||[]).some(cl=>cl.active&&live.has(cl.name));
     const dotsH=(c.clubs||[]).map(cl=>`<span class="dot ${cl.active?cl.comp.toLowerCase():'out'}" title="${cl.name}: ${cl.pts}pts${live.has(cl.name)?' ⚽':''}"></span>`).join('');
-    const clubsL=c.clubs_total>0?`<span class="caf">${c.clubs_active}</span>/${c.clubs_total}`:`<span style="color:#ccc">—</span>`;
+    // Toujours calculer depuis clubs[] – ne jamais faire confiance aux champs stockés
+    const _ct=(c.clubs||[]).length;
+    const _ca=(c.clubs||[]).filter(cl=>cl.active).length;
+    const clubsL=_ct>0?`<span class="caf">${_ca}</span>/${_ct}`:`<span style="color:#ccc">—</span>`;
     const tr=document.createElement('tr');
     if(SEP.has(c.rank))tr.classList.add('sep');
     if(expCode===c.code)tr.classList.add('exp');
@@ -646,7 +649,9 @@ function toggleDetail(tr,c){
   expCode=c.code;tr.classList.add('exp');
   const clubs=(c.clubs||[]).slice().sort((a,b)=>b.pts-a.pts);
   const live=getLive();
-  const coeff=c.clubs_total>0?(clubs.reduce((s,x)=>s+(+x.pts||0),0)/c.clubs_total).toFixed(3):'—';
+  const _tct=(c.clubs||[]).length;
+  const _tca=(c.clubs||[]).filter(cl=>cl.active).length;
+  const coeff=_tct>0?(clubs.reduce((s,x)=>s+(+x.pts||0),0)/_tct).toFixed(3):'—';
   const chips=clubs.length===0?'<em style="color:#aaa">No clubs entered</em>':clubs.map(cl=>{
     const isL=cl.active&&live.has(cl.name);
     const pts=typeof cl.pts==='number'?cl.pts.toFixed(3):cl.pts;
@@ -654,7 +659,7 @@ function toggleDetail(tr,c){
   }).join('');
   const det=document.createElement('tr');det.className='drow';
   det.innerHTML=`<td colspan="11"><div class="dbox">
-    <h4>${c.flag} ${c.name} &nbsp;·&nbsp; ${c.clubs_active}/${c.clubs_total} clubs active &nbsp;·&nbsp; Season coeff: <strong>${coeff}</strong></h4>
+    <h4>${c.flag} ${c.name} &nbsp;·&nbsp; ${_tca}/${_tct} clubs active &nbsp;·&nbsp; Season coeff: <strong>${coeff}</strong></h4>
     <div class="cgrid">${chips}</div>
   </div></td>`;
   tr.after(det);
@@ -827,6 +832,9 @@ function renderCompare(){
   const ca=cData.countries.find(c=>c.name===na),cb=cData.countries.find(c=>c.name===nb);
   if(!ca||!cb){document.getElementById('cmpout').innerHTML='<p style="color:var(--muted);font-size:12px">One or both countries not in this season\'s data.</p>';return;}
 
+  // Normalise les champs clubs_total/clubs_active depuis clubs[]
+  const norm=c=>({...c,clubs_total:(c.clubs||[]).length||c.clubs_total,clubs_active:(c.clubs||[]).filter(cl=>cl.active).length});
+  const [ca2,cb2]=[norm(ca),norm(cb)];
   const fields=[['Rank','rank',true],['Total coefficient','total'],['This season (Y1)','y1'],['Y2','y2'],['Y3','y3'],['Y4','y4'],['Y5','y5'],['Clubs entered','clubs_total',true],['Clubs active','clubs_active',true]];
   const statsHtml=(a,b)=>fields.map(([label,key,lower])=>{
     const av=a[key]??'—',bv=b[key]??'—';
@@ -841,11 +849,11 @@ function renderCompare(){
   document.getElementById('cmpout').innerHTML=`
     <div class="statgrid">
       <div class="scard"><h3><span style="font-size:20px">${ca.flag}</span>${ca.name} <span style="color:var(--muted);font-size:12px">#${ca.rank}</span></h3>
-        ${statsHtml(ca,cb)}
+        ${statsHtml(ca2,cb2)}
         <div style="margin-top:12px"><div style="font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Clubs this season</div><div class="cgrid">${clubsHtml(ca)}</div></div>
       </div>
       <div class="scard"><h3><span style="font-size:20px">${cb.flag}</span>${cb.name} <span style="color:var(--muted);font-size:12px">#${cb.rank}</span></h3>
-        ${statsHtml(cb,ca)}
+        ${statsHtml(cb2,ca2)}
         <div style="margin-top:12px"><div style="font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Clubs this season</div><div class="cgrid">${clubsHtml(cb)}</div></div>
       </div>
     </div>
@@ -897,8 +905,10 @@ function renderSimImpact(){
     const aPts=res==='L'?2:res==='D'?1:0;
     const hc=cData.countries.find(c=>c.name===f.homeCountry);
     const ac=cData.countries.find(c=>c.name===f.awayCountry);
-    if(hc&&hc.clubs_total>0)extra[f.homeCountry]=(extra[f.homeCountry]||0)+hPts/hc.clubs_total;
-    if(ac&&ac.clubs_total>0)extra[f.awayCountry]=(extra[f.awayCountry]||0)+aPts/ac.clubs_total;
+    const hct=(hc?.clubs||[]).length||hc?.clubs_total||1;
+    const act=(ac?.clubs||[]).length||ac?.clubs_total||1;
+    if(hc&&hct>0)extra[f.homeCountry]=(extra[f.homeCountry]||0)+hPts/hct;
+    if(ac&&act>0)extra[f.awayCountry]=(extra[f.awayCountry]||0)+aPts/act;
   });
   const affected=Object.entries(extra).filter(([,v])=>v!==0);
   if(!affected.length){el.innerHTML='<em style="color:var(--muted);font-size:12px">Click W / D / L on a match to see its effect on country coefficients.</em>';return;}
@@ -927,7 +937,7 @@ function renderPrediction(){
   // Assume ~6 matches played so far, ~3 remaining (QF + SF + F for active clubs)
   const PLAYED_EST=6,REMAINING=3;
   const proj=cData.countries.map(c=>{
-    const n=c.clubs_total||1;
+    const n=(c.clubs||[]).length||c.clubs_total||1;
     const totalPts=(c.clubs||[]).reduce((s,cl)=>s+(+cl.pts||0),0);
     const activePts=(c.clubs||[]).filter(cl=>cl.active).reduce((s,cl)=>s+(+cl.pts||0),0);
     const activeCount=(c.clubs||[]).filter(cl=>cl.active).length;

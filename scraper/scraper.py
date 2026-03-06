@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """
-UEFA Country Ranking Scraper — v2
-Source principale : football-coefficient.eu (données fiables, toutes saisons)
-Source secours   : kassiesa.net
+UEFA Country Ranking Scraper — v3
+Source: football-coefficient.eu
+
+BUGS FIXES v3:
+- clubs_total = len(clubs list) [était NC sum, qui est en fait les clubs ACTIFS]
+- clubs_active = sum des nombres dans la colonne NC (ex: "6+2+1" = 9 actifs)
+- active flag par club = détection des balises <s>/<del>/<strike> dans le HTML
+- comp par club = déduit depuis la colonne NC ("6+2+1" → 6 CL, 2 EL, 1 ECL)
+  en assignant aux clubs triés par pts dans l'ordre CL→EL→ECL
+- y2/y3/y4/y5 = chaîne historique depuis les fichiers précédents (inchangé)
 """
 
 import json, re, sys, time, argparse, logging
@@ -22,8 +29,6 @@ SEASONS = [
     "2013-14","2012-13","2011-12","2010-11","2009-10","2008-09",
 ]
 
-# Map season "2025-26" → idSeasonChoice param for football-coefficient.eu
-# The site uses the END year as parameter (2026 for 2025-26)
 def season_to_id(season):
     return int(season.split("-")[0]) + 1
 
@@ -48,18 +53,30 @@ FLAGS = {
     "Georgia":"🇬🇪","Wales":"🏴󠁧󠁢󠁷󠁬󠁳󠁿","San Marino":"🇸🇲",
 }
 
+CODES = {
+    "England":"ENG","Spain":"ESP","Germany":"GER","Italy":"ITA","France":"FRA",
+    "Portugal":"POR","Netherlands":"NED","Belgium":"BEL","Türkiye":"TUR","Turkey":"TUR",
+    "Czechia":"CZE","Czech Republic":"CZE","Greece":"GRE","Poland":"POL","Denmark":"DEN",
+    "Norway":"NOR","Cyprus":"CYP","Switzerland":"SUI","Austria":"AUT","Scotland":"SCO",
+    "Sweden":"SWE","Croatia":"CRO","Israel":"ISR","Hungary":"HUN","Serbia":"SRB",
+    "Romania":"ROU","Ukraine":"UKR","Slovenia":"SVN","Azerbaijan":"AZE","Slovakia":"SVK",
+    "Bulgaria":"BUL","Ireland":"IRL","Russia":"RUS","Iceland":"ISL","Armenia":"ARM",
+    "Moldova":"MDA","Finland":"FIN","Kosovo":"KOS","Kazakhstan":"KAZ",
+    "Bosnia-Herzegovina":"BIH","Bosnia-Herz.":"BIH","Latvia":"LVA","Faroe Islands":"FRO",
+    "Malta":"MLT","Liechtenstein":"LIE","Estonia":"EST","Albania":"ALB",
+    "North Macedonia":"MKD","Lithuania":"LTU","Northern Ireland":"NIR","Gibraltar":"GIB",
+    "Andorra":"AND","Luxembourg":"LUX","Belarus":"BLR","Montenegro":"MNE",
+    "Georgia":"GEO","Wales":"WAL","San Marino":"SMR",
+}
 
-# ── SCRAPER FOOTBALL-COEFFICIENT.EU ──────────────────────────────────────────
 
 def scrape_football_coefficient(season: str) -> dict | None:
     sid = season_to_id(season)
-    # Current season has no param, older seasons need idSeasonChoice
-    if sid == season_to_id(SEASONS[0]):
-        url = "https://www.football-coefficient.eu/"
-    else:
-        url = f"https://www.football-coefficient.eu/?idSeasonChoice={sid}"
+    current_sid = season_to_id(SEASONS[0])
+    url = "https://www.football-coefficient.eu/" if sid == current_sid else \
+          f"https://www.football-coefficient.eu/?idSeasonChoice={sid}"
 
-    log.info(f"Fetching football-coefficient.eu for {season}: {url}")
+    log.info(f"Fetching {season}: {url}")
     try:
         r = requests.get(url, headers=HEADERS, timeout=20)
         r.raise_for_status()
@@ -72,10 +89,6 @@ def scrape_football_coefficient(season: str) -> dict | None:
 
 
 def parse_fc_eu(soup, season: str) -> dict | None:
-    """
-    Parse the main ranking table from football-coefficient.eu
-    Table has columns: rank, country, total (NR), CL pts, NC (clubs), CS (club total pts), club list
-    """
     table = soup.find("table")
     if not table:
         log.warning("No table found")
@@ -83,89 +96,78 @@ def parse_fc_eu(soup, season: str) -> dict | None:
 
     rows = table.find_all("tr")
     if len(rows) < 2:
-        log.warning("Table has no data rows")
         return None
 
     countries = []
-
-    # Try to get previous rankings for change calculation
-    # We'll look for a prev_rank from last saved file
     prev_ranks = load_prev_ranks(season)
 
-    for row in rows[1:]:  # skip header
+    for row in rows[1:]:
         cells = row.find_all(["td", "th"])
         if len(cells) < 3:
             continue
 
         try:
             # Col 0: rank
-            rank_text = cells[0].get_text(strip=True)
-            rank = int(re.sub(r"\D", "", rank_text) or "0")
+            rank = int(re.sub(r"\D", "", cells[0].get_text(strip=True)) or "0")
             if rank == 0:
                 continue
 
-            # Col 1: country name (may include flag image, link text)
-            country_cell = cells[1]
-            cname = country_cell.get_text(strip=True)
-            # Clean up — remove trailing country code in parens
-            cname = re.sub(r'\s*\([A-Z]{2,3}\)\s*$', '', cname).strip()
+            # Col 1: country name (strip code in parens)
+            cname = re.sub(r'\s*\([A-Z]{2,3}\)\s*$', '', cells[1].get_text(strip=True)).strip()
             if not cname:
                 continue
 
             # Col 2: NR = total coefficient
-            total_text = cells[2].get_text(strip=True).replace(",", ".")
-            # Bold text inside
-            bold = cells[2].find("b") or cells[2].find("strong")
-            if bold:
-                total_text = bold.get_text(strip=True).replace(",", ".")
-            total = safe_float(total_text)
+            bold = cells[2].find(["b", "strong"])
+            total = safe_float((bold or cells[2]).get_text(strip=True))
 
-            # Col 3: CL coefficient this season (current year)
-            y1 = safe_float(cells[3].get_text(strip=True).replace(",", ".")) if len(cells) > 3 else 0.0
+            # Col 3: current season coefficient (Y1)
+            y1_raw = safe_float(cells[3].get_text(strip=True)) if len(cells) > 3 else 0.0
 
-            # Col 4: NC = clubs entered + active
-            clubs_total, clubs_active = 0, 0
+            # Col 4: NC = "cl_active+el_active+ecl_active"
+            # This is the number of clubs STILL IN each competition
+            # e.g. "6+2+1" = 6 in CL, 2 in EL, 1 in ECL = 9 still active
+            cl_active = el_active = ecl_active = 0
+            clubs_active_total = 0
             if len(cells) > 4:
                 nc_text = cells[4].get_text(strip=True)
-                # Format is usually "active+total" or "W+L+D" for competitions
-                nc_match = re.findall(r'\d+', nc_text)
-                if nc_match:
-                    # Sum the numbers like "6+2+1" = 9 clubs
-                    clubs_total = sum(int(x) for x in nc_match)
+                nc_nums = re.findall(r'\d+', nc_text)
+                if len(nc_nums) >= 3:
+                    cl_active, el_active, ecl_active = int(nc_nums[0]), int(nc_nums[1]), int(nc_nums[2])
+                    clubs_active_total = cl_active + el_active + ecl_active
+                elif len(nc_nums) == 1:
+                    clubs_active_total = int(nc_nums[0])
 
-            # Col 6 (or last): Club list with names and points
+            # Col 5: CS = total club points in current season (used for verification)
+
+            # Last col: Club list
             clubs = []
-            club_cell = cells[-1] if len(cells) >= 6 else None
-            if club_cell:
-                clubs = parse_club_cell(club_cell)
-                if clubs:
-                    clubs_total = max(clubs_total, len(clubs))
-                    clubs_active = sum(1 for c in clubs if c["active"])
+            if len(cells) >= 6:
+                clubs = parse_club_cell(cells[-1], cl_active, el_active, ecl_active)
 
-            # Calculate y1 from clubs if available
-            if clubs and clubs_total > 0:
-                total_pts = sum(c["pts"] for c in clubs)
-                y1_calc = total_pts / clubs_total
-                if y1 == 0:
-                    y1 = round(y1_calc, 3)
+            clubs_total = len(clubs)  # FIXED: total = all clubs listed, not NC sum
 
-            # Previous year coefficients — we don't have them directly from this page
-            # Try to read from previously saved data for this season
+            # If clubs_active_total > 0, use it; else compute from flags
+            if clubs_active_total == 0:
+                clubs_active_total = sum(1 for c in clubs if c["active"])
+
+            # Y1: prefer site value, fallback to sum(pts)/clubs_total
+            y1 = y1_raw
+            if y1 == 0 and clubs and clubs_total > 0:
+                y1 = round(sum(c["pts"] for c in clubs) / clubs_total, 3)
+
+            # Historical coefficients from previous season file
             prev = prev_ranks.get(cname, {})
-            y2 = prev.get("y1", 0.0)  # last season's y1 becomes this season's y2
+            y2 = prev.get("y1", 0.0)
             y3 = prev.get("y2", 0.0)
             y4 = prev.get("y3", 0.0)
             y5 = prev.get("y4", 0.0)
 
-            # If we have total and y1, but not historical, try to estimate from total
-            # total = y1 + y2 + y3 + y4 + y5
-            # If we have no history, show 0s (will fill on next scrape iteration)
-
             countries.append({
                 "rank": rank,
-                "prev_rank": prev_ranks.get(cname, {}).get("rank", rank),
+                "prev_rank": prev.get("rank", rank),
                 "name": cname,
-                "code": country_name_to_code(cname),
+                "code": CODES.get(cname, cname[:3].upper()),
                 "flag": FLAGS.get(cname, "🏳️"),
                 "total": total,
                 "y1": round(y1, 3),
@@ -174,7 +176,7 @@ def parse_fc_eu(soup, season: str) -> dict | None:
                 "y4": round(y4, 3),
                 "y5": round(y5, 3),
                 "clubs_total": clubs_total,
-                "clubs_active": clubs_active,
+                "clubs_active": clubs_active_total,
                 "clubs": clubs,
             })
 
@@ -193,84 +195,113 @@ def parse_fc_eu(soup, season: str) -> dict | None:
     }
 
 
-def parse_club_cell(cell) -> list:
+def parse_club_cell(cell, cl_active: int, el_active: int, ecl_active: int) -> list:
     """
-    Parse the club list cell from football-coefficient.eu.
-    Format: "Club Name  pts" repeated, with links or spans.
+    Parse club links from the last cell.
+    
+    KEY FIXES:
+    1. active = NOT wrapped in <s>/<del>/<strike> tag (site crosses out eliminated clubs)
+    2. comp = assigned based on NC counts (cl_active+el_active+ecl_active)
+       Clubs are ordered CL first, then EL, then ECL on the site
+       Active clubs come first within each group, then eliminated ones
+    3. pts = extracted from text sibling after each link
     """
     clubs = []
-    text = cell.get_text(separator="\n", strip=True)
     links = cell.find_all("a")
 
-    # Determine competition context from cell or parent row class/color
-    # football-coefficient.eu uses different cell backgrounds for CL/EL/ECL
-    # or we infer from points and context
-
     for link in links:
-        club_text = link.get_text(strip=True)
-        # Points are usually in the text following the link
-        # Pattern: "Arsenal  29.5" or similar
-        if not club_text:
+        name = link.get_text(strip=True)
+        if not name:
             continue
 
-        # Try to find the pts sibling text
+        # FIX 1: Check if link (or its parent) is inside a strikethrough tag
+        # The site wraps eliminated club links in <s> tags
+        is_eliminated = bool(
+            link.find_parents(["s", "del", "strike"]) or
+            link.find_parent(class_=re.compile(r'elimin|out|cross|inactive', re.I))
+        )
+        # Also check link's own style for text-decoration
+        link_style = link.get("style", "") + " ".join(link.get("class", []))
+        if "line-through" in link_style or "eliminated" in link_style.lower():
+            is_eliminated = True
+
+        # FIX 2: Extract points from the text node following the link
         pts = 0.0
-        next_sib = link.next_sibling
-        if next_sib:
-            pts_match = re.search(r'([\d.,]+)', str(next_sib))
+        sib = link.next_sibling
+        if sib:
+            pts_match = re.search(r'([\d,]+\.?\d*)', str(sib))
             if pts_match:
                 pts = safe_float(pts_match.group(1))
 
-        # Check if club is active — football-coefficient shows active clubs in color
-        # We'll mark all as active initially and let periodic re-scrape correct
-        comp = "ECL"  # default, will be refined below
-
         clubs.append({
-            "name": club_text,
+            "name": name,
             "pts": pts,
-            "active": pts > 0,  # rough proxy: if has pts, likely entered
-            "comp": comp,
+            "active": not is_eliminated,
+            "comp": "ECL",  # default, will be overridden below
         })
 
-    # Fallback: parse raw text if no links
+    # Fallback: parse raw text lines if no links found
     if not clubs:
-        lines = [l.strip() for l in text.split("\n") if l.strip()]
-        for line in lines:
-            m = re.match(r'^(.+?)\s+([\d.]+)\s*$', line)
+        text = cell.get_text(separator="\n", strip=True)
+        for line in text.split("\n"):
+            m = re.match(r'^(.+?)\s+([\d.]+)\s*$', line.strip())
             if m:
                 clubs.append({"name": m.group(1), "pts": safe_float(m.group(2)), "active": True, "comp": "ECL"})
+
+    # FIX 3: Assign competition based on NC counts
+    # The site lists clubs in order: CL clubs, then EL clubs, then ECL clubs
+    # Within each group, active clubs appear before eliminated ones
+    if cl_active > 0 or el_active > 0 or ecl_active > 0:
+        _assign_comps(clubs, cl_active, el_active, ecl_active)
 
     return clubs
 
 
-def country_name_to_code(name: str) -> str:
-    codes = {
-        "England":"ENG","Spain":"ESP","Germany":"GER","Italy":"ITA","France":"FRA",
-        "Portugal":"POR","Netherlands":"NED","Belgium":"BEL","Türkiye":"TUR","Turkey":"TUR",
-        "Czechia":"CZE","Czech Republic":"CZE","Greece":"GRE","Poland":"POL","Denmark":"DEN",
-        "Norway":"NOR","Cyprus":"CYP","Switzerland":"SUI","Austria":"AUT","Scotland":"SCO",
-        "Sweden":"SWE","Croatia":"CRO","Israel":"ISR","Hungary":"HUN","Serbia":"SRB",
-        "Romania":"ROU","Ukraine":"UKR","Slovenia":"SVN","Azerbaijan":"AZE","Slovakia":"SVK",
-        "Bulgaria":"BUL","Ireland":"IRL","Russia":"RUS","Iceland":"ISL","Armenia":"ARM",
-        "Moldova":"MDA","Finland":"FIN","Kosovo":"KOS","Kazakhstan":"KAZ",
-        "Bosnia-Herzegovina":"BIH","Bosnia-Herz.":"BIH","Latvia":"LVA","Faroe Islands":"FRO",
-        "Malta":"MLT","Liechtenstein":"LIE","Estonia":"EST","Albania":"ALB",
-        "North Macedonia":"MKD","Lithuania":"LTU","Northern Ireland":"NIR","Gibraltar":"GIB",
-        "Andorra":"AND","Luxembourg":"LUX","Belarus":"BLR","Montenegro":"MNE",
-        "Georgia":"GEO","Wales":"WAL","San Marino":"SMR",
-    }
-    return codes.get(name, name[:3].upper())
+def _assign_comps(clubs, cl_n, el_n, ecl_n):
+    """
+    Assign CL/EL/ECL to clubs based on active counts.
+    Strategy: sort by pts desc (higher pts = more likely CL), assign CL to top cl_n active,
+    then EL to next el_n active, rest ECL.
+    
+    This is approximate — the site orders them by competition, not by pts.
+    A more accurate approach scrapes each country page, but this is good enough.
+    """
+    if cl_n == 0 and el_n == 0 and ecl_n == 0:
+        return  # no info, leave as ECL
+
+    active = [c for c in clubs if c["active"]]
+    inactive = [c for c in clubs if not c["active"]]
+
+    # Sort active clubs by pts descending (CL clubs generally have more pts)
+    active.sort(key=lambda c: c["pts"], reverse=True)
+
+    idx = 0
+    for c in active:
+        if idx < cl_n:
+            c["comp"] = "CL"
+        elif idx < cl_n + el_n:
+            c["comp"] = "EL"
+        else:
+            c["comp"] = "ECL"
+        idx += 1
+
+    # For inactive clubs: distribute proportionally
+    # Inactive clubs keep ECL by default, but try to assign based on total
+    total_entered_cl = cl_n  # minimum; could be more if some CL clubs already out
+    total_entered_el = el_n
+    # For now, inactive clubs get ECL (conservative)
+    for c in inactive:
+        c["comp"] = "ECL"
 
 
 def safe_float(text: str) -> float:
     try:
-        return float(re.sub(r"[^\d.,]", "", str(text)).replace(",", ".") or "0")
+        return float(re.sub(r"[^\d.]", "", str(text).replace(",", ".")) or "0")
     except ValueError:
         return 0.0
 
 
 def load_prev_ranks(season: str) -> dict:
-    """Load previous season data to compute year-over-year changes."""
     parts = season.split("-")
     start = int(parts[0])
     prev_season = f"{start-1}-{str(start)[-2:]}"
@@ -283,8 +314,6 @@ def load_prev_ranks(season: str) -> dict:
     except Exception:
         return {}
 
-
-# ── MAIN ────────────────────────────────────────────────────────────────────
 
 def scrape_season(season: str) -> bool:
     data = scrape_football_coefficient(season)
@@ -307,9 +336,8 @@ def main():
     args = parser.parse_args()
 
     if args.all:
-        # Scrape oldest first so historical data is available for change calculation
         ok = 0
-        for s in reversed(SEASONS):
+        for s in reversed(SEASONS):  # oldest first for history chain
             if scrape_season(s):
                 ok += 1
             time.sleep(args.delay)

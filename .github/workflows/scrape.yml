@@ -2,45 +2,47 @@ name: Scrape UEFA Rankings
 
 on:
   schedule:
-    - cron: "*/3 17-23 * * 2,3,4"
-    - cron: "*/10 17-23 * * 0,4,5"
-    - cron: "0 8 * * 1"
+    # Every day at 17:00, 18:30, 20:30, 22:30 UTC (match windows)
+    - cron: '0 17 * * *'
+    - cron: '30 18 * * *'
+    - cron: '30 20 * * *'
+    - cron: '30 22 * * *'
   workflow_dispatch:
     inputs:
-      season:
-        description: 'Season (e.g. 2025-26) or "all"'
+      mode:
+        description: 'Scrape mode'
         required: false
-        default: "2025-26"
-
-permissions:
-  contents: write
+        default: 'current'
+        type: choice
+        options:
+          - current
+          - all_seasons
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-          cache: pip
+          python-version: '3.11'
 
-      - run: pip install -r scraper/requirements.txt
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 lxml
 
-      - name: Scrape season
-        if: github.event.inputs.season != 'all'
-        run: python scraper/scraper.py --season "${{ github.event.inputs.season || '2025-26' }}"
+      - name: Scrape current season
+        if: ${{ github.event.inputs.mode != 'all_seasons' }}
+        run: python scraper/scraper.py --season 2025-26
 
-      - name: Scrape ALL (oldest first for history)
-        if: github.event.inputs.season == 'all'
-        run: python scraper/scraper.py --all --delay 3
+      - name: Scrape all seasons (historical bootstrap)
+        if: ${{ github.event.inputs.mode == 'all_seasons' }}
+        run: python scraper/scraper.py --all --delay 4
 
-      - name: Commit updated data
+      - name: Commit and push
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "UEFA Scraper Bot"
+          git config user.email "bot@github.com"
           git add public/data/
-          git diff --staged --quiet || git commit -m "data: update UEFA rankings $(date -u '+%Y-%m-%d %H:%M UTC')" && git push
+          git diff --staged --quiet || git commit -m "chore: update rankings $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
