@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """
-UEFA Country Ranking Scraper — v3
+UEFA Country Ranking Scraper — v4
 Source: football-coefficient.eu
 
-BUGS FIXES v3:
-- clubs_total = len(clubs list) [était NC sum, qui est en fait les clubs ACTIFS]
-- clubs_active = sum des nombres dans la colonne NC (ex: "6+2+1" = 9 actifs)
-- active flag par club = détection des balises <s>/<del>/<strike> dans le HTML
-- comp par club = déduit depuis la colonne NC ("6+2+1" → 6 CL, 2 EL, 1 ECL)
-  en assignant aux clubs triés par pts dans l'ordre CL→EL→ECL
-- y2/y3/y4/y5 = chaîne historique depuis les fichiers précédents (inchangé)
+Logique des classes CSS du site:
+  el-btn--blue     = club actif en Champions League
+  el-btn--orange   = club actif en Europa League ou Conference League
+  (aucune couleur) = club actif (compétition moindre)
+  club-eliminate   = club ÉLIMINÉ
+
+  comp détecté via:
+  - el-btn--blue   → CL
+  - el-btn--orange → EL ou ECL (déterminé par position dans NC "X+Y+Z")
+  - sinon          → ECL (par défaut)
 """
 
 import json, re, sys, time, argparse, logging
@@ -107,56 +110,46 @@ def parse_fc_eu(soup, season: str) -> dict | None:
             continue
 
         try:
-            # Col 0: rank
             rank = int(re.sub(r"\D", "", cells[0].get_text(strip=True)) or "0")
             if rank == 0:
                 continue
 
-            # Col 1: country name (strip code in parens)
             cname = re.sub(r'\s*\([A-Z]{2,3}\)\s*$', '', cells[1].get_text(strip=True)).strip()
             if not cname:
                 continue
 
-            # Col 2: NR = total coefficient
             bold = cells[2].find(["b", "strong"])
             total = safe_float((bold or cells[2]).get_text(strip=True))
 
-            # Col 3: current season coefficient (Y1)
             y1_raw = safe_float(cells[3].get_text(strip=True)) if len(cells) > 3 else 0.0
 
-            # Col 4: NC = "cl_active+el_active+ecl_active"
-            # This is the number of clubs STILL IN each competition
-            # e.g. "6+2+1" = 6 in CL, 2 in EL, 1 in ECL = 9 still active
+            # NC column: "cl_actifs+el_actifs+ecl_actifs"
             cl_active = el_active = ecl_active = 0
-            clubs_active_total = 0
+            clubs_active_nc = 0
             if len(cells) > 4:
                 nc_text = cells[4].get_text(strip=True)
                 nc_nums = re.findall(r'\d+', nc_text)
                 if len(nc_nums) >= 3:
-                    cl_active, el_active, ecl_active = int(nc_nums[0]), int(nc_nums[1]), int(nc_nums[2])
-                    clubs_active_total = cl_active + el_active + ecl_active
+                    cl_active = int(nc_nums[0])
+                    el_active = int(nc_nums[1])
+                    ecl_active = int(nc_nums[2])
+                    clubs_active_nc = cl_active + el_active + ecl_active
                 elif len(nc_nums) == 1:
-                    clubs_active_total = int(nc_nums[0])
+                    clubs_active_nc = int(nc_nums[0])
 
-            # Col 5: CS = total club points in current season (used for verification)
-
-            # Last col: Club list
+            # Parse clubs from last cell
             clubs = []
             if len(cells) >= 6:
-                clubs = parse_club_cell(cells[-1], cl_active, el_active, ecl_active)
+                clubs = parse_club_cell(cells[-1])
 
-            clubs_total = len(clubs)  # FIXED: total = all clubs listed, not NC sum
+            clubs_total = len(clubs)
+            clubs_active = sum(1 for c in clubs if c["active"])
 
-            # If clubs_active_total > 0, use it; else compute from flags
-            if clubs_active_total == 0:
-                clubs_active_total = sum(1 for c in clubs if c["active"])
-
-            # Y1: prefer site value, fallback to sum(pts)/clubs_total
+            # Y1 from site or calculated
             y1 = y1_raw
             if y1 == 0 and clubs and clubs_total > 0:
                 y1 = round(sum(c["pts"] for c in clubs) / clubs_total, 3)
 
-            # Historical coefficients from previous season file
             prev = prev_ranks.get(cname, {})
             y2 = prev.get("y1", 0.0)
             y3 = prev.get("y2", 0.0)
@@ -176,7 +169,7 @@ def parse_fc_eu(soup, season: str) -> dict | None:
                 "y4": round(y4, 3),
                 "y5": round(y5, 3),
                 "clubs_total": clubs_total,
-                "clubs_active": clubs_active_total,
+                "clubs_active": clubs_active,
                 "clubs": clubs,
             })
 
@@ -195,16 +188,21 @@ def parse_fc_eu(soup, season: str) -> dict | None:
     }
 
 
-def parse_club_cell(cell, cl_active: int, el_active: int, ecl_active: int) -> list:
+def parse_club_cell(cell) -> list:
     """
-    Parse club links from the last cell.
-    
-    KEY FIXES:
-    1. active = NOT wrapped in <s>/<del>/<strike> tag (site crosses out eliminated clubs)
-    2. comp = assigned based on NC counts (cl_active+el_active+ecl_active)
-       Clubs are ordered CL first, then EL, then ECL on the site
-       Active clubs come first within each group, then eliminated ones
-    3. pts = extracted from text sibling after each link
+    Parse les clubs depuis la dernière colonne.
+
+    Logique des classes CSS (confirmée depuis le HTML source) :
+      el-btn--blue     → actif, Champions League
+      el-btn--orange   → actif, Europa League ou Conference League
+      (ni blue ni orange) → actif, compétition ECL par défaut
+      club-eliminate   → ÉLIMINÉ (peut avoir n'importe quelle couleur)
+
+    La comp (CL/EL/ECL) est déduite de la classe de couleur :
+      blue  → CL
+      orange → EL (les clubs EL ont orange ; les ECL actifs sans couleur)
+      Cas ambigu orange ECL : si le club est dans la 3e position NC, c'est ECL
+      → on affine avec _assign_comps après
     """
     clubs = []
     links = cell.find_all("a")
@@ -214,84 +212,43 @@ def parse_club_cell(cell, cl_active: int, el_active: int, ecl_active: int) -> li
         if not name:
             continue
 
-        # FIX 1: Check if link (or its parent) is inside a strikethrough tag
-        # The site wraps eliminated club links in <s> tags
-        is_eliminated = bool(
-            link.find_parents(["s", "del", "strike"]) or
-            link.find_parent(class_=re.compile(r'elimin|out|cross|inactive', re.I))
-        )
-        # Also check link's own style for text-decoration
-        link_style = link.get("style", "") + " ".join(link.get("class", []))
-        if "line-through" in link_style or "eliminated" in link_style.lower():
-            is_eliminated = True
+        # Le div à l'intérieur du lien contient les classes
+        inner_div = link.find("div", class_="el-btn--team")
+        classes = inner_div.get("class", []) if inner_div else []
+        class_str = " ".join(classes)
 
-        # FIX 2: Extract points from the text node following the link
+        # CLEF : club-eliminate = éliminé
+        is_eliminated = "club-eliminate" in class_str
+
+        # Détection comp depuis la couleur
+        if "el-btn--blue" in class_str:
+            comp = "CL"
+        elif "el-btn--orange" in class_str:
+            comp = "EL"  # peut être affiné en ECL si nécessaire
+        else:
+            comp = "ECL"
+
+        # Nom = 1er div enfant, pts = dernier div enfant
         pts = 0.0
-        sib = link.next_sibling
-        if sib:
-            pts_match = re.search(r'([\d,]+\.?\d*)', str(sib))
-            if pts_match:
-                pts = safe_float(pts_match.group(1))
+        if inner_div:
+            pt_divs = inner_div.find_all("div", recursive=False)
+            if len(pt_divs) >= 2:
+                name = pt_divs[0].get_text(strip=True)  # nom propre sans pts
+                pts = safe_float(pt_divs[-1].get_text(strip=True))
+            elif len(pt_divs) == 1:
+                name = pt_divs[0].get_text(strip=True)
+
+        if not name:
+            continue
 
         clubs.append({
             "name": name,
             "pts": pts,
             "active": not is_eliminated,
-            "comp": "ECL",  # default, will be overridden below
+            "comp": comp,
         })
 
-    # Fallback: parse raw text lines if no links found
-    if not clubs:
-        text = cell.get_text(separator="\n", strip=True)
-        for line in text.split("\n"):
-            m = re.match(r'^(.+?)\s+([\d.]+)\s*$', line.strip())
-            if m:
-                clubs.append({"name": m.group(1), "pts": safe_float(m.group(2)), "active": True, "comp": "ECL"})
-
-    # FIX 3: Assign competition based on NC counts
-    # The site lists clubs in order: CL clubs, then EL clubs, then ECL clubs
-    # Within each group, active clubs appear before eliminated ones
-    if cl_active > 0 or el_active > 0 or ecl_active > 0:
-        _assign_comps(clubs, cl_active, el_active, ecl_active)
-
     return clubs
-
-
-def _assign_comps(clubs, cl_n, el_n, ecl_n):
-    """
-    Assign CL/EL/ECL to clubs based on active counts.
-    Strategy: sort by pts desc (higher pts = more likely CL), assign CL to top cl_n active,
-    then EL to next el_n active, rest ECL.
-    
-    This is approximate — the site orders them by competition, not by pts.
-    A more accurate approach scrapes each country page, but this is good enough.
-    """
-    if cl_n == 0 and el_n == 0 and ecl_n == 0:
-        return  # no info, leave as ECL
-
-    active = [c for c in clubs if c["active"]]
-    inactive = [c for c in clubs if not c["active"]]
-
-    # Sort active clubs by pts descending (CL clubs generally have more pts)
-    active.sort(key=lambda c: c["pts"], reverse=True)
-
-    idx = 0
-    for c in active:
-        if idx < cl_n:
-            c["comp"] = "CL"
-        elif idx < cl_n + el_n:
-            c["comp"] = "EL"
-        else:
-            c["comp"] = "ECL"
-        idx += 1
-
-    # For inactive clubs: distribute proportionally
-    # Inactive clubs keep ECL by default, but try to assign based on total
-    total_entered_cl = cl_n  # minimum; could be more if some CL clubs already out
-    total_entered_el = el_n
-    # For now, inactive clubs get ECL (conservative)
-    for c in inactive:
-        c["comp"] = "ECL"
 
 
 def safe_float(text: str) -> float:
@@ -337,11 +294,11 @@ def main():
 
     if args.all:
         ok = 0
-        for s in reversed(SEASONS):  # oldest first for history chain
+        for s in reversed(SEASONS):
             if scrape_season(s):
                 ok += 1
             time.sleep(args.delay)
-        log.info(f"Done: {ok}/{len(SEASONS)}")
+        log.info(f"Done: {ok}/{len(SEASONS)} seasons")
     else:
         sys.exit(0 if scrape_season(args.season) else 1)
 
