@@ -1,0 +1,2364 @@
+{
+  "season": "2020-21",
+  "updated": "2026-03-12T10:39:51.399542+00:00",
+  "countries": [
+    {
+      "rank": 1,
+      "prev_rank": 2,
+      "name": "England",
+      "code": "ENG",
+      "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "total": 100.57,
+      "y1": 24.357,
+      "y2": 18.571,
+      "y3": 22.643,
+      "y4": 20.071,
+      "y5": 14.928,
+      "clubs_total": 7,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Man. City",
+          "pts": 35.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Chelsea",
+          "pts": 33.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Liverpool",
+          "pts": 24.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Arsenal",
+          "pts": 23.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Tottenham",
+          "pts": 19.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Man. United",
+          "pts": 26.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Leicester City",
+          "pts": 10.0,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "prev_rank": 1,
+      "name": "Spain",
+      "code": "ESP",
+      "flag": "🇪🇸",
+      "total": 97.856,
+      "y1": 19.5,
+      "y2": 18.929,
+      "y3": 19.571,
+      "y4": 19.714,
+      "y5": 20.142,
+      "clubs_total": 7,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Real Madrid",
+          "pts": 26.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Barcelona",
+          "pts": 20.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Atlético Madrid",
+          "pts": 16.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Villarreal",
+          "pts": 30.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Sevilla",
+          "pts": 19.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Granada CF",
+          "pts": 17.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "R. Sociedad",
+          "pts": 8.0,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "prev_rank": 4,
+      "name": "Italy",
+      "code": "ITA",
+      "flag": "🇮🇹",
+      "total": 75.44,
+      "y1": 16.286,
+      "y2": 14.929,
+      "y3": 12.642,
+      "y4": 17.333,
+      "y5": 14.25,
+      "clubs_total": 7,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Atalanta BC",
+          "pts": 17.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "AS Roma",
+          "pts": 24.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Juventus",
+          "pts": 21.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "SS Lazio",
+          "pts": 17.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "AC Milan",
+          "pts": 16.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "SSC Napoli",
+          "pts": 10.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Inter",
+          "pts": 9.0,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "prev_rank": 3,
+      "name": "Germany",
+      "code": "GER",
+      "flag": "🇩🇪",
+      "total": 73.57,
+      "y1": 15.214,
+      "y2": 18.714,
+      "y3": 15.214,
+      "y4": 9.857,
+      "y5": 14.571,
+      "clubs_total": 7,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Bayern",
+          "pts": 27.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Leverkusen",
+          "pts": 10.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Borussia.",
+          "pts": 22.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "RB Leipzig",
+          "pts": 17.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Mgladbach",
+          "pts": 15.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Hoffenheim",
+          "pts": 12.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Wolfsburg",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "prev_rank": 5,
+      "name": "France",
+      "code": "FRA",
+      "flag": "🇫🇷",
+      "total": 56.083,
+      "y1": 7.917,
+      "y2": 11.667,
+      "y3": 10.583,
+      "y4": 11.5,
+      "y5": 14.416,
+      "clubs_total": 6,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Paris SG",
+          "pts": 24.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "LOSC",
+          "pts": 8.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Olympique.",
+          "pts": 6.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Stade Rennais",
+          "pts": 5.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Stade Reims",
+          "pts": 2.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "OGC Nice",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "prev_rank": 6,
+      "name": "Portugal",
+      "code": "POR",
+      "flag": "🇵🇹",
+      "total": 48.55,
+      "y1": 9.6,
+      "y2": 10.3,
+      "y3": 10.9,
+      "y4": 9.667,
+      "y5": 8.083,
+      "clubs_total": 5,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Sporting CP",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FC Porto",
+          "pts": 23.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "SC Braga",
+          "pts": 9.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "SL Benfica",
+          "pts": 10.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Rio Ave",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "prev_rank": 10,
+      "name": "Netherlands",
+      "code": "NED",
+      "flag": "🇳🇱",
+      "total": 39.2,
+      "y1": 9.2,
+      "y2": 9.4,
+      "y3": 8.6,
+      "y4": 2.9,
+      "y5": 9.1,
+      "clubs_total": 5,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "AZ Alkmaar",
+          "pts": 8.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Ajax",
+          "pts": 19.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "PSV Eindhoven",
+          "pts": 13.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Feyenoord",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Willem II",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "prev_rank": 7,
+      "name": "Russia",
+      "code": "RUS",
+      "flag": "🇷🇺",
+      "total": 38.383,
+      "y1": 4.333,
+      "y2": 4.667,
+      "y3": 7.583,
+      "y4": 12.6,
+      "y5": 9.2,
+      "clubs_total": 6,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "FC Krasnodar",
+          "pts": 10.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Lokomotiv",
+          "pts": 7.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Zenit",
+          "pts": 5.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "CSKA",
+          "pts": 3.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Rostov",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Dinamo Moscow",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 9,
+      "prev_rank": 8,
+      "name": "Belgium",
+      "code": "BEL",
+      "flag": "🇧🇪",
+      "total": 36.5,
+      "y1": 6.0,
+      "y2": 7.6,
+      "y3": 7.8,
+      "y4": 2.6,
+      "y5": 12.5,
+      "clubs_total": 5,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Club Brugge",
+          "pts": 11.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Royal Antwerp",
+          "pts": 8.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Standard Liège",
+          "pts": 7.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Charleroi",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Gent",
+          "pts": 1.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 10,
+      "prev_rank": 12,
+      "name": "Austria",
+      "code": "AUT",
+      "flag": "🇦🇹",
+      "total": 35.825,
+      "y1": 6.7,
+      "y2": 5.8,
+      "y3": 6.2,
+      "y4": 9.75,
+      "y5": 7.375,
+      "clubs_total": 5,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "LASK Linz",
+          "pts": 10.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FC Salzburg",
+          "pts": 9.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Rapid Wien",
+          "pts": 7.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Wolfsberger AC",
+          "pts": 7.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "TSV Hartberg",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 11,
+      "prev_rank": 14,
+      "name": "Scotland",
+      "code": "SCO",
+      "flag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "total": 33.375,
+      "y1": 8.5,
+      "y2": 9.75,
+      "y3": 6.75,
+      "y4": 4.0,
+      "y5": 4.375,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Rangers FC",
+          "pts": 19.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Celtic FC",
+          "pts": 8.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Aberdeen",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Motherwell FC",
+          "pts": 3.0,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 12,
+      "prev_rank": 9,
+      "name": "Ukraine",
+      "code": "UKR",
+      "flag": "🇺🇦",
+      "total": 33.1,
+      "y1": 6.8,
+      "y2": 7.2,
+      "y3": 5.6,
+      "y4": 8.0,
+      "y5": 5.5,
+      "clubs_total": 5,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Shakhtar",
+          "pts": 14.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Dynamo Kyiv",
+          "pts": 13.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Zorya",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Kolos Kovalivka",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Desna Chernigov",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 13,
+      "prev_rank": 11,
+      "name": "Türkiye",
+      "code": "TUR",
+      "flag": "🇹🇷",
+      "total": 30.1,
+      "y1": 3.1,
+      "y2": 5.0,
+      "y3": 5.5,
+      "y4": 6.8,
+      "y5": 9.7,
+      "clubs_total": 5,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Galatasaray",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Başakşehir",
+          "pts": 6.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Sivasspor",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Beşiktaş",
+          "pts": 1.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Alanyaspor",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 14,
+      "prev_rank": 13,
+      "name": "Denmark",
+      "code": "DEN",
+      "flag": "🇩🇰",
+      "total": 27.875,
+      "y1": 4.125,
+      "y2": 5.125,
+      "y3": 4.875,
+      "y4": 5.25,
+      "y5": 8.5,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Midtjylland",
+          "pts": 10.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "København",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Aarhus GF",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "SønderjyskE",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 15,
+      "prev_rank": 16,
+      "name": "Cyprus",
+      "code": "CYP",
+      "flag": "🇨🇾",
+      "total": 27.75,
+      "y1": 4.0,
+      "y2": 5.125,
+      "y3": 6.125,
+      "y4": 7.0,
+      "y5": 5.5,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Omonia",
+          "pts": 7.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "APOEL",
+          "pts": 4.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Apollon",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Famagusta",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 16,
+      "prev_rank": 19,
+      "name": "Serbia",
+      "code": "SRB",
+      "flag": "🇷🇸",
+      "total": 26.75,
+      "y1": 5.5,
+      "y2": 6.0,
+      "y3": 6.0,
+      "y4": 6.375,
+      "y5": 2.875,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Crvena Zvezda",
+          "pts": 15.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Partizan",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Bačka Topola",
+          "pts": 2.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Vojvodina",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 17,
+      "prev_rank": 15,
+      "name": "Czechia",
+      "code": "CZE",
+      "flag": "🇨🇿",
+      "total": 26.6,
+      "y1": 6.6,
+      "y2": 2.5,
+      "y3": 6.5,
+      "y4": 5.5,
+      "y5": 5.5,
+      "clubs_total": 5,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Sparta Praha",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Slavia Praha",
+          "pts": 16.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Slovan Liberec",
+          "pts": 9.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Viktoria Plzeň",
+          "pts": 2.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Jablonec",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 18,
+      "prev_rank": 20,
+      "name": "Croatia",
+      "code": "CRO",
+      "flag": "🇭🇷",
+      "total": 26.275,
+      "y1": 5.9,
+      "y2": 4.375,
+      "y3": 5.75,
+      "y4": 5.125,
+      "y5": 5.125,
+      "clubs_total": 5,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "HNK Rijeka",
+          "pts": 6.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Dinamo Zagreb",
+          "pts": 20.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Hajduk Split",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Lokomotiva.",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "NK Osijek",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 19,
+      "prev_rank": 17,
+      "name": "Switzerland",
+      "code": "SUI",
+      "flag": "🇨🇭",
+      "total": 26.225,
+      "y1": 5.125,
+      "y2": 6.4,
+      "y3": 3.9,
+      "y4": 6.5,
+      "y5": 4.3,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Young Boys",
+          "pts": 14.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FC Basel",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Servette",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FC St Gallen",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 20,
+      "prev_rank": 18,
+      "name": "Greece",
+      "code": "GRE",
+      "flag": "🇬🇷",
+      "total": 26.0,
+      "y1": 5.1,
+      "y2": 4.9,
+      "y3": 5.1,
+      "y4": 5.1,
+      "y5": 5.8,
+      "clubs_total": 5,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "AEK Athens",
+          "pts": 5.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Olympiacos",
+          "pts": 11.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "PAOK FC",
+          "pts": 8.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Aris",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "OFI Heraklion",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 21,
+      "prev_rank": 23,
+      "name": "Israel",
+      "code": "ISR",
+      "flag": "🇮🇱",
+      "total": 24.375,
+      "y1": 7.0,
+      "y2": 2.375,
+      "y3": 2.625,
+      "y4": 5.625,
+      "y5": 6.75,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "M. Tel-Aviv",
+          "pts": 12.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "H. Beer-Sheva",
+          "pts": 10.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "M. Haifa",
+          "pts": 5.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Beitar",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 22,
+      "prev_rank": 22,
+      "name": "Norway",
+      "code": "NOR",
+      "flag": "🇳🇴",
+      "total": 21.0,
+      "y1": 6.5,
+      "y2": 3.75,
+      "y3": 5.375,
+      "y4": 4.0,
+      "y5": 1.375,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Bodø/Glimt",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Molde FK",
+          "pts": 17.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Rosenborg",
+          "pts": 5.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Viking FK",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 23,
+      "prev_rank": 21,
+      "name": "Sweden",
+      "code": "SWE",
+      "flag": "🇸🇪",
+      "total": 20.5,
+      "y1": 2.5,
+      "y2": 5.75,
+      "y3": 4.125,
+      "y4": 5.375,
+      "y5": 2.75,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Malmö FF",
+          "pts": 5.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Djurgårdens IF",
+          "pts": 2.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Hammarby IF",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Göteborg",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 24,
+      "prev_rank": 27,
+      "name": "Bulgaria",
+      "code": "BUL",
+      "flag": "🇧🇬",
+      "total": 20.375,
+      "y1": 4.0,
+      "y2": 4.125,
+      "y3": 4.0,
+      "y4": 4.0,
+      "y5": 4.25,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "CSKA Sofia",
+          "pts": 10.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Ludogorets",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Lokomotiv.",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Slavia Sofia",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 25,
+      "prev_rank": 28,
+      "name": "Romania",
+      "code": "ROU",
+      "flag": "🇷🇴",
+      "total": 18.2,
+      "y1": 3.75,
+      "y2": 5.875,
+      "y3": 2.375,
+      "y4": 2.9,
+      "y5": 3.3,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "CFR Cluj",
+          "pts": 9.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FCSB",
+          "pts": 3.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FC Botoşani",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "CS Craiova",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 26,
+      "prev_rank": 26,
+      "name": "Azerbaijan",
+      "code": "AZE",
+      "flag": "🇦🇿",
+      "total": 16.875,
+      "y1": 2.5,
+      "y2": 3.375,
+      "y3": 2.375,
+      "y4": 4.375,
+      "y5": 4.25,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Qarabag FK",
+          "pts": 6.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Neftchi",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Keşlə FK",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Sumgayit FK",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 27,
+      "prev_rank": 32,
+      "name": "Hungary",
+      "code": "HUN",
+      "flag": "🇭🇺",
+      "total": 15.875,
+      "y1": 4.25,
+      "y2": 4.5,
+      "y3": 3.25,
+      "y4": 2.0,
+      "y5": 1.875,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Ferencváros",
+          "pts": 10.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Fehérvár",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Budapest Honvéd",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Puskás FC",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 28,
+      "prev_rank": 24,
+      "name": "Kazakhstan",
+      "code": "KAZ",
+      "flag": "🇰🇿",
+      "total": 15.625,
+      "y1": 1.0,
+      "y2": 3.375,
+      "y3": 4.25,
+      "y4": 4.25,
+      "y5": 2.75,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Kairat",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Astana",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Kaysar",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Ordabasy",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 29,
+      "prev_rank": 25,
+      "name": "Belarus",
+      "code": "BLR",
+      "flag": "🇧🇾",
+      "total": 15.25,
+      "y1": 1.5,
+      "y2": 2.5,
+      "y3": 5.0,
+      "y4": 3.25,
+      "y5": 3.0,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Dinamo Brest",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Shakhtyor",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "BATE Borisov",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Dinamo Minsk",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 30,
+      "prev_rank": 29,
+      "name": "Poland",
+      "code": "POL",
+      "flag": "🇵🇱",
+      "total": 15.125,
+      "y1": 4.0,
+      "y2": 2.125,
+      "y3": 2.25,
+      "y4": 2.875,
+      "y5": 3.875,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Lech Poznan",
+          "pts": 8.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Legia Warszawa",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Piast",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "KS Cracovia",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 31,
+      "prev_rank": 33,
+      "name": "Slovenia",
+      "code": "SVN",
+      "flag": "🇸🇮",
+      "total": 14.25,
+      "y1": 2.25,
+      "y2": 2.0,
+      "y3": 3.125,
+      "y4": 4.625,
+      "y5": 2.25,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "NK Celje",
+          "pts": 2.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Mura",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "O. Ljubljana",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "NK Maribor",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 32,
+      "prev_rank": 30,
+      "name": "Slovakia",
+      "code": "SVK",
+      "flag": "🇸🇰",
+      "total": 13.625,
+      "y1": 1.5,
+      "y2": 3.0,
+      "y3": 5.125,
+      "y4": 1.875,
+      "y5": 2.125,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "DAC",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Slovan.",
+          "pts": 1.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "MŠK Žilina",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "MFK Ružomberok",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 33,
+      "prev_rank": 31,
+      "name": "Liechtenstein",
+      "code": "LIE",
+      "flag": "🇱🇮",
+      "total": 9.0,
+      "y1": 0.5,
+      "y2": 2.5,
+      "y3": 1.5,
+      "y4": 2.0,
+      "y5": 2.5,
+      "clubs_total": 1,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "FC Vaduz",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 34,
+      "prev_rank": 35,
+      "name": "Lithuania",
+      "code": "LTU",
+      "flag": "🇱🇹",
+      "total": 8.75,
+      "y1": 1.625,
+      "y2": 1.625,
+      "y3": 2.625,
+      "y4": 2.375,
+      "y5": 0.5,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Žalgiris",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FK Riteriai",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Sūduva",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Kauno Žalgiris",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 35,
+      "prev_rank": 34,
+      "name": "Luxembourg",
+      "code": "LUX",
+      "flag": "🇱🇺",
+      "total": 8.25,
+      "y1": 1.0,
+      "y2": 3.0,
+      "y3": 2.625,
+      "y4": 0.875,
+      "y5": 0.75,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Progrès.",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Fola",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Differdange",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Union Titus.",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 36,
+      "prev_rank": 40,
+      "name": "Bosnia-Herzegovina",
+      "code": "BIH",
+      "flag": "🇧🇦",
+      "total": 8.0,
+      "y1": 2.625,
+      "y2": 1.5,
+      "y3": 2.0,
+      "y4": 1.375,
+      "y5": 0.5,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "FK Sarajevo",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Zrinjski",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "B. Banja Luka",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Željezničar.",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 37,
+      "prev_rank": 42,
+      "name": "Ireland",
+      "code": "IRL",
+      "flag": "🇮🇪",
+      "total": 7.875,
+      "y1": 1.875,
+      "y2": 1.25,
+      "y3": 1.0,
+      "y4": 1.125,
+      "y5": 2.625,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Dundalk",
+          "pts": 4.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Shamrock",
+          "pts": 1.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Bohemian FC",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Derry City",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 38,
+      "prev_rank": 38,
+      "name": "North Macedonia",
+      "code": "MKD",
+      "flag": "🇲🇰",
+      "total": 7.625,
+      "y1": 1.75,
+      "y2": 0.5,
+      "y3": 1.0,
+      "y4": 3.125,
+      "y5": 1.25,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Shkëndija",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FK Renova",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Sileks",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "KF Shkupi",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 39,
+      "prev_rank": 36,
+      "name": "Latvia",
+      "code": "LVA",
+      "flag": "🇱🇻",
+      "total": 7.375,
+      "y1": 1.375,
+      "y2": 2.25,
+      "y3": 1.625,
+      "y4": 0.75,
+      "y5": 1.375,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Riga FC",
+          "pts": 2.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Ventspils",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "RFS Riga",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Valmiera",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 40,
+      "prev_rank": 37,
+      "name": "Armenia",
+      "code": "ARM",
+      "flag": "🇦🇲",
+      "total": 7.375,
+      "y1": 1.375,
+      "y2": 2.75,
+      "y3": 1.5,
+      "y4": 0.625,
+      "y5": 1.125,
+      "clubs_total": 3,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Ararat-Armenia",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Shirak",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Alashkert",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 41,
+      "prev_rank": 39,
+      "name": "Albania",
+      "code": "ALB",
+      "flag": "🇦🇱",
+      "total": 7.25,
+      "y1": 2.0,
+      "y2": 0.75,
+      "y3": 1.0,
+      "y4": 2.625,
+      "y5": 0.875,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "KF Tiranë",
+          "pts": 2.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FK Kukësi",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Teuta",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "KF Laçi",
+          "pts": 1.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 42,
+      "prev_rank": 48,
+      "name": "Northern Ireland",
+      "code": "NIR",
+      "flag": "🇬🇧",
+      "total": 6.958,
+      "y1": 2.833,
+      "y2": 2.375,
+      "y3": 0.5,
+      "y4": 0.75,
+      "y5": 0.5,
+      "clubs_total": 3,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Coleraine FC",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Linfield",
+          "pts": 3.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Glentoran",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 43,
+      "prev_rank": 41,
+      "name": "Moldova",
+      "code": "MDA",
+      "flag": "🇲🇩",
+      "total": 6.875,
+      "y1": 1.375,
+      "y2": 0.75,
+      "y3": 1.125,
+      "y4": 2.75,
+      "y5": 0.875,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "FC Sheriff",
+          "pts": 3.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FC Sfîntul.",
+          "pts": 1.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "CS Petrocub",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Dinamo Auto",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 44,
+      "prev_rank": 43,
+      "name": "Finland",
+      "code": "FIN",
+      "flag": "🇫🇮",
+      "total": 6.875,
+      "y1": 1.375,
+      "y2": 1.625,
+      "y3": 0.875,
+      "y4": 1.25,
+      "y5": 1.75,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Kuopion PS",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Ilves Tampere",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Inter Turku",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Honka Espoo",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 45,
+      "prev_rank": 44,
+      "name": "Georgia",
+      "code": "GEO",
+      "flag": "🇬🇪",
+      "total": 6.875,
+      "y1": 1.75,
+      "y2": 2.25,
+      "y3": 1.625,
+      "y4": 0.125,
+      "y5": 1.125,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Lokomotiv.",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Dinamo Tbilisi",
+          "pts": 2.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Iberia 1999",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Dinamo Batumi",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 46,
+      "prev_rank": 45,
+      "name": "Malta",
+      "code": "MLT",
+      "flag": "🇲🇹",
+      "total": 6.375,
+      "y1": 1.5,
+      "y2": 0.75,
+      "y3": 1.5,
+      "y4": 1.375,
+      "y5": 1.25,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Floriana FC",
+          "pts": 3.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Hibernians",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Sirens FC",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Valletta",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 47,
+      "prev_rank": 53,
+      "name": "Faroe Islands",
+      "code": "FRO",
+      "flag": "🇫🇴",
+      "total": 6.125,
+      "y1": 2.75,
+      "y2": 1.125,
+      "y3": 1.125,
+      "y4": 0.75,
+      "y5": 0.375,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "B36 Tórshavn",
+          "pts": 4.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "KI Klaksvik",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "NSÍ Runavík",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "HB Tórshavn",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 48,
+      "prev_rank": 52,
+      "name": "Kosovo",
+      "code": "KOS",
+      "flag": "🇽🇰",
+      "total": 5.833,
+      "y1": 1.833,
+      "y2": 1.5,
+      "y3": 2.5,
+      "y4": 0.0,
+      "y5": 0.0,
+      "clubs_total": 3,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Drita Gjilan",
+          "pts": 3.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "KF Gjilani",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Prishtina KF",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 49,
+      "prev_rank": 49,
+      "name": "Gibraltar",
+      "code": "GIB",
+      "flag": "🇬🇮",
+      "total": 5.667,
+      "y1": 1.667,
+      "y2": 1.0,
+      "y3": 1.0,
+      "y4": 0.5,
+      "y5": 1.5,
+      "clubs_total": 3,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Lincoln",
+          "pts": 3.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Europa",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "St. Joseph's FC",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 50,
+      "prev_rank": 47,
+      "name": "Wales",
+      "code": "WAL",
+      "flag": "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
+      "total": 5.0,
+      "y1": 1.5,
+      "y2": 1.0,
+      "y3": 1.0,
+      "y4": 0.5,
+      "y5": 1.0,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "TNS",
+          "pts": 2.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Bala Town",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Connah's Quay",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Barry Town Utd",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 51,
+      "prev_rank": 50,
+      "name": "Montenegro",
+      "code": "MNE",
+      "flag": "🇲🇪",
+      "total": 5.0,
+      "y1": 1.625,
+      "y2": 1.0,
+      "y3": 0.375,
+      "y4": 1.125,
+      "y5": 0.875,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Podgorica",
+          "pts": 2.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FK Zeta",
+          "pts": 2.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Danilovgrad",
+          "pts": 1.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FK Sutjeska",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 52,
+      "prev_rank": 46,
+      "name": "Iceland",
+      "code": "ISL",
+      "flag": "🇮🇸",
+      "total": 4.875,
+      "y1": 0.625,
+      "y2": 0.625,
+      "y3": 1.5,
+      "y4": 1.125,
+      "y5": 1.0,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "KR Reykjavík",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Víkingur",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Breidablik",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "FH Hafnarfjördur",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 53,
+      "prev_rank": 51,
+      "name": "Estonia",
+      "code": "EST",
+      "flag": "🇪🇪",
+      "total": 4.75,
+      "y1": 1.375,
+      "y2": 0.875,
+      "y3": 0.5,
+      "y4": 0.625,
+      "y5": 1.375,
+      "clubs_total": 4,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "Flora",
+          "pts": 4.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Kalju",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Levadia",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Paide.",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 54,
+      "prev_rank": 54,
+      "name": "Andorra",
+      "code": "AND",
+      "flag": "🇦🇩",
+      "total": 3.333,
+      "y1": 0.667,
+      "y2": 1.5,
+      "y3": 0.833,
+      "y4": 0.167,
+      "y5": 0.166,
+      "clubs_total": 3,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "FC Santa Coloma",
+          "pts": 1.0,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "UE Engordany",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Inter Club d.",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    },
+    {
+      "rank": 55,
+      "prev_rank": 55,
+      "name": "San Marino",
+      "code": "SMR",
+      "flag": "🇸🇲",
+      "total": 1.167,
+      "y1": 0.5,
+      "y2": 0.0,
+      "y3": 0.5,
+      "y4": 0.167,
+      "y5": 0.0,
+      "clubs_total": 3,
+      "clubs_active": 0,
+      "clubs": [
+        {
+          "name": "SP Tre Fiori",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "La Fiorita",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        },
+        {
+          "name": "Tre Penne",
+          "pts": 0.5,
+          "active": false,
+          "comp": "CL"
+        }
+      ]
+    }
+  ],
+  "zone_thresholds": {
+    "cl_direct": 4,
+    "cl_qual": 10,
+    "el_direct": 6,
+    "el_qual": 15,
+    "ecl_qual": 55
+  }
+}
