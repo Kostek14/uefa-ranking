@@ -207,6 +207,39 @@ tr.drow td{padding:0;border-bottom:2px solid var(--cl2)}
 .rv-w{color:#86efac;font-weight:700}.rv-d{color:#fcd34d;font-weight:600}.rv-0{color:var(--bd2)}
 .rdot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:middle}
 .rdot.on{background:var(--green)}.rdot.off{background:var(--red)}
+
+/* ROUNDS TABLE — footballseeding style */
+.fs-wrap{margin-top:14px;overflow-x:auto}
+.fs-table{border-collapse:collapse;font-size:11px;width:100%}
+.fs-table th,.fs-table td{border:1px solid #2a2e3a;padding:3px 5px;text-align:center;white-space:nowrap}
+/* Header compétitions */
+.fs-th-comp{font-size:11px;font-weight:700;padding:5px 8px;text-transform:uppercase;letter-spacing:.05em}
+.fs-th-comp.cl{background:#1a2f52;color:#93c5fd}
+.fs-th-comp.el{background:#4a1a06;color:#fdba74}
+.fs-th-comp.ecl{background:#0d3320;color:#86efac}
+/* Header rounds */
+.fs-th-round{background:#1c1f2a;color:#5c6480;font-size:9.5px;font-weight:700;padding:3px 4px;text-transform:uppercase}
+/* Header Score/Sigma */
+.fs-th-score{background:#1c1f2a;color:#8b92b3;font-size:10px;font-weight:700;padding:4px 8px}
+/* Club rows */
+.fs-club-active td.fs-td-club{background:#1a3a1a;color:#86efac;font-weight:600;text-align:left;padding:3px 8px}
+.fs-club-elim td.fs-td-club{background:#1e2025;color:#5c6480;font-weight:500;text-align:left;padding:3px 8px;text-decoration:line-through;text-decoration-color:rgba(239,68,68,.4)}
+/* Score sigma */
+.fs-td-sigma{font-weight:700;font-size:12px;padding:3px 8px}
+.fs-club-active .fs-td-sigma{background:#1a3a1a;color:#86efac}
+.fs-club-elim .fs-td-sigma{background:#1e2025;color:#5c6480}
+/* Valeurs rounds */
+.fs-v-w{background:#1a4a1a;color:#86efac;font-weight:700}   /* Win: 2 */
+.fs-v-d{background:#4a3a0a;color:#fcd34d;font-weight:600}   /* Draw: 1 */
+.fs-v-l{background:#4a1a1a;color:#fca5a5;font-weight:600}   /* Loss: 0 explicit */
+.fs-v-n{background:#141820;color:#2a2e3a}                   /* Not played: — */
+.fs-v-q{background:#1a2a3a;color:#60a5fa;font-weight:600}   /* Qualifying win */
+/* SUM row */
+.fs-tr-sum td{background:#0e1520;color:#dde1ec;font-weight:700;font-size:11px;padding:4px 6px}
+.fs-tr-sum td.fs-td-club{color:#8b92b3;text-align:left;background:#0e1520;text-decoration:none}
+/* Coefficient row */
+.fs-tr-coeff td{background:#0b0d12;color:#a78bfa;font-size:11px;padding:4px 8px}
+.fs-tr-coeff td.fs-td-formula{text-align:left;color:#8b92b3;font-size:10.5px}
 </style>
 </head>
 <body>
@@ -302,10 +335,11 @@ tr.drow td{padding:0;border-bottom:2px solid var(--cl2)}
 <!-- CLUBS -->
 <div id="tab-clubs" style="display:none">
   <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:6px;padding:8px 14px;font-size:12px;color:var(--cl3);margin-bottom:10px">
-    <strong>Y1 club ranking</strong> — current season points (sorted by pts earned this season). Clubs in <span style="color:var(--green);font-weight:700">green</span> = still active. <span style="color:var(--muted)">Grey strikethrough</span> = eliminated.
+    <strong>Club ranking (5 seasons)</strong> — clubs from all 5 seasons counted in the current country coefficient. Pts = total points earned that season. Clubs in <span style="color:var(--green);font-weight:700">green</span> = still active this season.
   </div>
   <div class="cfilters">
     <input type="text" id="cq" placeholder="Search club or country…"/>
+    <select id="cseason"><option value="">All 5 seasons</option></select>
     <select id="ccomp"><option value="">All competitions</option><option value="CL">Champions League</option><option value="EL">Europa League</option><option value="ECL">Conference League</option></select>
     <select id="cstat"><option value="">All status</option><option value="active">Active ●</option><option value="out">Eliminated</option></select>
   </div>
@@ -317,6 +351,7 @@ tr.drow td{padding:0;border-bottom:2px solid var(--cl2)}
         <th style="padding:7px 8px;text-align:left;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Country</th>
         <th style="padding:7px 8px;text-align:center;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;width:50px">Comp</th>
         <th style="padding:7px 8px;text-align:right;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;width:80px">Y1 pts</th>
+        <th style="padding:7px 8px;text-align:center;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;width:70px">Season</th>
         <th style="padding:7px 8px;text-align:center;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;width:90px">Status</th>
       </tr></thead>
       <tbody id="clubtb"></tbody>
@@ -515,6 +550,18 @@ let cIdx=0,cData=null,expCode=null,sortCol='rank',sortDir=1,allClubs=[];
 let simState={},histChart=null,cmpChart=null,statsInited=false,chartMode='pts';
 const SEP=new Set([5,7,11,13,16,35,51]);
 
+// ── PRE-LOAD HIST CLUBS ──
+// Pré-charger les clubs des saisons HIST dans allClubsBySeason
+(function(){
+  Object.entries(HIST).forEach(([season,data])=>{
+    allClubsBySeason[season]=[];
+    (data.countries||[]).forEach(c=>(c.clubs||[]).forEach(cl=>{
+      allClubsBySeason[season].push({country:c.name,flag:c.flag,code:c.code,
+        name:cl.name,pts:+cl.pts||0,active:false,comp:cl.comp,season});
+    }));
+  });
+})();
+
 // ── SEASON NAV ──
 const ssel=document.getElementById('ssel');
 SEASONS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=s;ssel.appendChild(o);});
@@ -646,7 +693,7 @@ function toggleDetail(tr,c){
       ${section('EL','el','Europa League')}
       ${section('ECL','ecl','Conference League')}
     </div>
-    ${buildAllRounds(clubs,live)}
+    ${buildFSTable(clubs,live)}
     <div class="dbox-foot">Season coefficient (Y1): <strong style="color:var(--text)">${coeff}</strong> &nbsp;·&nbsp; 5-year total: <strong style="color:var(--cl)">${c.total.toFixed(3)}</strong></div>
   </div></td>`;
   tr.after(det);
@@ -715,32 +762,86 @@ function renderFixtures(){
 }
 
 // ── CLUB RANKING ──
+// allClubsBySeason[season] = [{country,flag,code,name,pts,active,comp,season}]
+let allClubsBySeason={};
+
 function buildClubList(data){
-  allClubs=[];
-  if(!data)return;
-  data.countries.forEach(c=>(c.clubs||[]).forEach(cl=>{allClubs.push({country:c.name,flag:c.flag,code:c.code,name:cl.name,pts:+cl.pts||0,active:cl.active,comp:cl.comp});}));
-  allClubs.sort((a,b)=>b.pts-a.pts).forEach((c,i)=>c.rank=i+1);
+  // Ajouter les clubs de cette saison au cache
+  if(!data) return;
+  const season=data.season||SEASONS[cIdx];
+  allClubsBySeason[season]=[];
+  data.countries.forEach(c=>(c.clubs||[]).forEach(cl=>{
+    allClubsBySeason[season].push({country:c.name,flag:c.flag,code:c.code,
+      name:cl.name,pts:+cl.pts||0,active:cl.active,comp:cl.comp,season});
+  }));
+  // Mettre à jour le filtre saison
+  populateSeasonFilter();
 }
+
+function populateSeasonFilter(){
+  const sel=document.getElementById('cseason');
+  if(!sel) return;
+  const current=sel.value;
+  // Garder le premier option "All 5 seasons"
+  while(sel.options.length>1) sel.remove(1);
+  Object.keys(allClubsBySeason).sort().reverse().forEach(s=>{
+    const o=document.createElement('option');
+    o.value=s; o.textContent=s;
+    sel.appendChild(o);
+  });
+  sel.value=current||'';
+}
+
+function getAllClubs(){
+  // Agréger toutes les saisons disponibles (max 5 dernières)
+  const activeSeason=SEASONS[cIdx];
+  // Saisons Y1..Y5 de la saison active
+  const base=parseInt(activeSeason.split('-')[0]);
+  const y5seasons=[];
+  for(let i=0;i<5;i++){
+    const yr=base-i;
+    y5seasons.push(`${yr}-${(yr+1).toString().slice(-2)}`);
+  }
+  const map={};
+  y5seasons.forEach(s=>{
+    const list=allClubsBySeason[s]||[];
+    list.forEach(cl=>{
+      const key=cl.name+'|'+cl.country+'|'+s;
+      if(!map[key]) map[key]={...cl,season:s};
+    });
+  });
+  return Object.values(map).sort((a,b)=>b.pts-a.pts).map((c,i)=>({...c,rank:i+1}));
+}
+
 function renderClubs(){
   const q=document.getElementById('cq').value.toLowerCase().trim();
   const comp=document.getElementById('ccomp').value;
   const stat=document.getElementById('cstat').value;
+  const season=document.getElementById('cseason').value;
   const tb=document.getElementById('clubtb');
-  if(!allClubs.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--muted)">Select the 2025-26 season first.</td></tr>';return;}
-  let list=allClubs.filter(c=>(!q||c.name.toLowerCase().includes(q)||c.country.toLowerCase().includes(q))&&(!comp||c.comp===comp)&&(!stat||(stat==='active'?c.active:!c.active)));
-  if(!list.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--muted)">No clubs found.</td></tr>';return;}
-  tb.innerHTML=list.slice(0,300).map(cl=>`<tr style="border-bottom:1px solid var(--bd)" class="${q&&cl.name.toLowerCase().includes(q)?'chl':''}">
+  const all=getAllClubs();
+  if(!all.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Load a season first.</td></tr>';return;}
+  let list=all.filter(c=>
+    (!q||(c.name.toLowerCase().includes(q)||c.country.toLowerCase().includes(q)))&&
+    (!comp||c.comp===comp)&&
+    (!stat||(stat==='active'?c.active:!c.active))&&
+    (!season||c.season===season)
+  );
+  if(!list.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--muted)">No clubs found.</td></tr>';return;}
+  const isY1s=s=>s===SEASONS[cIdx];
+  tb.innerHTML=list.slice(0,500).map(cl=>`<tr style="border-bottom:1px solid var(--bd)" class="${q&&cl.name.toLowerCase().includes(q)?'chl':''}">
     <td style="text-align:center;font-weight:700;color:var(--muted);padding:5px 8px;font-family:'JetBrains Mono',monospace;font-size:11px">${cl.rank}</td>
-    <td style="text-align:left;padding:5px 8px"><span style="font-weight:600;color:${cl.active?'var(--text)':'var(--muted)'};${cl.active?'':'text-decoration:line-through;text-decoration-color:rgba(239,68,68,.4)'}">${cl.name}</span></td>
+    <td style="text-align:left;padding:5px 8px"><span style="font-weight:600;color:${cl.active&&isY1s(cl.season)?'var(--text)':'var(--muted)'};${cl.active&&isY1s(cl.season)?'':'text-decoration:line-through;text-decoration-color:rgba(239,68,68,.4)'}">${cl.name}</span></td>
     <td style="text-align:left;padding:5px 8px;font-size:11px"><span style="font-size:14px">${cl.flag}</span> <span style="color:var(--muted)">${cl.country}</span></td>
     <td style="text-align:center;padding:5px 8px"><span class="comp-badge ${cl.comp.toLowerCase()}">${cl.comp}</span></td>
-    <td style="text-align:right;font-weight:700;padding:5px 8px;font-family:'JetBrains Mono',monospace;color:${cl.active?'var(--green)':'var(--muted)'}">${cl.pts.toFixed(0)}</td>
-    <td style="text-align:center;font-size:11px;padding:5px 8px">${cl.active?'<span style="color:var(--green);font-weight:600">● Active</span>':'<span style="color:var(--red);font-size:10px">● Out</span>'}</td>
+    <td style="text-align:right;font-weight:700;padding:5px 8px;font-family:'JetBrains Mono',monospace;color:${cl.active&&isY1s(cl.season)?'var(--green)':'var(--muted)'}">${cl.pts.toFixed(0)}</td>
+    <td style="text-align:center;font-size:11px;padding:5px 8px;color:var(--muted2)">${cl.season}</td>
+    <td style="text-align:center;font-size:11px;padding:5px 8px">${cl.active&&isY1s(cl.season)?'<span style="color:var(--green);font-weight:600">● Active</span>':isY1s(cl.season)?'<span style="color:var(--red);font-size:10px">● Out</span>':'<span style="color:var(--muted);font-size:10px">—</span>'}</td>
   </tr>`).join('');
   if(q)setTimeout(()=>document.querySelector('.chl')?.scrollIntoView({behavior:'smooth',block:'center'}),80);
 }
 ['cq'].forEach(id=>document.getElementById(id).addEventListener('input',renderClubs));
-['ccomp','cstat'].forEach(id=>document.getElementById(id).addEventListener('change',renderClubs));
+['ccomp','cstat','cseason'].forEach(id=>document.getElementById(id).addEventListener('change',renderClubs));
 
 // ── GLOBAL SEARCH ──
 const gsi=document.getElementById('gsearch'),srd=document.getElementById('srdrop');
@@ -908,71 +1009,158 @@ function toggleW(bodyId,iconId){
 }
 
 
-// ── ROUNDS TABLE ──
-const COMP_ROUNDS={
-  CL:['FI','SF','QF','R16','PO','G8','G7','G6','G5','G4','G3','G2','G1','Q'],
-  EL:['FI','SF','QF','R16','PO','G6','G5','G4','G3','G2','G1','Q'],
-  ECL:['FI','SF','QF','R16','PO','G6','G5','G4','G3','G2','G1','Q']
+// ── ROUNDS TABLE — footballseeding style ──
+const COMP_ROUNDS_DEF = {
+  CL:  {cols:['FI','SF','QF','16','PO','G8','G7','G6','G5','G4','G3','G2','G1','Q'], label:'Champions League',     cls:'cl'},
+  EL:  {cols:['FI','SF','QF','16','IR','PO','G6','G5','G4','G3','G2','G1','Q'],      label:'Europa League',        cls:'el'},
+  ECL: {cols:['FI','SF','QF','16','IR','PO','G6','G5','G4','G3','G2','G1','Q'],      label:'Europa Conference Lg', cls:'ecl'}
 };
+// Map scraper keys → display keys
+const COL_ALIAS = {'R16':'16','PO':'PO'};
 
-function buildRoundsTable(clubs, comp, live){
-  const cols=COMP_ROUNDS[comp];
-  if(!cols) return '';
-  const list=clubs.filter(cl=>cl.comp===comp&&cl.rounds&&cl.rounds[comp]);
-  if(!list.length) return '';
-  // Colonnes avec au moins une valeur non nulle
-  const active=cols.filter(col=>list.some(cl=>(cl.rounds[comp][col]||0)>0));
-  if(!active.length) return '';
-  const cls=comp.toLowerCase();
-  const compLabels={CL:'Champions League',EL:'Europa League',ECL:'Conference League'};
-  let colTotals={};active.forEach(c=>colTotals[c]=0);
-  let matchTotal=0;
-
-  const rows=list.map(cl=>{
-    const r=cl.rounds[comp]||{};
-    let s=0;
-    const cells=active.map(col=>{
-      const v=r[col]||0;
-      colTotals[col]+=v;
-      s+=v;
-      if(v>=2)return`<td class="rv-w">${v}</td>`;
-      if(v>=1)return`<td class="rv-d">${v}</td>`;
-      return`<td class="rv-0">—</td>`;
-    }).join('');
-    matchTotal+=s;
-    const lv=cl.active&&live.has(cl.name)?'<span style="font-size:9px;color:var(--red);font-weight:700;margin-left:3px">⚽</span>':'';
-    const dot=`<span class="rdot ${cl.active?'on':'off'}"></span>`;
-    const nm=cl.active?cl.name:`<span style="text-decoration:line-through;color:var(--muted)">${cl.name}</span>`;
-    return`<tr><td class="td-club">${dot}${nm}${lv}</td>${cells}<td class="td-sum">${s||'—'}</td></tr>`;
-  }).join('');
-
-  const sumCells=active.map(col=>`<td style="font-weight:700">${colTotals[col]||'—'}</td>`).join('');
-  const nc=list.length;
-  const coeff=nc>0?(matchTotal/nc).toFixed(3):'—';
-  const colspan=active.length+2;
-
-  return`<div class="rcomp-block">
-    <span class="rcomp-label ${cls}">${compLabels[comp]||comp}</span>
-    <div style="overflow-x:auto">
-    <table class="rtable">
-      <thead><tr>
-        <th class="th-club">Club</th>
-        ${active.map(c=>`<th>${c}</th>`).join('')}
-        <th class="th-sum">Σ</th>
-      </tr></thead>
-      <tbody>
-        ${rows}
-        <tr class="tr-total"><td class="td-club" style="font-size:10px;color:var(--muted)">Total</td>${sumCells}<td class="td-sum">${matchTotal||'—'}</td></tr>
-        <tr class="tr-coeff"><td class="td-club" colspan="${colspan}" style="text-align:right;padding-right:10px"><span style="color:var(--muted)">Match pts/club:</span> <strong style="color:var(--bonus);font-family:'JetBrains Mono',monospace">${coeff}</strong></td></tr>
-      </tbody>
-    </table></div>
-  </div>`;
+function getRoundVal(rdata, col){
+  // Essayer la clé directe, puis l'alias inverse
+  if(rdata[col] !== undefined) return rdata[col];
+  // R16 → 16
+  for(const[k,v] of Object.entries(COL_ALIAS)){
+    if(v===col && rdata[k]!==undefined) return rdata[k];
+  }
+  return null; // pas joué
 }
 
-function buildAllRounds(clubs, live){
-  const parts=['CL','EL','ECL'].map(c=>buildRoundsTable(clubs,c,live)).filter(Boolean);
-  if(!parts.length) return '';
-  return`<div class="rounds-wrap"><div class="rounds-title">📊 Round-by-round breakdown</div>${parts.join('')}</div>`;
+function buildFSTable(clubs, live){
+  // Compétitions présentes avec données rounds non nulles
+  const comps = ['CL','EL','ECL'].filter(comp => {
+    return clubs.some(cl => cl.comp===comp && cl.rounds && cl.rounds[comp] &&
+      Object.values(cl.rounds[comp]).some(v=>v>0));
+  });
+  if(!comps.length) return '';
+
+  // Pour chaque comp: colonnes actives (au moins un club a une valeur)
+  const compActive = {};
+  comps.forEach(comp => {
+    const def = COMP_ROUNDS_DEF[comp];
+    compActive[comp] = def.cols.filter(col =>
+      clubs.filter(cl=>cl.comp===comp).some(cl => {
+        if(!cl.rounds||!cl.rounds[comp]) return false;
+        return getRoundVal(cl.rounds[comp], col) !== null && getRoundVal(cl.rounds[comp], col) > 0;
+      })
+    );
+  });
+
+  // ── LIGNE 1 : headers compétitions ──
+  let hdr1 = '<tr><th class="fs-th-score" rowspan="2">Score</th><th class="fs-th-score" rowspan="2">Σ</th>';
+  comps.forEach(comp => {
+    const def = COMP_ROUNDS_DEF[comp];
+    const span = compActive[comp].length;
+    if(span > 0) hdr1 += `<th class="fs-th-comp ${def.cls}" colspan="${span}">${def.label}</th>`;
+  });
+  hdr1 += '</tr>';
+
+  // ── LIGNE 2 : headers rounds ──
+  let hdr2 = '<tr>';
+  comps.forEach(comp => {
+    compActive[comp].forEach(col => {
+      hdr2 += `<th class="fs-th-round">${col}</th>`;
+    });
+  });
+  hdr2 += '</tr>';
+
+  // ── LIGNES CLUBS ──
+  // Tous les clubs triés par pts desc, actifs en premier
+  const sorted = [...clubs].sort((a,b) => {
+    if(a.active !== b.active) return a.active ? -1 : 1;
+    return b.pts - a.pts;
+  });
+
+  // Calcul sigma par compétition (sum de tous les pts match)
+  const compSigma = {};
+  const compColSums = {};
+  comps.forEach(comp => {
+    compSigma[comp] = 0;
+    compColSums[comp] = {};
+    compActive[comp].forEach(col => compColSums[comp][col] = 0);
+  });
+  let totalSigma = 0;
+
+  const clubRows = sorted.map(cl => {
+    const isLive = cl.active && live.has(cl.name);
+    const rowClass = cl.active ? 'fs-club-active' : 'fs-club-elim';
+    const lv = isLive ? ' <span style="font-size:8px;color:var(--red);animation:blink .9s infinite">⚽</span>' : '';
+
+    // Calculer sigma du club = somme de tous ses pts rounds (toutes comps)
+    let clubSigma = 0;
+    let cells = '';
+    comps.forEach(comp => {
+      const rdata = (cl.rounds && cl.rounds[comp]) || null;
+      compActive[comp].forEach(col => {
+        const v = rdata ? getRoundVal(rdata, col) : null;
+        if(v !== null && v > 0) {
+          clubSigma += v;
+          compSigma[comp] += v;
+          compColSums[comp][col] = (compColSums[comp][col]||0) + v;
+          if(v >= 2) cells += `<td class="fs-v-w">${v}</td>`;
+          else if(v >= 1) cells += `<td class="fs-v-d">${v}</td>`;
+          else cells += `<td class="fs-v-l">0</td>`;
+        } else {
+          cells += `<td class="fs-v-n">-</td>`;
+        }
+      });
+    });
+    totalSigma += clubSigma;
+
+    return `<tr class="${rowClass}">
+      <td class="fs-td-club">${cl.name}${lv}</td>
+      <td class="fs-td-sigma">${clubSigma || '-'}</td>
+      ${cells}
+    </tr>`;
+  }).join('');
+
+  // ── LIGNE SUM ──
+  let sumCells = '';
+  comps.forEach(comp => {
+    compActive[comp].forEach(col => {
+      const s = compColSums[comp][col]||0;
+      sumCells += `<td style="font-weight:700;color:${s>0?'var(--text)':'var(--muted)'}">${s||'-'}</td>`;
+    });
+  });
+
+  // ── LIGNE SUM PAR COMP ──
+  let compSumCells = '';
+  comps.forEach(comp => {
+    const s = compSigma[comp];
+    const span = compActive[comp].length;
+    if(span > 0) compSumCells += `<td colspan="${span}" style="font-weight:700;color:${s>0?'var(--cl3)':'var(--muted)'};background:#0e1520">${s||'-'}</td>`;
+  });
+
+  // ── FORMULE COEFFICIENT ──
+  const n = clubs.length;
+  const coeff = n > 0 ? (totalSigma / n).toFixed(3) : '—';
+  const totalCols = comps.reduce((s,c)=>s+compActive[c].length, 0);
+  const formula = `Coefficient = (Sum Score) ÷ (Number of clubs) = ${totalSigma} ÷ ${n} = ${coeff}`;
+
+  return `<div class="fs-wrap">
+    <table class="fs-table">
+      <thead>${hdr1}${hdr2}</thead>
+      <tbody>
+        ${clubRows}
+        <tr class="fs-tr-sum">
+          <td class="fs-td-club">SUM:</td>
+          <td style="font-weight:700;color:var(--green)">${totalSigma}</td>
+          ${sumCells}
+        </tr>
+        <tr class="fs-tr-sum" style="border-top:2px solid var(--bd2)">
+          <td class="fs-td-club">By comp:</td>
+          <td></td>
+          ${compSumCells}
+        </tr>
+        <tr class="fs-tr-coeff">
+          <td colspan="2" style="font-weight:700;color:var(--bonus)">Coefficient: ${coeff}</td>
+          <td class="fs-td-formula" colspan="${totalCols}">${formula}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`;
 }
 
 // ── AUTO-REFRESH ──
