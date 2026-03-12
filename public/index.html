@@ -498,16 +498,9 @@ const HSEASONS=["16/17","17/18","18/19","19/20","20/21","21/22","22/23","23/24",
 const COLORS=["#3b82f6","#f97316","#16a34a","#9333ea","#ef4444","#0ea5e9","#f59e0b","#64748b"];
 
 // Fixtures (updated by scraper; homeCountry/awayCountry used for simulator)
-const FIXTURES=[
-  {date:"2026-03-10",time:"17:45",comp:"CL",round:"R16",home:"Galatasaray",homeFlag:"🇹🇷",homeCountry:"Türkiye",away:"Liverpool",awayFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",awayCountry:"England",score:null},
-  {date:"2026-03-10",time:"20:00",comp:"CL",round:"R16",home:"Atalanta BC",homeFlag:"🇮🇹",homeCountry:"Italy",away:"Bayern",awayFlag:"🇩🇪",awayCountry:"Germany",score:null},
-  {date:"2026-03-10",time:"20:00",comp:"CL",round:"R16",home:"Atlético Madrid",homeFlag:"🇪🇸",homeCountry:"Spain",away:"Tottenham",awayFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",awayCountry:"England",score:null},
-  {date:"2026-03-10",time:"20:00",comp:"CL",round:"R16",home:"Newcastle",homeFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",homeCountry:"England",away:"Barcelona",awayFlag:"🇪🇸",awayCountry:"Spain",score:null},
-  {date:"2026-03-11",time:"17:45",comp:"CL",round:"R16",home:"Leverkusen",homeFlag:"🇩🇪",homeCountry:"Germany",away:"Arsenal",awayFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",awayCountry:"England",score:null},
-  {date:"2026-03-11",time:"20:00",comp:"CL",round:"R16",home:"Paris SG",homeFlag:"🇫🇷",homeCountry:"France",away:"Chelsea",awayFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",awayCountry:"England",score:null},
-  {date:"2026-03-11",time:"20:00",comp:"CL",round:"R16",home:"Bodø/Glimt",homeFlag:"🇳🇴",homeCountry:"Norway",away:"Sporting CP",awayFlag:"🇵🇹",awayCountry:"Portugal",score:null},
-  {date:"2026-03-11",time:"20:00",comp:"CL",round:"R16",home:"Real Madrid",homeFlag:"🇪🇸",homeCountry:"Spain",away:"Man. City",awayFlag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",awayCountry:"England",score:null},
-];
+// Fixtures chargées depuis /data/fixtures.json (mis à jour par le scraper)
+let FIXTURES=[];
+let RESULTS=[];
 
 // ══════════════════════════════════════════════════════════
 // STATE
@@ -547,6 +540,18 @@ document.querySelectorAll('nav a[data-tab]').forEach(a=>{
 // ══════════════════════════════════════════════════════════
 // LOAD
 // ══════════════════════════════════════════════════════════
+async function loadFixtures(){
+  try{
+    const r=await fetch('/data/fixtures.json?v='+Date.now());
+    if(r.ok){
+      const d=await r.json();
+      FIXTURES=[...(d.upcoming||[])];
+      RESULTS=[...(d.results||[])];
+    }
+  }catch(e){}
+  renderFixtures();
+}
+
 async function load(season){
   expCode=null;
   document.getElementById('tbody').innerHTML='<tr><td colspan="11" style="text-align:center;padding:20px;color:var(--muted)">Loading…</td></tr>';
@@ -567,7 +572,7 @@ async function load(season){
   buildClubList(data);
   renderTable(data);
   renderRace();
-  renderFixtures();
+  await loadFixtures();
   simState={};
 }
 
@@ -712,14 +717,40 @@ function renderFixtures(){
   const el=document.getElementById('fixlist');
   const today=new Date().toISOString().slice(0,10);
   const live=getLive();
-  const upcoming=FIXTURES.filter(f=>f.date>=today).slice(0,10);
-  if(!upcoming.length){el.innerHTML='<em style="color:var(--muted)">No upcoming fixtures. Scraper will update automatically.</em>';return;}
-  el.innerHTML=upcoming.map(f=>{
-    const isL=live.has(f.home)||live.has(f.away);
-    const ds=new Date(f.date+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short'});
-    const scoreH=f.score?`<span class="mscore ${isL?'live':''}">${f.score}</span>`:`<span class="mscore" style="color:#aaa;font-size:11px">${f.time}</span>`;
-    return`<div class="mrow"><span class="mcomp ${f.comp.toLowerCase()}">${f.comp}</span><span class="mtime">${ds}</span><span class="mteams">${f.homeFlag} ${f.home} <span class="vs">vs</span> ${f.away} ${f.awayFlag}</span>${scoreH}${isL?'<span class="livetag">⚽ LIVE</span>':''}<span style="font-size:10px;color:var(--muted);flex-shrink:0">${f.round}</span></div>`;
-  }).join('');
+
+  // Upcoming matches
+  const upcoming=FIXTURES.filter(f=>!f.score&&f.date>=today).slice(0,8);
+  // Matches today with score (live or just finished)
+  const todayScored=FIXTURES.filter(f=>f.score&&f.date===today);
+  const allResults=[...(RESULTS||[])].slice(0,8);
+
+  let html='';
+
+  if(upcoming.length){
+    html+='<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:4px 0 6px">Prochains matchs</div>';
+    html+=upcoming.map(f=>{
+      const isL=live.has(f.home)||live.has(f.away);
+      const ds=new Date(f.date+'T12:00:00Z').toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'short'});
+      const scoreH=f.score
+        ?`<span class="mscore ${isL?'live':''}">${f.score}</span>`
+        :`<span class="mscore" style="color:#aaa;font-size:11px">${f.time}</span>`;
+      return`<div class="mrow"><span class="mcomp ${f.comp.toLowerCase()}">${f.comp}</span><span class="mtime">${ds}</span><span class="mteams">${f.homeFlag||''} ${f.home} <span class="vs">vs</span> ${f.away} ${f.awayFlag||''}</span>${scoreH}${isL?'<span class="livetag">⚽ LIVE</span>':''}<span style="font-size:10px;color:var(--muted);flex-shrink:0">${f.round}</span></div>`;
+    }).join('');
+  }
+
+  const showResults=[...todayScored,...allResults].slice(0,8);
+  if(showResults.length){
+    html+='<div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 0 6px;border-top:1px solid #eee;margin-top:6px">Derniers résultats</div>';
+    html+=showResults.map(f=>{
+      const ds=new Date(f.date+'T12:00:00Z').toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'short'});
+      return`<div class="mrow"><span class="mcomp ${f.comp.toLowerCase()}">${f.comp}</span><span class="mtime">${ds}</span><span class="mteams">${f.homeFlag||''} ${f.home} <span class="vs">vs</span> ${f.away} ${f.awayFlag||''}</span><span class="mscore">${f.score||''}</span><span style="font-size:10px;color:var(--muted);flex-shrink:0">${f.round}</span></div>`;
+    }).join('');
+  }
+
+  if(!html){
+    html='<em style="color:var(--muted)">Aucun match à afficher. Le scraper mettra à jour automatiquement.</em>';
+  }
+  el.innerHTML=html;
 }
 
 // ══════════════════════════════════════════════════════════
@@ -875,17 +906,22 @@ function renderCompare(){
 // ══════════════════════════════════════════════════════════
 function renderSim(){
   const el=document.getElementById('simmatches');
-  el.innerHTML=FIXTURES.map((f,i)=>{
+  // Afficher upcoming + résultats récents dans le simulateur
+  const allMatches=[...FIXTURES,...(RESULTS||[])].slice(0,16);
+  if(!allMatches.length){el.innerHTML='<em style="color:var(--muted);font-size:12px">Chargement des matchs…</em>';return;}
+  el.innerHTML=allMatches.map((f,i)=>{
     const st=simState[i]||null;
+    const scored=f.score;
     return`<div class="smatch">
       <span class="mcomp ${f.comp.toLowerCase()}" style="flex-shrink:0">${f.comp}</span>
-      <span class="steam">${f.homeFlag} ${f.home}</span>
+      <span class="steam">${f.homeFlag||''} ${f.home}</span>
       <div class="sbts">
         <button class="sb ${st==='W'?'aw':''}" onclick="setSim(${i},'W')">W</button>
         <button class="sb ${st==='D'?'dr':''}" onclick="setSim(${i},'D')">D</button>
         <button class="sb ${st==='L'?'lw':''}" onclick="setSim(${i},'L')">L</button>
       </div>
-      <span class="steam away">${f.away} ${f.awayFlag}</span>
+      <span class="steam away">${f.away} ${f.awayFlag||''}</span>
+      ${scored?`<span style="font-size:11px;font-weight:700;color:var(--muted);margin-left:6px">${scored}</span>`:''}
     </div>`;
   }).join('');
   renderSimImpact();
@@ -894,13 +930,13 @@ function setSim(i,result){simState[i]=simState[i]===result?null:result;renderSim
 function resetSim(){simState={};renderSim();}
 function renderSimImpact(){
   const el=document.getElementById('simimpact');
-  if(!cData){el.innerHTML='<em style="color:var(--muted)">Load a season first.</em>';return;}
-  // Compute extra Y1 pts per country from simulated results
-  // In a KO round: win=2pts, draw=1pt each side, loss=0. Divide by clubs_total for country coeff impact.
+  if(!cData){el.innerHTML='<em style="color:var(--muted)">Charger une saison d\'abord.</em>';return;}
+  const allMatches=[...FIXTURES,...(RESULTS||[])].slice(0,16);
   const extra={};
   Object.entries(simState).forEach(([idx,res])=>{
     if(!res)return;
-    const f=FIXTURES[+idx];
+    const f=allMatches[+idx];
+    if(!f)return;
     const hPts=res==='W'?2:res==='D'?1:0;
     const aPts=res==='L'?2:res==='D'?1:0;
     const hc=cData.countries.find(c=>c.name===f.homeCountry);
@@ -911,7 +947,7 @@ function renderSimImpact(){
     if(ac&&act>0)extra[f.awayCountry]=(extra[f.awayCountry]||0)+aPts/act;
   });
   const affected=Object.entries(extra).filter(([,v])=>v!==0);
-  if(!affected.length){el.innerHTML='<em style="color:var(--muted);font-size:12px">Click W / D / L on a match to see its effect on country coefficients.</em>';return;}
+  if(!affected.length){el.innerHTML='<em style="color:var(--muted);font-size:12px">Clique W / D / L sur un match pour voir l\'impact sur les coefficients pays.</em>';return;}
   // Compute new ranking
   const base=[...cData.countries].sort((a,b)=>b.total-a.total);
   const simmed=base.map(c=>({...c,newTotal:c.total+(extra[c.name]||0)})).sort((a,b)=>b.newTotal-a.newTotal);
@@ -989,14 +1025,19 @@ function toggleW(bodyId,iconId){
 // ══════════════════════════════════════════════════════════
 setInterval(()=>{
   const h=new Date().getUTCHours();
-  if(h>=17&&h<=23)load(SEASONS[cIdx]);
-  else{renderFixtures();renderTable(cData);}
+  // Pendant les matchs (17h-23h UTC) : recharger le JSON complet toutes les minutes
+  if(h>=17&&h<=23){
+    load(SEASONS[cIdx]);
+  } else {
+    // Hors matchs : recharger fixtures seulement (léger)
+    loadFixtures();
+    renderTable(cData);
+  }
 },60000);
 
 // ══════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════
-load(SEASONS[0]);
-</script>
+load(SEASONS[0]);</script>
 </body>
 </html>
