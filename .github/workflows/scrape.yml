@@ -2,7 +2,7 @@ name: Scrape UEFA Rankings
 
 on:
   schedule:
-    # Every day at 17:00, 18:30, 20:30, 22:30 UTC (match windows)
+    # Match windows: 17:00, 18:30, 20:30, 22:30 UTC
     - cron: '0 17 * * *'
     - cron: '30 18 * * *'
     - cron: '30 20 * * *'
@@ -17,10 +17,23 @@ on:
         options:
           - current
           - all_seasons
+      skip_rounds:
+        description: 'Skip per-round scraping (faster, country totals only)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      delay:
+        description: 'Delay between team page requests (seconds)'
+        required: false
+        default: '1.5'
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -31,13 +44,27 @@ jobs:
       - name: Install dependencies
         run: pip install requests beautifulsoup4 lxml
 
-      - name: Scrape current season
+      - name: Restore round cache
+        uses: actions/cache@v4
+        with:
+          path: public/data/team_rounds_cache.json
+          key: rounds-cache-${{ github.run_id }}
+          restore-keys: rounds-cache-
+
+      - name: Scrape current season (with rounds)
         if: ${{ github.event.inputs.mode != 'all_seasons' }}
-        run: python scraper/scraper.py --season 2025-26
+        run: |
+          DELAY="${{ github.event.inputs.delay || '1.5' }}"
+          SKIP="${{ github.event.inputs.skip_rounds || 'false' }}"
+          ARGS="--mode current --delay $DELAY"
+          if [ "$SKIP" = "true" ]; then ARGS="$ARGS --skip-rounds"; fi
+          python scraper/scraper.py $ARGS
 
       - name: Scrape all seasons (historical bootstrap)
         if: ${{ github.event.inputs.mode == 'all_seasons' }}
-        run: python scraper/scraper.py --all --delay 4
+        run: |
+          DELAY="${{ github.event.inputs.delay || '2.0' }}"
+          python scraper/scraper.py --mode all_seasons --delay $DELAY
 
       - name: Commit and push
         run: |
