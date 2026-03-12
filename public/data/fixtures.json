@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-12T19:23:23.356237+00:00",
+  "updated": "2026-03-12T19:45:51.362678+00:00",
   "upcoming": [
     {
       "date": "2026-03-12",
@@ -170,7 +170,7 @@
       "away": "Strasbourg",
       "awayFlag": "🇫🇷",
       "awayCountry": "France",
-      "score": "0:1"
+      "score": "1:2"
     },
     {
       "date": "2026-03-12",
@@ -183,7 +183,7 @@
       "away": "Vallecano",
       "awayFlag": "🇪🇸",
       "awayCountry": "Spain",
-      "score": "1:2"
+      "score": "1:3"
     },
     {
       "date": "2026-03-12",
@@ -196,7 +196,7 @@
       "away": "Shakhtar",
       "awayFlag": "🇺🇦",
       "awayCountry": "Ukraine",
-      "score": "0:2"
+      "score": "1:2"
     },
     {
       "date": "2026-03-12",
@@ -209,7 +209,7 @@
       "away": "Sparta Praha",
       "awayFlag": "🇨🇿",
       "awayCountry": "Czechia",
-      "score": "1:1"
+      "score": "2:1"
     }
   ]
 }

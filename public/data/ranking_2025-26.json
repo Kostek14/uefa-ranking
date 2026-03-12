@@ -1,6 +1,6 @@
 {
   "season": "2025-26",
-  "updated": "2026-03-12T19:23:23.350199+00:00",
+  "updated": "2026-03-12T19:45:51.356647+00:00",
   "zone_thresholds": {
     "cl_direct": 4,
     "cl_qual": 10,
@@ -1211,7 +1211,7 @@
               "FI": 0,
               "SF": 0,
               "QF": 0,
-              "R16": 1.0,
+              "R16": 0.0,
               "PO": 0,
               "G6": 2.0,
               "G5": 2.0,
@@ -2679,7 +2679,7 @@
       "clubs": [
         {
           "name": "AZ Alkmaar",
-          "pts": 16.875,
+          "pts": 17.875,
           "active": true,
           "comp": "ECL",
           "team_id": 73,
@@ -2719,7 +2719,7 @@
               "FI": 0,
               "SF": 0,
               "QF": 0,
-              "R16": 1.0,
+              "R16": 2.0,
               "PO": 2.0,
               "G6": 1.0,
               "G5": 2.0,
@@ -2914,12 +2914,12 @@
           }
         },
         {
-          "name": "Feyenoord",
+          "name": "Ahead Eagles",
           "pts": 5.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 72,
-          "team_slug": "feyenoord-rotterdam",
+          "team_id": 289,
+          "team_slug": "go-ahead-eagles",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -2973,12 +2973,12 @@
           }
         },
         {
-          "name": "Ahead Eagles",
+          "name": "Feyenoord",
           "pts": 5.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 289,
-          "team_slug": "go-ahead-eagles",
+          "team_id": 72,
+          "team_slug": "feyenoord-rotterdam",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -3674,7 +3674,7 @@
       "clubs": [
         {
           "name": "Sparta Praha",
-          "pts": 17.75,
+          "pts": 16.75,
           "active": true,
           "comp": "ECL",
           "team_id": 66,
@@ -3714,7 +3714,7 @@
               "FI": 0,
               "SF": 0,
               "QF": 0,
-              "R16": 1.0,
+              "R16": 0.0,
               "PO": 2.0,
               "G6": 2.0,
               "G5": 2.0,
@@ -4012,7 +4012,7 @@
               "FI": 0,
               "SF": 0,
               "QF": 0,
-              "R16": 1.0,
+              "R16": 2.0,
               "PO": 2.0,
               "G6": 1.0,
               "G5": 1.0,
@@ -5547,12 +5547,12 @@
           }
         },
         {
-          "name": "Servette",
+          "name": "FC Lugano",
           "pts": 1.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 515,
-          "team_slug": "servette-geneve",
+          "team_id": 350,
+          "team_slug": "fc-lugano",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -5606,12 +5606,12 @@
           }
         },
         {
-          "name": "FC Lugano",
+          "name": "Servette",
           "pts": 1.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 350,
-          "team_slug": "fc-lugano",
+          "team_id": 515,
+          "team_slug": "servette-geneve",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -10876,12 +10876,12 @@
           }
         },
         {
-          "name": "FK Sarajevo",
+          "name": "B. Banja Luka",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 321,
-          "team_slug": "fk-sarajevo",
+          "team_id": 502,
+          "team_slug": "borac-banja-luka",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -10935,12 +10935,12 @@
           }
         },
         {
-          "name": "B. Banja Luka",
+          "name": "FK Sarajevo",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 502,
-          "team_slug": "borac-banja-luka",
+          "team_id": 321,
+          "team_slug": "fk-sarajevo",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14064,12 +14064,12 @@
       "clubs_active": 0,
       "clubs": [
         {
-          "name": "Podgorica",
+          "name": "FK Sutjeska",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 194,
-          "team_slug": "buducnost-podgorica",
+          "team_id": 282,
+          "team_slug": "fk-sutjeska",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14182,12 +14182,12 @@
           }
         },
         {
-          "name": "FK Sutjeska",
+          "name": "Podgorica",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 282,
-          "team_slug": "fk-sutjeska",
+          "team_id": 194,
+          "team_slug": "buducnost-podgorica",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14705,12 +14705,12 @@
       "clubs_active": 0,
       "clubs": [
         {
-          "name": "SP Tre Fiori",
+          "name": "SS Virtus",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 838,
-          "team_slug": "sp-tre-fiori",
+          "team_id": 1092,
+          "team_slug": "ss-virtus",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14764,12 +14764,12 @@
           }
         },
         {
-          "name": "SS Virtus",
+          "name": "SP Tre Fiori",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 1092,
-          "team_slug": "ss-virtus",
+          "team_id": 838,
+          "team_slug": "sp-tre-fiori",
           "rounds": {
             "CL": {
               "FI": 0,
