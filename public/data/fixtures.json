@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-12T20:59:25.740434+00:00",
+  "updated": "2026-03-12T22:55:00.173804+00:00",
   "upcoming": [
     {
       "date": "2026-03-17",
@@ -131,7 +131,7 @@
       "away": "Midtjylland",
       "awayFlag": "🇩🇰",
       "awayCountry": "Denmark",
-      "score": "0:0"
+      "score": "0:1"
     },
     {
       "date": "2026-03-12",
@@ -144,7 +144,7 @@
       "away": "AEK Athens",
       "awayFlag": "🇬🇷",
       "awayCountry": "Greece",
-      "score": "0:3"
+      "score": "0:4"
     },
     {
       "date": "2026-03-12",
@@ -170,7 +170,7 @@
       "away": "Raków",
       "awayFlag": "🇵🇱",
       "awayCountry": "Poland",
-      "score": "0:0"
+      "score": "2:1"
     },
     {
       "date": "2026-03-12",
@@ -196,7 +196,7 @@
       "away": "Lyon",
       "awayFlag": "🇫🇷",
       "awayCountry": "France",
-      "score": "1:0"
+      "score": "1:1"
     },
     {
       "date": "2026-03-12",
@@ -209,7 +209,7 @@
       "away": "SC Braga",
       "awayFlag": "🇵🇹",
       "awayCountry": "Portugal",
-      "score": "1:0"
+      "score": "2:0"
     }
   ]
 }
