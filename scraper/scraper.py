@@ -148,87 +148,146 @@ def update_last_round(last_round: dict, comp: str, rkey: str):
 
 # ── TEAM PAGE PARSER ───────────────────────────────────────────────────────────
 
-def detect_comp(elem) -> str:
-    """Detect CL/EL/ECL from an img element."""
-    alt = (elem.get("alt") or elem.get("title") or "").lower()
-    src = (elem.get("src") or "").lower()
-    if "champions" in alt or "champions_league" in src: return "CL"
-    if "conference" in alt or "conference" in src:      return "ECL"
-    if "europa" in alt or "europa_league" in src:       return "EL"
+def detect_comp_from_alt(alt: str) -> str:
+    """Detect CL/EL/ECL from img alt text."""
+    s = alt.lower()
+    if "champions" in s:  return "CL"
+    if "conference" in s: return "ECL"
+    if "europa" in s:     return "EL"
     return ""
+
+def detect_round_from_alt(alt: str) -> str:
+    """
+    Detect round key from img alt on the team page.
+    Real examples seen:
+      'Round of 16 Champions League'
+      'Champions League - group'
+      'Quarter-final Champions League'
+      'Semi-final Champions League'
+      'Final Champions League'
+      'Round of 16 Europa League - qual.'   <- this is the PO/barrage
+      'Europa League - group'
+      'Conference League - group'
+    """
+    s = alt.lower()
+    # Knockout rounds — check most specific first
+    if "final" in s and "semi" not in s and "quarter" not in s: return "FI"
+    if "semi" in s:     return "SF"
+    if "quarter" in s:  return "QF"
+    # Play-off / barrage: 'qual.' suffix on round of 16 = EL/ECL barrage
+    if "round of 16" in s and "qual" in s: return "PO"
+    if "round of 16" in s or "1/8" in s:  return "R16"
+    if "play-off" in s or "playoff" in s: return "PO"
+    # Group / league phase — will be numbered G1..G8 after sorting by date
+    if "group" in s or "league phase" in s: return "GROUP"
+    # Qualifying rounds
+    if "qualif" in s or "preliminary" in s: return "Q"
+    return ""
+
+def parse_match_pts(score: str, is_home: bool) -> float | None:
+    """
+    Calculate coefficient pts from a score string and whether the club is home.
+    W=2, D=1, L=0. Returns None if score is not yet played ('-:-', 'x', etc).
+    """
+    m = re.match(r"(\d+)\s*[:\-]\s*(\d+)", score.strip())
+    if not m:
+        return None
+    gh, ga = int(m.group(1)), int(m.group(2))
+    if is_home:
+        if gh > ga: return 2.0
+        if gh == ga: return 1.0
+        return 0.0
+    else:
+        if ga > gh: return 2.0
+        if gh == ga: return 1.0
+        return 0.0
 
 def parse_team_page(html: str) -> dict:
     """
     Parse a /team/ID/ page to extract pts per round per competition.
 
-    football-coefficient.eu shows a match history table with columns:
-      Date | Competition | Home | Score | Away | Pts
+    Real page structure (datagrid table):
+      col-played (date) | col-league (img) | col-club_home | col-result | col-club_away
 
-    We accumulate pts per (competition, round).
-    Round is read from the img title/alt (e.g. "Matchday 3 Champions League").
+    The club whose page we're on appears as <b>Name</b> (no link), opponent has <a href>.
+    Round is inferred from the img alt text.
+    Group matchdays are numbered G1..G8 after sorting by date (oldest = G1).
     """
     soup = BeautifulSoup(html, "lxml")
     result = _empty_rounds()
 
-    for table in soup.find_all("table"):
-        for row in table.find_all("tr"):
-            cells = row.find_all("td")
-            if len(cells) < 4:
-                continue
+    # Collect all match rows first, then process group matchdays
+    matches = []  # list of {date, comp, raw_round, pts}
 
-            # Find competition img
-            comp = ""
-            rkey = ""
-            for img in row.find_all("img"):
-                c = detect_comp(img)
-                if c:
-                    comp = c
-                    # Round from img alt/title (e.g. "Matchday 3 Champions League")
-                    alt = (img.get("alt") or img.get("title") or "")
-                    rkey = normalize_round(alt)
-                    break
+    # Find the datagrid table (has class 'club-ranking' or contains col-league tds)
+    table = soup.find("table", class_=lambda c: c and "club-ranking" in c) if soup else None
+    if not table:
+        # Fallback: find any table with col-league cells
+        for t in soup.find_all("table"):
+            if t.find("td", class_="col-league"):
+                table = t
+                break
+    if not table:
+        return result
 
-            if not comp:
-                continue
+    for row in table.find_all("tr"):
+        cells = row.find_all("td")
+        if len(cells) < 5:
+            continue
 
-            # Round from first cell if not found in img
-            if not rkey:
-                rkey = normalize_round(cells[0].get_text(strip=True))
-            if not rkey:
-                # Try all cells
-                for cell in cells:
-                    rkey = normalize_round(cell.get_text(strip=True))
-                    if rkey:
-                        break
+        # col-league: find competition img
+        league_cell = next((c for c in cells if "col-league" in " ".join(c.get("class",[]))), cells[1])
+        img = league_cell.find("img")
+        if not img:
+            continue
 
-            if not rkey:
-                continue
+        alt  = img.get("alt") or img.get("title") or ""
+        comp = detect_comp_from_alt(alt)
+        if not comp:
+            continue
 
-            # Pts: last numeric cell (should be 0, 0.5, 1, or 2)
-            pts = None
-            for cell in reversed(cells):
-                t = cell.get_text(strip=True)
-                if re.match(r"^\d+(\.\d+)?$", t):
-                    v = float(t)
-                    if v <= 5:   # sanity: match pts max ~2, bonus could be up to 5
-                        pts = v
-                        break
+        rkey = detect_round_from_alt(alt)
+        if not rkey:
+            continue
 
-            if pts is None:
-                continue
+        # col-club_home and col-club_away: detect if our club is home or away
+        home_cell = next((c for c in cells if "col-club_home" in " ".join(c.get("class",[]))), cells[2])
+        away_cell = next((c for c in cells if "col-club_away" in " ".join(c.get("class",[]))), cells[4])
+        is_home = bool(home_cell.find("b"))  # our club shown as <b>Name</b>
 
-            # Add to appropriate rounds dict
-            comp_rounds = result.get(comp, {})
-            if rkey in comp_rounds:
-                comp_rounds[rkey] = (comp_rounds[rkey] or 0) + pts
-            elif comp == "CL":
-                result["CL"][rkey] = pts
-            elif comp == "EL":
-                result["EL"][rkey] = pts
-            else:
-                result["ECL"][rkey] = pts
+        # col-result: parse score
+        result_cell = next((c for c in cells if "col-result" in " ".join(c.get("class",[]))), cells[3])
+        score_text = result_cell.get_text(strip=True)
+        pts = parse_match_pts(score_text, is_home)
+        if pts is None:
+            continue  # match not yet played
 
-            update_last_round(result["last_round"], comp, rkey)
+        # Parse date for chronological ordering of group matchdays
+        date_cell = cells[0]
+        date_raw = date_cell.get_text(" ", strip=True)
+        date_m = re.search(r"(\d{2})\.(\d{2})\.(\d{4})", date_raw)
+        date_str = f"{date_m.group(3)}-{date_m.group(2)}-{date_m.group(1)}" if date_m else "0000-00-00"
+
+        matches.append({"date": date_str, "comp": comp, "rkey": rkey, "pts": pts})
+
+    # Number group matchdays chronologically per competition (G1=oldest, G8=newest)
+    for comp in ["CL", "EL", "ECL"]:
+        group_matches = sorted(
+            [m for m in matches if m["comp"] == comp and m["rkey"] == "GROUP"],
+            key=lambda x: x["date"]
+        )
+        for i, m in enumerate(group_matches, 1):
+            m["rkey"] = f"G{i}"
+
+    # Now accumulate pts into result
+    for m in matches:
+        comp, rkey, pts = m["comp"], m["rkey"], m["pts"]
+        comp_dict = result[comp]
+        if rkey in comp_dict:
+            comp_dict[rkey] += pts
+        else:
+            comp_dict[rkey] = pts  # unexpected key, store anyway
+        update_last_round(result["last_round"], comp, rkey)
 
     return result
 
