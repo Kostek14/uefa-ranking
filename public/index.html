@@ -187,6 +187,26 @@ tr.drow td{padding:0;border-bottom:2px solid var(--cl2)}
 .ctag.cl{background:var(--cl2);color:var(--cl3)}.ctag.el{background:var(--el2);color:var(--el3)}.ctag.ecl{background:var(--ecl2);color:var(--ecl3)}
 
 @media(max-width:700px){.statgrid,.simgrid{grid-template-columns:1fr}td.tdy:not(.yc){display:none}.hright,.upd{display:none}.dbox-comps{flex-direction:column}}
+
+/* ROUNDS TABLE */
+.rounds-wrap{margin-top:14px;padding-top:12px;border-top:1px solid var(--bd)}
+.rounds-title{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.rcomp-block{margin-bottom:14px}
+.rcomp-block:last-child{margin-bottom:0}
+.rcomp-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:3px 8px;border-radius:3px;display:inline-block;margin-bottom:7px}
+.rcomp-label.cl{background:var(--cl2);color:var(--cl3)}.rcomp-label.el{background:var(--el2);color:var(--el3)}.rcomp-label.ecl{background:var(--ecl2);color:var(--ecl3)}
+.rtable{width:100%;border-collapse:collapse;font-size:11px;min-width:400px}
+.rtable th{background:var(--bg);border:1px solid var(--bd);padding:4px 7px;text-align:center;font-weight:700;font-size:10px;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+.rtable th.th-club{text-align:left;min-width:110px}
+.rtable th.th-sum{background:rgba(255,255,255,.04);color:var(--text)}
+.rtable td{border:1px solid var(--bd);padding:4px 7px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px}
+.rtable td.td-club{text-align:left;font-family:'Inter',sans-serif;font-weight:500;font-size:12px;white-space:nowrap}
+.rtable td.td-sum{font-weight:700;background:rgba(255,255,255,.03);color:var(--text)}
+.rtable tr.tr-total td{background:var(--bg);font-weight:700;font-family:'Inter',sans-serif;font-size:10.5px;color:var(--muted2)}
+.rtable tr.tr-coeff td{background:var(--bg);font-family:'Inter',sans-serif;font-size:10.5px}
+.rv-w{color:#86efac;font-weight:700}.rv-d{color:#fcd34d;font-weight:600}.rv-0{color:var(--bd2)}
+.rdot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.rdot.on{background:var(--green)}.rdot.off{background:var(--red)}
 </style>
 </head>
 <body>
@@ -603,7 +623,7 @@ function toggleDetail(tr,c){
   const _ct=clubs.length,_ca=clubs.filter(cl=>cl.active).length;
   const coeff=_ct>0?(clubs.reduce((s,x)=>s+(+x.pts||0),0)/_ct).toFixed(3):'—';
   const byComp={CL:[],EL:[],ECL:[]};
-  clubs.forEach(cl=>{(byComp[cl.comp]||byComp.ECL).push(cl);});
+  clubs.forEach(cl=>{const k=(cl.comp&&byComp[cl.comp])?cl.comp:'ECL';byComp[k].push(cl);});
   const section=(comp,cls,label)=>{
     const list=byComp[comp];if(!list||!list.length)return'';
     return`<div class="dbox-comp">
@@ -626,6 +646,7 @@ function toggleDetail(tr,c){
       ${section('EL','el','Europa League')}
       ${section('ECL','ecl','Conference League')}
     </div>
+    ${buildAllRounds(clubs,live)}
     <div class="dbox-foot">Season coefficient (Y1): <strong style="color:var(--text)">${coeff}</strong> &nbsp;·&nbsp; 5-year total: <strong style="color:var(--cl)">${c.total.toFixed(3)}</strong></div>
   </div></td>`;
   tr.after(det);
@@ -884,6 +905,74 @@ function toggleW(bodyId,iconId){
   const b=document.getElementById(bodyId),ico=document.getElementById(iconId);
   b.classList.toggle('open');
   if(ico)ico.style.transform=b.classList.contains('open')?'rotate(180deg)':'';
+}
+
+
+// ── ROUNDS TABLE ──
+const COMP_ROUNDS={
+  CL:['FI','SF','QF','R16','PO','G8','G7','G6','G5','G4','G3','G2','G1','Q'],
+  EL:['FI','SF','QF','R16','PO','G6','G5','G4','G3','G2','G1','Q'],
+  ECL:['FI','SF','QF','R16','PO','G6','G5','G4','G3','G2','G1','Q']
+};
+
+function buildRoundsTable(clubs, comp, live){
+  const cols=COMP_ROUNDS[comp];
+  if(!cols) return '';
+  const list=clubs.filter(cl=>cl.comp===comp&&cl.rounds&&cl.rounds[comp]);
+  if(!list.length) return '';
+  // Colonnes avec au moins une valeur non nulle
+  const active=cols.filter(col=>list.some(cl=>(cl.rounds[comp][col]||0)>0));
+  if(!active.length) return '';
+  const cls=comp.toLowerCase();
+  const compLabels={CL:'Champions League',EL:'Europa League',ECL:'Conference League'};
+  let colTotals={};active.forEach(c=>colTotals[c]=0);
+  let matchTotal=0;
+
+  const rows=list.map(cl=>{
+    const r=cl.rounds[comp]||{};
+    let s=0;
+    const cells=active.map(col=>{
+      const v=r[col]||0;
+      colTotals[col]+=v;
+      s+=v;
+      if(v>=2)return`<td class="rv-w">${v}</td>`;
+      if(v>=1)return`<td class="rv-d">${v}</td>`;
+      return`<td class="rv-0">—</td>`;
+    }).join('');
+    matchTotal+=s;
+    const lv=cl.active&&live.has(cl.name)?'<span style="font-size:9px;color:var(--red);font-weight:700;margin-left:3px">⚽</span>':'';
+    const dot=`<span class="rdot ${cl.active?'on':'off'}"></span>`;
+    const nm=cl.active?cl.name:`<span style="text-decoration:line-through;color:var(--muted)">${cl.name}</span>`;
+    return`<tr><td class="td-club">${dot}${nm}${lv}</td>${cells}<td class="td-sum">${s||'—'}</td></tr>`;
+  }).join('');
+
+  const sumCells=active.map(col=>`<td style="font-weight:700">${colTotals[col]||'—'}</td>`).join('');
+  const nc=list.length;
+  const coeff=nc>0?(matchTotal/nc).toFixed(3):'—';
+  const colspan=active.length+2;
+
+  return`<div class="rcomp-block">
+    <span class="rcomp-label ${cls}">${compLabels[comp]||comp}</span>
+    <div style="overflow-x:auto">
+    <table class="rtable">
+      <thead><tr>
+        <th class="th-club">Club</th>
+        ${active.map(c=>`<th>${c}</th>`).join('')}
+        <th class="th-sum">Σ</th>
+      </tr></thead>
+      <tbody>
+        ${rows}
+        <tr class="tr-total"><td class="td-club" style="font-size:10px;color:var(--muted)">Total</td>${sumCells}<td class="td-sum">${matchTotal||'—'}</td></tr>
+        <tr class="tr-coeff"><td class="td-club" colspan="${colspan}" style="text-align:right;padding-right:10px"><span style="color:var(--muted)">Match pts/club:</span> <strong style="color:var(--bonus);font-family:'JetBrains Mono',monospace">${coeff}</strong></td></tr>
+      </tbody>
+    </table></div>
+  </div>`;
+}
+
+function buildAllRounds(clubs, live){
+  const parts=['CL','EL','ECL'].map(c=>buildRoundsTable(clubs,c,live)).filter(Boolean);
+  if(!parts.length) return '';
+  return`<div class="rounds-wrap"><div class="rounds-title">📊 Round-by-round breakdown</div>${parts.join('')}</div>`;
 }
 
 // ── AUTO-REFRESH ──
