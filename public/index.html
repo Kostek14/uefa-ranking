@@ -661,108 +661,151 @@ function renderTable(data){
 }
 
 // ── ROUNDS TABLE — footballseeding style ──
-const COMP_ROUNDS_DEF = {
-  CL:  {cols:['FI','SF','QF','16','PO','G8','G7','G6','G5','G4','G3','G2','G1','Q'], label:'Champions League',     cls:'cl'},
-  EL:  {cols:['FI','SF','QF','16','IR','PO','G6','G5','G4','G3','G2','G1','Q'],      label:'Europa League',        cls:'el'},
-  ECL: {cols:['FI','SF','QF','16','IR','PO','G6','G5','G4','G3','G2','G1','Q'],      label:'Europa Conference Lg', cls:'ecl'}
-};
-// Map scraper keys → display keys
-const COL_ALIAS = {'R16':'16','PO':'PO'};
+// Ordre des rounds par comp (toujours affiché même si 0, sauf colonnes jamais jouées)
+const ROUND_ORDER = ['FI','SF','QF','R16','PO','G8','G7','G6','G5','G4','G3','G2','G1','Q'];
+// Alias d'affichage
+const ROUND_LABEL = {'R16':'16','PO':'PO','FI':'FI','SF':'SF','QF':'QF','G8':'G8','G7':'G7','G6':'G6','G5':'G5','G4':'G4','G3':'G3','G2':'G2','G1':'G1','Q':'Q'};
+const COMP_LABEL  = {CL:'Champions League', EL:'Europa League', ECL:'Europa Conference League'};
+const COMP_CLS    = {CL:'cl', EL:'el', ECL:'ecl'};
 
-function getRoundVal(rdata, col){
-  // Essayer la clé directe, puis l'alias inverse
-  if(rdata[col] !== undefined) return rdata[col];
-  // R16 → 16
-  for(const[k,v] of Object.entries(COL_ALIAS)){
-    if(v===col && rdata[k]!==undefined) return rdata[k];
+// Détecter la vraie compétition d'un club depuis ses rounds
+function detectComp(cl){
+  if(!cl.rounds) return cl.comp||'ECL';
+  // Chercher quelle comp a des valeurs > 0
+  for(const comp of ['CL','EL','ECL']){
+    const r = cl.rounds[comp];
+    if(r && Object.values(r).some(v=>typeof v==='number'&&v>0)) return comp;
   }
-  return null; // pas joué
+  // Aucun round joué → utiliser comp du JSON
+  return cl.comp||'ECL';
 }
 
 function buildFSTable(clubs, live){
-  // Compétitions présentes avec données rounds non nulles
-  const comps = ['CL','EL','ECL'].filter(comp => {
-    return clubs.some(cl => cl.comp===comp && cl.rounds && cl.rounds[comp] &&
-      Object.values(cl.rounds[comp]).some(v=>v>0));
+  // Regrouper par comp réelle
+  const byComp = {CL:[], EL:[], ECL:[]};
+  clubs.forEach(cl => {
+    const realComp = detectComp(cl);
+    byComp[realComp].push({...cl, realComp});
   });
+
+  // Compétitions présentes
+  const comps = ['CL','EL','ECL'].filter(c => byComp[c].length > 0);
   if(!comps.length) return '';
 
-  // Pour chaque comp: colonnes actives (au moins un club a une valeur)
-  const compActive = {};
+  // Pour chaque comp: colonnes actives = union de toutes les clés avec val>0
+  // + toutes les colonnes jusqu'au last_round le plus avancé
+  const compCols = {};
   comps.forEach(comp => {
-    const def = COMP_ROUNDS_DEF[comp];
-    compActive[comp] = def.cols.filter(col =>
-      clubs.filter(cl=>cl.comp===comp).some(cl => {
-        if(!cl.rounds||!cl.rounds[comp]) return false;
-        return getRoundVal(cl.rounds[comp], col) !== null && getRoundVal(cl.rounds[comp], col) > 0;
-      })
-    );
+    const list = byComp[comp];
+    const keysWithData = new Set();
+
+    list.forEach(cl => {
+      const r = cl.rounds && cl.rounds[comp];
+      if(!r) return;
+      // Ajouter toutes les clés avec valeur > 0
+      Object.entries(r).forEach(([k,v]) => {
+        if(typeof v==='number' && v>0 && k!=='last_round') keysWithData.add(k);
+      });
+      // Ajouter la dernière colonne jouée selon last_round
+      const lr = cl.rounds.last_round && cl.rounds.last_round[comp];
+      if(lr) keysWithData.add(lr);
+    });
+
+    // Trier selon ROUND_ORDER (FI en premier, Q en dernier)
+    // Mais afficher dans l'ordre: FI SF QF R16 PO G8..G1 Q
+    // On veut toutes les colonnes de FI jusqu'à la plus avancée jouée
+    // + jusqu'à la finale (toujours afficher FI SF QF même si pas encore joué)
+    const allKeys = new Set([...keysWithData, 'FI','SF','QF','R16']);
+    compCols[comp] = ROUND_ORDER.filter(k => allKeys.has(k));
   });
 
-  // ── LIGNE 1 : headers compétitions ──
-  let hdr1 = '<tr><th class="fs-th-score" rowspan="2">Score</th><th class="fs-th-score" rowspan="2">Σ</th>';
+  // ── HEADER ligne 1 : compétitions ──
+  let hdr1 = '<tr><th class="fs-th-score" rowspan="2">Club</th><th class="fs-th-score fs-th-sum" rowspan="2">Σ</th>';
   comps.forEach(comp => {
-    const def = COMP_ROUNDS_DEF[comp];
-    const span = compActive[comp].length;
-    if(span > 0) hdr1 += `<th class="fs-th-comp ${def.cls}" colspan="${span}">${def.label}</th>`;
+    const span = compCols[comp].length;
+    hdr1 += `<th class="fs-th-comp ${COMP_CLS[comp]}" colspan="${span}">${COMP_LABEL[comp]}</th>`;
   });
   hdr1 += '</tr>';
 
-  // ── LIGNE 2 : headers rounds ──
+  // ── HEADER ligne 2 : rounds ──
   let hdr2 = '<tr>';
   comps.forEach(comp => {
-    compActive[comp].forEach(col => {
-      hdr2 += `<th class="fs-th-round">${col}</th>`;
+    compCols[comp].forEach(col => {
+      hdr2 += `<th class="fs-th-round">${ROUND_LABEL[col]||col}</th>`;
     });
   });
   hdr2 += '</tr>';
 
   // ── LIGNES CLUBS ──
-  // Tous les clubs triés par pts desc, actifs en premier
+  // Actifs d'abord, puis éliminés, par pts desc dans chaque groupe
   const sorted = [...clubs].sort((a,b) => {
+    const ra = detectComp(a), rb = detectComp(b);
+    if(ra !== rb) return ['CL','EL','ECL'].indexOf(ra) - ['CL','EL','ECL'].indexOf(rb);
     if(a.active !== b.active) return a.active ? -1 : 1;
     return b.pts - a.pts;
   });
 
-  // Calcul sigma par compétition (sum de tous les pts match)
-  const compSigma = {};
   const compColSums = {};
+  const compTotal   = {};
   comps.forEach(comp => {
-    compSigma[comp] = 0;
     compColSums[comp] = {};
-    compActive[comp].forEach(col => compColSums[comp][col] = 0);
+    compCols[comp].forEach(col => compColSums[comp][col] = 0);
+    compTotal[comp] = 0;
   });
-  let totalSigma = 0;
+  let grandTotal = 0;
 
   const clubRows = sorted.map(cl => {
-    const isLive = cl.active && live.has(cl.name);
-    const rowClass = cl.active ? 'fs-club-active' : 'fs-club-elim';
-    const lv = isLive ? ' <span style="font-size:8px;color:var(--red);animation:blink .9s infinite">⚽</span>' : '';
+    const realComp = detectComp(cl);
+    const isLive   = cl.active && live.has(cl.name);
+    const isActive = cl.active;
+    const rowBg    = isActive ? '#1a3a1a' : '#1e2025';
+    const nmColor  = isActive ? '#86efac' : '#5c6480';
+    const nmStyle  = isActive ? '' : 'text-decoration:line-through;text-decoration-color:rgba(239,68,68,.4)';
+    const lv       = isLive ? ' <span style="font-size:8px;color:#ef4444;animation:blink .9s infinite">⚽</span>' : '';
 
-    // Calculer sigma du club = somme de tous ses pts rounds (toutes comps)
     let clubSigma = 0;
     let cells = '';
+
     comps.forEach(comp => {
-      const rdata = (cl.rounds && cl.rounds[comp]) || null;
-      compActive[comp].forEach(col => {
-        const v = rdata ? getRoundVal(rdata, col) : null;
-        if(v !== null && v > 0) {
-          clubSigma += v;
-          compSigma[comp] += v;
-          compColSums[comp][col] = (compColSums[comp][col]||0) + v;
-          if(v >= 2) cells += `<td class="fs-v-w">${v}</td>`;
-          else if(v >= 1) cells += `<td class="fs-v-d">${v}</td>`;
-          else cells += `<td class="fs-v-l">0</td>`;
-        } else {
+      const rdata = (cl.rounds && cl.rounds[comp]) || {};
+      compCols[comp].forEach(col => {
+        // N'afficher les rounds que pour la vraie compétition du club
+        // Pour les autres comps: tiret
+        if(comp !== realComp) {
+          cells += `<td class="fs-v-n" style="background:#111318">-</td>`;
+          return;
+        }
+        const v = (typeof rdata[col]==='number') ? rdata[col] : null;
+        if(v === null) {
           cells += `<td class="fs-v-n">-</td>`;
+        } else if(v >= 2) {
+          clubSigma += v; compColSums[comp][col] += v; compTotal[comp] += v;
+          cells += `<td class="fs-v-w">${v}</td>`;
+        } else if(v === 1) {
+          clubSigma += v; compColSums[comp][col] += v; compTotal[comp] += v;
+          cells += `<td class="fs-v-d">${v}</td>`;
+        } else {
+          // 0 explicite : match joué, défaite (ou pas joué mais round existant)
+          // On distingue 0 explicite des rounds pas encore joués
+          const lr = cl.rounds && cl.rounds.last_round && cl.rounds.last_round[comp];
+          const lrIdx = ROUND_ORDER.indexOf(lr);
+          const colIdx = ROUND_ORDER.indexOf(col);
+          if(lr && lrIdx >= 0 && colIdx <= lrIdx) {
+            // Round joué (avant ou = last_round) → défaite explicite
+            cells += `<td class="fs-v-l">0</td>`;
+          } else {
+            cells += `<td class="fs-v-n">-</td>`;
+          }
         }
       });
     });
-    totalSigma += clubSigma;
 
-    return `<tr class="${rowClass}">
-      <td class="fs-td-club">${cl.name}${lv}</td>
-      <td class="fs-td-sigma">${clubSigma || '-'}</td>
+    grandTotal += clubSigma;
+    const sigmaColor = isActive ? '#86efac' : '#5c6480';
+
+    return `<tr style="background:${rowBg}">
+      <td class="fs-td-club" style="background:${rowBg};color:${nmColor};${nmStyle}">${cl.name}${lv}</td>
+      <td class="fs-td-sigma" style="background:${rowBg};color:${sigmaColor}">${clubSigma||'-'}</td>
       ${cells}
     </tr>`;
   }).join('');
@@ -770,25 +813,25 @@ function buildFSTable(clubs, live){
   // ── LIGNE SUM ──
   let sumCells = '';
   comps.forEach(comp => {
-    compActive[comp].forEach(col => {
+    compCols[comp].forEach(col => {
       const s = compColSums[comp][col]||0;
-      sumCells += `<td style="font-weight:700;color:${s>0?'var(--text)':'var(--muted)'}">${s||'-'}</td>`;
+      sumCells += `<td style="font-weight:700;color:${s>0?'#dde1ec':'#2a2e3a'}">${s||'-'}</td>`;
     });
   });
 
   // ── LIGNE SUM PAR COMP ──
-  let compSumCells = '';
+  let compSumRow = '';
   comps.forEach(comp => {
-    const s = compSigma[comp];
-    const span = compActive[comp].length;
-    if(span > 0) compSumCells += `<td colspan="${span}" style="font-weight:700;color:${s>0?'var(--cl3)':'var(--muted)'};background:#0e1520">${s||'-'}</td>`;
+    const s = compTotal[comp];
+    const span = compCols[comp].length;
+    compSumRow += `<td colspan="${span}" style="font-weight:700;color:${s>0?'var(--cl3)':'#2a2e3a'};text-align:center">${s||'-'}</td>`;
   });
 
-  // ── FORMULE COEFFICIENT ──
+  // ── COEFFICIENT ──
   const n = clubs.length;
-  const coeff = n > 0 ? (totalSigma / n).toFixed(3) : '—';
-  const totalCols = comps.reduce((s,c)=>s+compActive[c].length, 0);
-  const formula = `Coefficient = (Sum Score) ÷ (Number of clubs) = ${totalSigma} ÷ ${n} = ${coeff}`;
+  const coeff = n > 0 ? (grandTotal/n).toFixed(3) : '—';
+  const totalCols = comps.reduce((s,c) => s+compCols[c].length, 0);
+  const formula = `Coefficient = ${grandTotal} ÷ ${n} = ${coeff}`;
 
   return `<div class="fs-wrap">
     <table class="fs-table">
@@ -797,371 +840,22 @@ function buildFSTable(clubs, live){
         ${clubRows}
         <tr class="fs-tr-sum">
           <td class="fs-td-club">SUM:</td>
-          <td style="font-weight:700;color:var(--green)">${totalSigma}</td>
+          <td style="font-weight:700;color:#22c55e">${grandTotal}</td>
           ${sumCells}
         </tr>
-        <tr class="fs-tr-sum" style="border-top:2px solid var(--bd2)">
-          <td class="fs-td-club">By comp:</td>
+        <tr class="fs-tr-sum">
+          <td class="fs-td-club" style="color:#5c6480">By comp:</td>
           <td></td>
-          ${compSumCells}
+          ${compSumRow}
         </tr>
         <tr class="fs-tr-coeff">
-          <td colspan="2" style="font-weight:700;color:var(--bonus)">Coefficient: ${coeff}</td>
-          <td class="fs-td-formula" colspan="${totalCols}">${formula}</td>
+          <td colspan="2" style="font-weight:700;color:#a78bfa">Coefficient: ${coeff}</td>
+          <td colspan="${totalCols}" style="text-align:left;color:#8b92b3;font-size:10.5px">${formula}</td>
         </tr>
       </tbody>
     </table>
   </div>`;
 }
-
-
-// ── DETAIL ROW — par compétition, clubs verts/rouges ──
-function toggleDetail(tr,c){
-  document.querySelector('tr.drow')?.previousElementSibling?.classList.remove('exp');
-  document.querySelector('tr.drow')?.remove();
-  if(expCode===c.code){expCode=null;return;}
-  expCode=c.code;tr.classList.add('exp');
-  const clubs=(c.clubs||[]).slice().sort((a,b)=>b.pts-a.pts);
-  const live=getLive();
-  const _ct=clubs.length,_ca=clubs.filter(cl=>cl.active).length;
-  const coeff=_ct>0?(clubs.reduce((s,x)=>s+(+x.pts||0),0)/_ct).toFixed(3):'—';
-  const byComp={CL:[],EL:[],ECL:[]};
-  clubs.forEach(cl=>{const k=(cl.comp&&byComp[cl.comp])?cl.comp:'ECL';byComp[k].push(cl);});
-  const section=(comp,cls,label)=>{
-    const list=byComp[comp];if(!list||!list.length)return'';
-    return`<div class="dbox-comp">
-      <div class="dbox-comp-hdr ${cls}">${label}</div>
-      ${list.map(cl=>{
-        const on=cl.active,lv=on&&live.has(cl.name);
-        return`<div class="club-row">
-          <span class="club-dot ${on?'on':'off'}"></span>
-          <span class="club-nm ${on?'':'out'}">${cl.name}${lv?' <span class="club-live">⚽ LIVE</span>':''}</span>
-          <span class="club-pts ${on?'on':'off'}">${(+cl.pts||0).toFixed(0)}</span>
-        </div>`;
-      }).join('')}
-    </div>`;
-  };
-  const det=document.createElement('tr');det.className='drow';
-  det.innerHTML=`<td colspan="11"><div class="dbox">
-    <div class="dbox-header"><span style="font-size:20px">${c.flag}</span>${c.name} — <span style="color:var(--green)">${_ca} active</span> / <span style="color:var(--muted2)">${_ct} clubs</span></div>
-    <div class="dbox-comps">
-      ${section('CL','cl','Champions League')}
-      ${section('EL','el','Europa League')}
-      ${section('ECL','ecl','Conference League')}
-    </div>
-    ${buildFSTable(clubs,live)}
-    <div class="dbox-foot">Season coefficient (Y1): <strong style="color:var(--text)">${coeff}</strong> &nbsp;·&nbsp; 5-year total: <strong style="color:var(--cl)">${c.total.toFixed(3)}</strong></div>
-  </div></td>`;
-  tr.after(det);
-}
-
-// ── SORT ──
-document.querySelectorAll('table.mt thead th[data-sort]').forEach(th=>{
-  th.addEventListener('click',()=>{
-    const col=th.dataset.sort;
-    sortDir=sortCol===col?-sortDir:(col==='rank'||col==='name'?1:-1);
-    sortCol=col;
-    document.querySelectorAll('table.mt thead th').forEach(t=>t.classList.remove('sa','sd'));
-    th.classList.add(sortDir===1?'sa':'sd');
-    renderTable(cData);
-  });
-});
-
-// ── RACE ──
-function renderRace(){
-  const tb=document.getElementById('racetb');
-  if(!cData){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--muted)">Load a season first.</td></tr>';return;}
-  const sorted=[...cData.countries].sort((a,b)=>b.y1-a.y1).slice(0,20);
-  tb.innerHTML=sorted.map((c,i)=>{
-    const above=i>0?sorted[i-1].y1-c.y1:null,below=i<sorted.length-1?c.y1-sorted[i+1].y1:null;
-    const ab=above!=null?`<span class="gb ${above<0.5?'gd':above<2?'gw':'gs'}">${above.toFixed(3)}</span>`:'—';
-    const bb=below!=null?`<span class="gb ${below<0.5?'gd':below<2?'gw':'gs'}">${below.toFixed(3)}</span>`:'—';
-    const active=(c.clubs||[]).filter(x=>x.active).map(cl=>`<span class="comp-badge ${cl.comp.toLowerCase()}">${cl.name}</span>`).join(' ')||`<span style="color:var(--muted);font-size:11px">—</span>`;
-    const isB=i<2;
-    return`<tr style="${isB?'background:rgba(167,139,250,.06)':''}" onmouseenter="this.style.background='${isB?'rgba(167,139,250,.1)':'rgba(255,255,255,.02)'}'" onmouseleave="this.style.background='${isB?'rgba(167,139,250,.06)':''}'">
-      <td style="text-align:center;font-weight:700;padding:5px 8px;color:${isB?'var(--bonus)':'var(--muted)'}">${i+1}</td>
-      <td style="padding:5px 8px"><span style="font-size:14px">${c.flag}</span> <strong>${c.name}</strong> <span style="color:var(--muted);font-size:11px">(#${c.rank})</span></td>
-      <td style="text-align:right;padding:5px 8px;font-weight:700;font-family:'JetBrains Mono',monospace;color:${isB?'var(--bonus)':'var(--text)'}">${c.y1.toFixed(3)}</td>
-      <td style="text-align:right;padding:5px 8px">${ab}</td>
-      <td style="text-align:right;padding:5px 8px">${bb}</td>
-      <td style="padding:5px 8px;font-size:11px;display:flex;flex-wrap:wrap;gap:3px">${active}</td>
-      <td style="padding:5px 8px">${isB?'<span class="bbadge">🏆 Bonus place</span>':''}</td>
-    </tr>`;
-  }).join('');
-}
-
-// ── FIXTURES ──
-function renderFixtures(){
-  const el=document.getElementById('fixlist');
-  const today=new Date().toISOString().slice(0,10);
-  const live=getLive();
-  const upcoming=FIXTURES.filter(f=>!f.score&&f.date>=today).slice(0,8);
-  const recent=[...FIXTURES.filter(f=>f.score),...(RESULTS||[])].slice(0,8);
-  let html='';
-  if(upcoming.length){
-    html+='<div class="fix-label">Upcoming</div>';
-    html+=upcoming.map(f=>{
-      const isL=live.has(f.home)||live.has(f.away);
-      const ds=new Date(f.date+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short'});
-      return`<div class="mrow"><span class="mcomp ${f.comp.toLowerCase()}">${f.comp}</span><span class="mtime">${ds} ${f.time}</span><span class="mteams">${f.homeFlag||''} ${f.home} <span class="vs">vs</span> ${f.away} ${f.awayFlag||''}</span><span class="mscore" style="color:var(--muted);font-size:11px">${f.time}</span>${isL?'<span style="font-size:9px;color:var(--red);font-weight:700;animation:blink .9s infinite">⚽LIVE</span>':''}<span style="font-size:10px;color:var(--muted);flex-shrink:0">${f.round||''}</span></div>`;
-    }).join('');
-  }
-  if(recent.length){
-    html+='<div class="fix-label" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--bd)">Recent results</div>';
-    html+=recent.map(f=>{
-      const ds=new Date(f.date+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short'});
-      return`<div class="mrow"><span class="mcomp ${f.comp.toLowerCase()}">${f.comp}</span><span class="mtime">${ds}</span><span class="mteams">${f.homeFlag||''} ${f.home} <span class="vs">vs</span> ${f.away} ${f.awayFlag||''}</span><span class="mscore">${f.score||''}</span><span style="font-size:10px;color:var(--muted);flex-shrink:0">${f.round||''}</span></div>`;
-    }).join('');
-  }
-  if(!html)html='<em style="color:var(--muted);font-size:12px">No matches to display. Scraper updates automatically.</em>';
-  el.innerHTML=html;
-}
-
-// ── CLUB RANKING ──
-// allClubsBySeason[season] = [{country,flag,code,name,pts,active,comp,season}]
-function buildClubList(data){
-  // Ajouter les clubs de cette saison au cache
-  if(!data) return;
-  const season=data.season||SEASONS[cIdx];
-  allClubsBySeason[season]=[];
-  data.countries.forEach(c=>(c.clubs||[]).forEach(cl=>{
-    allClubsBySeason[season].push({country:c.name,flag:c.flag,code:c.code,
-      name:cl.name,pts:+cl.pts||0,active:cl.active,comp:cl.comp,season});
-  }));
-  // Mettre à jour le filtre saison
-  populateSeasonFilter();
-}
-
-function populateSeasonFilter(){
-  const sel=document.getElementById('cseason');
-  if(!sel) return;
-  const current=sel.value;
-  // Garder le premier option "All 5 seasons"
-  while(sel.options.length>1) sel.remove(1);
-  Object.keys(allClubsBySeason).sort().reverse().forEach(s=>{
-    const o=document.createElement('option');
-    o.value=s; o.textContent=s;
-    sel.appendChild(o);
-  });
-  sel.value=current||'';
-}
-
-function getAllClubs(){
-  // Agréger toutes les saisons disponibles (max 5 dernières)
-  const activeSeason=SEASONS[cIdx];
-  // Saisons Y1..Y5 de la saison active
-  const base=parseInt(activeSeason.split('-')[0]);
-  const y5seasons=[];
-  for(let i=0;i<5;i++){
-    const yr=base-i;
-    y5seasons.push(`${yr}-${(yr+1).toString().slice(-2)}`);
-  }
-  const map={};
-  y5seasons.forEach(s=>{
-    const list=allClubsBySeason[s]||[];
-    list.forEach(cl=>{
-      const key=cl.name+'|'+cl.country+'|'+s;
-      if(!map[key]) map[key]={...cl,season:s};
-    });
-  });
-  return Object.values(map).sort((a,b)=>b.pts-a.pts).map((c,i)=>({...c,rank:i+1}));
-}
-
-function renderClubs(){
-  const q=document.getElementById('cq').value.toLowerCase().trim();
-  const comp=document.getElementById('ccomp').value;
-  const stat=document.getElementById('cstat').value;
-  const season=document.getElementById('cseason').value;
-  const tb=document.getElementById('clubtb');
-  const all=getAllClubs();
-  if(!all.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Load a season first.</td></tr>';return;}
-  let list=all.filter(c=>
-    (!q||(c.name.toLowerCase().includes(q)||c.country.toLowerCase().includes(q)))&&
-    (!comp||c.comp===comp)&&
-    (!stat||(stat==='active'?c.active:!c.active))&&
-    (!season||c.season===season)
-  );
-  if(!list.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--muted)">No clubs found.</td></tr>';return;}
-  const isY1s=s=>s===SEASONS[cIdx];
-  tb.innerHTML=list.slice(0,500).map(cl=>`<tr style="border-bottom:1px solid var(--bd)" class="${q&&cl.name.toLowerCase().includes(q)?'chl':''}">
-    <td style="text-align:center;font-weight:700;color:var(--muted);padding:5px 8px;font-family:'JetBrains Mono',monospace;font-size:11px">${cl.rank}</td>
-    <td style="text-align:left;padding:5px 8px"><span style="font-weight:600;color:${cl.active&&isY1s(cl.season)?'var(--text)':'var(--muted)'};${cl.active&&isY1s(cl.season)?'':'text-decoration:line-through;text-decoration-color:rgba(239,68,68,.4)'}">${cl.name}</span></td>
-    <td style="text-align:left;padding:5px 8px;font-size:11px"><span style="font-size:14px">${cl.flag}</span> <span style="color:var(--muted)">${cl.country}</span></td>
-    <td style="text-align:center;padding:5px 8px"><span class="comp-badge ${cl.comp.toLowerCase()}">${cl.comp}</span></td>
-    <td style="text-align:right;font-weight:700;padding:5px 8px;font-family:'JetBrains Mono',monospace;color:${cl.active&&isY1s(cl.season)?'var(--green)':'var(--muted)'}">${cl.pts.toFixed(0)}</td>
-    <td style="text-align:center;font-size:11px;padding:5px 8px;color:var(--muted2)">${cl.season}</td>
-    <td style="text-align:center;font-size:11px;padding:5px 8px">${cl.active&&isY1s(cl.season)?'<span style="color:var(--green);font-weight:600">● Active</span>':isY1s(cl.season)?'<span style="color:var(--red);font-size:10px">● Out</span>':'<span style="color:var(--muted);font-size:10px">—</span>'}</td>
-  </tr>`).join('');
-  if(q)setTimeout(()=>document.querySelector('.chl')?.scrollIntoView({behavior:'smooth',block:'center'}),80);
-}
-['cq'].forEach(id=>document.getElementById(id).addEventListener('input',renderClubs));
-['ccomp','cstat','cseason'].forEach(id=>document.getElementById(id).addEventListener('change',renderClubs));
-
-// ── GLOBAL SEARCH ──
-const gsi=document.getElementById('gsearch'),srd=document.getElementById('srdrop');
-gsi.addEventListener('input',()=>{
-  const q=gsi.value.toLowerCase().trim();
-  if(!q||!cData){srd.classList.remove('open');return;}
-  const cm=cData.countries.filter(c=>c.name.toLowerCase().includes(q)||c.code.toLowerCase().includes(q)).slice(0,5);
-  const clm=allClubs.filter(c=>c.name.toLowerCase().includes(q)).slice(0,6);
-  if(!cm.length&&!clm.length){srd.classList.remove('open');return;}
-  let h='';
-  if(cm.length){h+='<div class="srsec">Countries</div>';h+=cm.map(c=>`<div class="sri" onclick="goToCountry('${c.code}')"><span class="srrank">${c.rank}</span><span style="font-size:15px">${c.flag}</span><strong>${c.name}</strong><span class="srpts">${c.total.toFixed(3)}</span></div>`).join('');}
-  if(clm.length){h+='<div class="srsec">Clubs</div>';h+=clm.map(cl=>`<div class="sri" onclick="goToClub(${JSON.stringify(cl.name)})"><span class="srrank">${cl.rank}</span><span style="font-size:15px">${cl.flag}</span><span>${cl.name}</span><span class="comp-badge ${cl.comp.toLowerCase()}" style="margin-left:4px">${cl.comp}</span><span class="srpts">${cl.pts.toFixed(0)}</span></div>`).join('');}
-  srd.innerHTML=h;srd.classList.add('open');
-});
-document.addEventListener('click',e=>{if(!e.target.closest('.sw'))srd.classList.remove('open');});
-function goToCountry(code){
-  srd.classList.remove('open');gsi.value='';
-  document.querySelector('nav a[data-tab="ranking"]').click();
-  setTimeout(()=>{
-    const row=document.querySelector(`tr[data-code="${code}"]`);if(!row)return;
-    row.scrollIntoView({behavior:'smooth',block:'center'});
-    const c=cData?.countries.find(x=>x.code===code);if(c)toggleDetail(row,c);
-  },150);
-}
-function goToClub(name){srd.classList.remove('open');gsi.value='';document.querySelector('nav a[data-tab="clubs"]').click();document.getElementById('cq').value=name;renderClubs();}
-
-// ── CHART MODE ──
-function setChartMode(mode){
-  chartMode=mode;
-  document.getElementById('btnPts').classList.toggle('active',mode==='pts');
-  document.getElementById('btnRank').classList.toggle('active',mode==='rank');
-  drawHistChart();
-}
-
-// ── HISTORY CHART ──
-const ALL_C=Object.keys(HY1).sort();
-function initStats(){
-  if(statsInited)return;
-  ['hs1','hs2','hs3','cmpa','cmpb'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el.options.length>1)return;
-    ALL_C.forEach(name=>{const o=document.createElement('option');o.value=name;o.textContent=name;el.appendChild(o);});
-  });
-  document.getElementById('hs1').value='England';
-  document.getElementById('cmpa').value='England';
-  document.getElementById('cmpb').value='Spain';
-}
-function drawHistChart(){
-  const picks=[document.getElementById('hs1').value,document.getElementById('hs2').value,document.getElementById('hs3').value].filter(Boolean);
-  const ctx=document.getElementById('histchart').getContext('2d');
-  if(histChart)histChart.destroy();
-  const isRank=chartMode==='rank';
-  document.getElementById('chart-note').textContent=isRank?'Rank mode: position in the standings each season (1 = best). Y-axis is inverted — going up = improving.':'Points mode: Y1 coefficient (points earned per club in the season).';
-  histChart=new Chart(ctx,{type:'line',data:{
-    labels:HSEASONS,
-    datasets:picks.map((name,i)=>({
-      label:name,
-      data:(isRank?HY1_RANK:HY1)[name]||[],
-      borderColor:COLORS[i],backgroundColor:COLORS[i]+'18',
-      borderWidth:2.5,pointRadius:4,pointHoverRadius:6,tension:.35,fill:false
-    }))
-  },options:{responsive:true,maintainAspectRatio:false,
-    plugins:{
-      legend:{position:'top',labels:{font:{size:12},boxWidth:14,color:'#8b92b3',padding:16}},
-      tooltip:{callbacks:{label:v=>v.dataset.label+': '+(isRank?'#'+v.raw:v.raw.toFixed(3))}}
-    },
-    scales:{
-      y:{reverse:isRank,ticks:{font:{size:11},color:'#5c6480',callback:v=>isRank?'#'+v:v},grid:{color:'rgba(255,255,255,.05)'},title:{display:true,text:isRank?'Rank (1 = best)':'Y1 pts',font:{size:11},color:'#5c6480'}},
-      x:{ticks:{font:{size:11},color:'#5c6480'},grid:{display:false}}
-    }
-  }});
-}
-
-// ── COMPARE ──
-function renderCompare(){
-  if(!cData)return;
-  const na=document.getElementById('cmpa').value,nb=document.getElementById('cmpb').value;
-  const ca=cData.countries.find(c=>c.name===na),cb=cData.countries.find(c=>c.name===nb);
-  if(!ca||!cb){document.getElementById('cmpout').innerHTML='<p style="color:var(--muted);font-size:12px">One or both countries not in this season\'s data.</p>';return;}
-  const norm=c=>({...c,clubs_total:(c.clubs||[]).length||c.clubs_total,clubs_active:(c.clubs||[]).filter(cl=>cl.active).length});
-  const[ca2,cb2]=[norm(ca),norm(cb)];
-  const fields=[['Rank','rank',true],['Total coefficient','total'],['Y1 (current)','y1'],['Y2','y2'],['Y3','y3'],['Y4','y4'],['Y5','y5'],['Clubs entered','clubs_total',true],['Clubs active','clubs_active',true]];
-  const statsHtml=(a,b)=>fields.map(([label,key,lower])=>{
-    const av=a[key]??'—',bv=b[key]??'—';
-    const better=typeof av==='number'&&typeof bv==='number'?(lower?av<bv:av>bv):null;
-    const worse=typeof av==='number'&&typeof bv==='number'?(lower?av>bv:av<bv):null;
-    const fmt=v=>typeof v==='number'?(key==='rank'||key==='clubs_total'||key==='clubs_active'?v:v.toFixed(3)):v;
-    return`<div class="srow"><span class="slabel">${label}</span><span class="sval ${better?'better':worse?'worse':''}">${fmt(av)}</span></div>`;
-  }).join('');
-  const clubsHtml=c=>(c.clubs||[]).slice().sort((a,b)=>b.pts-a.pts).map(cl=>`<span class="chip ${cl.active?'':'out'}" style="margin:2px"><span class="ctag ${cl.comp.toLowerCase()}">${cl.comp}</span>${cl.name}<strong style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${cl.active?'var(--green)':'var(--muted)'}">${(+cl.pts||0).toFixed(0)}</strong>${cl.active?'<span style="color:var(--green);font-size:9px">●</span>':'<span style="color:var(--red);font-size:9px">●</span>'}</span>`).join('');
-  const chartId='cmpchart_'+Date.now();
-  document.getElementById('cmpout').innerHTML=`
-    <div class="statgrid">
-      <div class="scard"><h3><span style="font-size:20px">${ca.flag}</span>${ca.name} <span style="color:var(--muted);font-size:12px">#${ca.rank}</span></h3>${statsHtml(ca2,cb2)}<div style="margin-top:12px"><div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Clubs</div><div style="display:flex;flex-wrap:wrap;gap:3px">${clubsHtml(ca)}</div></div></div>
-      <div class="scard"><h3><span style="font-size:20px">${cb.flag}</span>${cb.name} <span style="color:var(--muted);font-size:12px">#${cb.rank}</span></h3>${statsHtml(cb2,ca2)}<div style="margin-top:12px"><div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Clubs</div><div style="display:flex;flex-wrap:wrap;gap:3px">${clubsHtml(cb)}</div></div></div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:14px;margin-top:14px"><h3 style="font-size:13px;font-weight:700;margin-bottom:12px">Year-by-year comparison</h3><div style="position:relative;height:220px"><canvas id="${chartId}"></canvas></div></div>`;
-  if(cmpChart)cmpChart.destroy();
-  cmpChart=new Chart(document.getElementById(chartId).getContext('2d'),{type:'bar',data:{labels:['Y1','Y2','Y3','Y4','Y5'],datasets:[{label:ca.name,data:[ca.y1,ca.y2,ca.y3,ca.y4,ca.y5],backgroundColor:'#3b82f640',borderColor:'#3b82f6',borderWidth:2},{label:cb.name,data:[cb.y1,cb.y2,cb.y3,cb.y4,cb.y5],backgroundColor:'#f9731640',borderColor:'#f97316',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:12},boxWidth:14,color:'#8b92b3'}},tooltip:{callbacks:{label:v=>v.dataset.label+': '+v.raw.toFixed(3)}}},scales:{y:{ticks:{font:{size:11},color:'#5c6480'},grid:{color:'rgba(255,255,255,.05)'}},x:{ticks:{font:{size:11},color:'#5c6480'},grid:{display:false}}}}});
-}
-
-// ── SIMULATOR ──
-function renderSim(){
-  const el=document.getElementById('simmatches');
-  const all=[...FIXTURES,...(RESULTS||[])].slice(0,16);
-  if(!all.length){el.innerHTML='<em style="color:var(--muted);font-size:12px">Loading matches…</em>';return;}
-  el.innerHTML=all.map((f,i)=>{const st=simState[i]||null;return`<div class="smatch"><span class="mcomp ${f.comp.toLowerCase()}" style="flex-shrink:0">${f.comp}</span><span class="steam">${f.homeFlag||''} ${f.home}</span><div class="sbts"><button class="sb ${st==='W'?'aw':''}" onclick="setSim(${i},'W')">W</button><button class="sb ${st==='D'?'dr':''}" onclick="setSim(${i},'D')">D</button><button class="sb ${st==='L'?'lw':''}" onclick="setSim(${i},'L')">L</button></div><span class="steam away">${f.away} ${f.awayFlag||''}</span>${f.score?`<span style="font-size:10px;font-weight:700;color:var(--muted);font-family:'JetBrains Mono',monospace">${f.score}</span>`:''}</div>`;}).join('');
-  renderSimImpact();
-}
-function setSim(i,r){simState[i]=simState[i]===r?null:r;renderSim();}
-function resetSim(){simState={};renderSim();}
-function renderSimImpact(){
-  const el=document.getElementById('simimpact');
-  if(!cData){el.innerHTML='<em style="color:var(--muted)">Load a season first.</em>';return;}
-  const all=[...FIXTURES,...(RESULTS||[])].slice(0,16),extra={};
-  Object.entries(simState).forEach(([idx,res])=>{
-    if(!res)return;const f=all[+idx];if(!f)return;
-    const hP=res==='W'?2:res==='D'?1:0,aP=res==='L'?2:res==='D'?1:0;
-    const hc=cData.countries.find(c=>c.name===f.homeCountry),ac=cData.countries.find(c=>c.name===f.awayCountry);
-    const hct=(hc?.clubs||[]).length||hc?.clubs_total||1,act=(ac?.clubs||[]).length||ac?.clubs_total||1;
-    if(hc&&hct>0)extra[f.homeCountry]=(extra[f.homeCountry]||0)+hP/hct;
-    if(ac&&act>0)extra[f.awayCountry]=(extra[f.awayCountry]||0)+aP/act;
-  });
-  const affected=Object.entries(extra).filter(([,v])=>v!==0);
-  if(!affected.length){el.innerHTML='<em style="color:var(--muted);font-size:12px">Click W / D / L on a match to see the effect on country coefficients.</em>';return;}
-  const base=[...cData.countries].sort((a,b)=>b.total-a.total);
-  const simmed=base.map(c=>({...c,newTotal:c.total+(extra[c.name]||0)})).sort((a,b)=>b.newTotal-a.newTotal);
-  const changed=simmed.map((c,i)=>({...c,simRank:i+1,oldRank:base.findIndex(x=>x.name===c.name)+1,delta:extra[c.name]||0})).filter(c=>c.delta!==0||c.simRank!==c.oldRank).slice(0,12);
-  el.innerHTML='<div style="font-size:11px;color:var(--muted);margin-bottom:8px">Simulated Y1 impact:</div>'+changed.map(c=>{const rd=c.oldRank-c.simRank;const rdH=rd>0?`<span class="cup"> ▲${rd}</span>`:rd<0?`<span class="cdn"> ▼${Math.abs(rd)}</span>`:'';return`<div class="improw"><span>${c.flag} <strong>${c.name}</strong> <span style="color:var(--muted);font-size:11px">#${c.oldRank}${rdH}</span></span><span class="imd ${c.delta>0?'pos':c.delta<0?'neg':'neu'}">${c.delta>0?'+':''}${c.delta.toFixed(3)}</span></div>`;}).join('');
-}
-
-// ── PREDICTION ──
-function renderPrediction(){
-  if(!cData){document.getElementById('predtb').innerHTML='<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Load a season first.</td></tr>';return;}
-  const N=1000,PLAYED=6,REM=3;
-  const proj=cData.countries.map(c=>{
-    const n=(c.clubs||[]).length||c.clubs_total||1;
-    const activePts=(c.clubs||[]).filter(cl=>cl.active).reduce((s,cl)=>s+(+cl.pts||0),0);
-    const active=(c.clubs||[]).filter(cl=>cl.active).length;
-    const avg=active>0&&PLAYED>0?(activePts/active)/PLAYED:0;
-    const extra=active>0?(active*avg*REM)/n:0;
-    return{...c,extra,proj:c.total+extra,var:Math.max(.1,extra*.5)};
-  });
-  const rc={};proj.forEach(c=>{rc[c.code]={};});
-  for(let s=0;s<N;s++){
-    const t=proj.map(c=>({code:c.code,sc:c.proj+(Math.random()*2-1)*c.var}));
-    t.sort((a,b)=>b.sc-a.sc);
-    t.forEach((c,i)=>{rc[c.code][i+1]=(rc[c.code][i+1]||0)+1;});
-  }
-  const sorted=[...proj].sort((a,b)=>b.proj-a.proj);
-  document.getElementById('predtb').innerHTML=sorted.slice(0,20).map((c,i)=>{
-    const r=rc[c.code]||{};
-    const t5=Object.entries(r).filter(([k])=>+k<=5).reduce((s,[,v])=>s+v,0)/N*100;
-    const t10=Object.entries(r).filter(([k])=>+k<=10).reduce((s,[,v])=>s+v,0)/N*100;
-    const d=c.rank-(i+1),dH=d>0?`<span class="cup">▲${d}</span>`:d<0?`<span class="cdn">▼${Math.abs(d)}</span>`:`<span class="csm">—</span>`;
-    return`<tr><td style="text-align:center;font-weight:700;color:var(--muted)">${c.rank}</td><td><span style="font-size:14px">${c.flag}</span> <strong>${c.name}</strong></td><td style="text-align:right;font-family:'JetBrains Mono',monospace">${c.total.toFixed(3)}</td><td style="text-align:right"><strong style="color:var(--cl);font-family:'JetBrains Mono',monospace">${c.proj.toFixed(3)}</strong></td><td style="text-align:right;font-weight:700">${i+1} ${dH}</td><td><span class="pbar" style="width:${Math.max(4,t5)}px;background:${t5>60?'var(--green)':t5>30?'var(--el)':'var(--cl)'}"></span> <span style="font-size:11px;font-weight:700;color:${t5>60?'var(--green)':t5>30?'var(--el)':'var(--cl)'}">${t5.toFixed(0)}%</span></td><td><span class="pbar" style="width:${Math.max(4,t10*.8)}px;background:${t10>70?'var(--green)':t10>40?'var(--el)':'var(--cl)'}"></span> <span style="font-size:11px;font-weight:700;color:${t10>70?'var(--green)':t10>40?'var(--el)':'var(--cl)'}">${t10.toFixed(0)}%</span></td></tr>`;
-  }).join('');
-}
-
-// ── TOGGLE WIDGET ──
-function toggleW(bodyId,iconId){
-  const b=document.getElementById(bodyId),ico=document.getElementById(iconId);
-  b.classList.toggle('open');
-  if(ico)ico.style.transform=b.classList.contains('open')?'rotate(180deg)':'';
-}
-
 
 // ── AUTO-REFRESH ──
 setInterval(()=>{
