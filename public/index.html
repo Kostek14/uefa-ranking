@@ -335,7 +335,7 @@ table.fs th,table.fs td{border:1px solid #3e4447;padding:3px 5px;text-align:cent
   </div>
   <div class="twrap">
     <table style="width:100%;border-collapse:collapse;font-size:12.5px">
-      <thead><tr style="background:var(--bg);border-bottom:2px solid var(--bd2)">
+      <thead id="clubthead"><tr style="background:var(--bg);border-bottom:2px solid var(--bd2)">
         <th style="padding:7px 8px;text-align:center;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;width:44px">#</th>
         <th style="padding:7px 8px;text-align:left;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Club</th>
         <th style="padding:7px 8px;text-align:left;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Country</th>
@@ -604,40 +604,98 @@ function buildClubList(data){
   populateSeasonFilter();
 }
 function getAllClubs(){
-  const base=parseInt(SEASONS[cIdx].split('-')[0]);
-  const y5=[];
-  for(let i=0;i<5;i++){const y=base-i;y5.push(`${y}-${(y+1).toString().slice(-2)}`);}
+  // Agréger les clubs uniques sur 5 saisons, avec total cumulé + pts par saison
+  const activeSeason=SEASONS[cIdx];
+  const base=parseInt(activeSeason.split('-')[0]);
+  const y5seasons=[];
+  for(let i=0;i<5;i++){const yr=base-i;y5seasons.push(`${yr}-${(yr+1).toString().slice(-2)}`);}
+
+  // Map par club unique (nom+pays) → cumul
   const map={};
-  y5.forEach(s=>{(allClubsBySeason[s]||[]).forEach(cl=>{
-    const k=cl.name+'|'+cl.country+'|'+s;
-    if(!map[k])map[k]={...cl,season:s};
-  });});
-  return Object.values(map).sort((a,b)=>b.pts-a.pts).map((c,i)=>({...c,rank:i+1}));
+  y5seasons.forEach((s,si)=>{
+    (allClubsBySeason[s]||[]).forEach(cl=>{
+      const key=cl.name+'|'+cl.country;
+      if(!map[key]){
+        map[key]={
+          name:cl.name,country:cl.country,flag:cl.flag,code:cl.code,
+          comp:cl.comp,active:cl.active,
+          total:0,
+          seasons:{} // s → pts
+        };
+      }
+      map[key].seasons[s]=(map[key].seasons[s]||0)+(+cl.pts||0);
+      map[key].total+=(+cl.pts||0);
+      // Si c'est la saison active, mettre à jour active/comp
+      if(s===activeSeason){
+        map[key].active=cl.active;
+        map[key].comp=cl.comp;
+      }
+    });
+  });
+
+  return Object.values(map)
+    .sort((a,b)=>b.total-a.total)
+    .map((c,i)=>({...c,rank:i+1,y5seasons}));
 }
+
 function renderClubs(){
   const q=document.getElementById('cq').value.toLowerCase().trim();
   const comp=document.getElementById('ccomp').value;
   const stat=document.getElementById('cstat').value;
-  const season=document.getElementById('cseason').value;
+  const season=document.getElementById('cseason')?document.getElementById('cseason').value:'';
   const tb=document.getElementById('clubtb');
   const all=getAllClubs();
-  if(!all.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Load a season first.</td></tr>';return;}
-  const isY1=s=>s===SEASONS[cIdx];
-  let list=all.filter(c=>
-    (!q||(c.name.toLowerCase().includes(q)||c.country.toLowerCase().includes(q)))&&
-    (!comp||c.comp===comp)&&(!stat||(stat==='active'?c.active:!c.active))&&
-    (!season||c.season===season)
-  );
-  if(!list.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:16px;color:var(--muted)">No clubs found.</td></tr>';return;}
-  tb.innerHTML=list.slice(0,500).map(cl=>`<tr style="border-bottom:1px solid var(--bd)" class="${q&&cl.name.toLowerCase().includes(q)?'chl':''}">
-    <td style="text-align:center;font-weight:700;color:var(--muted);padding:5px 8px;font-family:'JetBrains Mono',monospace;font-size:11px">${cl.rank}</td>
-    <td style="text-align:left;padding:5px 8px"><span style="font-weight:600;color:${cl.active&&isY1(cl.season)?'var(--text)':'var(--muted)'};${cl.active&&isY1(cl.season)?'':'text-decoration:line-through;text-decoration-color:rgba(239,68,68,.4)'}">${cl.name}</span></td>
-    <td style="text-align:left;padding:5px 8px;font-size:11px"><span style="font-size:14px">${cl.flag}</span> <span style="color:var(--muted)">${cl.country}</span></td>
-    <td style="text-align:center;padding:5px 8px"><span class="comp-badge ${cl.comp.toLowerCase()}">${cl.comp}</span></td>
-    <td style="text-align:right;font-weight:700;padding:5px 8px;font-family:'JetBrains Mono',monospace;color:${cl.active&&isY1(cl.season)?'var(--green)':'var(--muted)'}">${cl.pts.toFixed(0)}</td>
-    <td style="text-align:center;font-size:11px;padding:5px 8px;color:var(--muted2)">${cl.season}</td>
-    <td style="text-align:center;font-size:11px;padding:5px 8px">${cl.active&&isY1(cl.season)?'<span style="color:var(--green);font-weight:600">● Active</span>':isY1(cl.season)?'<span style="color:var(--red);font-size:10px">● Out</span>':'<span style="color:var(--muted);font-size:10px">—</span>'}</td>
-  </tr>`).join('');
+  if(!all.length){tb.innerHTML='<tr><td colspan="10" style="text-align:center;padding:20px;color:var(--muted)">Load a season first.</td></tr>';return;}
+
+  // Filtrer
+  const activeSeason=SEASONS[cIdx];
+  let list=all.filter(c=>{
+    if(q&&!(c.name.toLowerCase().includes(q)||c.country.toLowerCase().includes(q)))return false;
+    if(comp&&c.comp!==comp)return false;
+    if(stat==='active'&&!c.active)return false;
+    if(stat==='out'&&c.active)return false;
+    // Filtre saison : le club doit avoir joué cette saison
+    if(season&&!(c.seasons&&c.seasons[season]))return false;
+    return true;
+  });
+
+  if(!list.length){tb.innerHTML='<tr><td colspan="10" style="text-align:center;padding:16px;color:var(--muted)">No clubs found.</td></tr>';return;}
+
+  // Saisons à afficher (Y1..Y5)
+  const y5 = list[0]?.y5seasons || [];
+  // Header
+  const headerEl=document.getElementById('clubthead');
+  if(headerEl){
+    headerEl.innerHTML=`<tr style="background:var(--hdr3);border-bottom:2px solid var(--hdr3)">
+      <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#fff;border-right:1px solid var(--bd);width:44px">#</th>
+      <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#fff;border-right:1px solid var(--bd)">Club</th>
+      <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#fff;border-right:1px solid var(--bd);width:80px">Country</th>
+      <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#fff;border-right:1px solid var(--bd);width:50px">Comp</th>
+      <th style="padding:5px 7px;text-align:right;font-size:10px;font-weight:700;color:#fff;border-right:2px solid var(--hdr3);width:80px">TOTAL</th>
+      ${y5.map(s=>`<th style="padding:5px 7px;text-align:right;font-size:10px;font-weight:700;color:#fff;border-right:1px solid var(--bd);width:72px;font-style:italic">${s}</th>`).join('')}
+      <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#fff;width:80px">Status</th>
+    </tr>`;
+  }
+
+  tb.innerHTML=list.slice(0,500).map((cl,i)=>{
+    const isActive=cl.active;
+    const rowCls=i%2===0?'even':'odd';
+    const nmStyle=isActive?'color:#fff;font-weight:700':'color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(239,68,68,.4);font-weight:600';
+    const trophyIcon=isActive?(cl.comp==='CL'?'🥇':cl.comp==='EL'?'🥈':'🥉'):'';
+    const seasonCols=y5.map(s=>{
+      const pts=cl.seasons&&cl.seasons[s];
+      return`<td style="text-align:right;padding:4px 7px;border-right:1px solid var(--bd);font-style:italic;color:${pts?'var(--muted2)':'#444'};font-size:11px">${pts?pts.toFixed(0):''}</td>`;
+    }).join('');
+    return`<tr class="${rowCls} ${q&&cl.name.toLowerCase().includes(q)?'chl':''}" style="border-bottom:1px solid var(--bd);cursor:default">
+      <td style="text-align:center;font-weight:700;color:var(--muted);padding:4px 7px;font-size:11px;border-right:1px solid var(--bd)">${cl.rank}</td>
+      <td style="text-align:left;padding:4px 7px;border-right:1px solid var(--bd)"><span style="${nmStyle}">${trophyIcon} ${cl.name}</span></td>
+      <td style="text-align:left;padding:4px 7px;border-right:1px solid var(--bd);font-size:11px"><span style="font-size:13px">${cl.flag}</span> <span style="color:var(--muted)">${cl.country}</span></td>
+      <td style="text-align:center;padding:4px 7px;border-right:1px solid var(--bd)"><span class="comp-badge ${cl.comp.toLowerCase()}">${cl.comp}</span></td>
+      <td style="text-align:right;font-weight:700;padding:4px 7px;border-right:2px solid var(--hdr3);font-size:13px">${cl.total.toFixed(0)}</td>
+      ${seasonCols}
+      <td style="text-align:center;font-size:11px;padding:4px 7px">${isActive?'<span style="color:var(--green);font-weight:700">● Active</span>':'<span style="color:var(--muted);font-size:10px">—</span>'}</td>
+    </tr>`;
+  }).join('');
   if(q)setTimeout(()=>document.querySelector('.chl')?.scrollIntoView({behavior:'smooth',block:'center'}),80);
 }
 ['cq'].forEach(id=>document.getElementById(id).addEventListener('input',renderClubs));
@@ -770,7 +828,7 @@ function buildFSTable(clubs,live){
       });
     });
     grand+=sig;
-    return`<tr class="${cl.active?'fs-tr-active':'fs-tr-elim'}"><td class="fs-td-club">${cl.name}${lv}</td><td class="fs-td-sig">${sig||'-'}</td>${cells}</tr>`;
+    return`<tr class="${cl.active?'fs-tr-active':'fs-tr-elim'}"><td class="fs-td-club">${cl.name}${lv}</td><td class="fs-td-sig">${sig}</td>${cells}</tr>`;
   }).join('');
   let sumCells='',compSum='';
   comps.forEach(comp=>{
