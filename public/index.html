@@ -31,7 +31,7 @@ nav a{display:flex;align-items:center;padding:0 16px;color:#fff;text-decoration:
 nav a:hover{background:#d0d0d0;color:#000}
 nav a.active{background:var(--hdr2)}
 .hright{margin-left:auto;display:flex;align-items:center;gap:10px;padding:0 14px}
-.livepill{display:inline-flex;align-items:center;gap:5px;background:#c00;border-radius:3px;padding:3px 9px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.06em;text-transform:uppercase}
+.livepill{display:inline-flex;align-items:center;gap:5px;background:#c00;padding:3px 9px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.06em;text-transform:uppercase}
 .livepill::before{content:'';width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 1.2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
@@ -47,7 +47,7 @@ nav a.active{background:var(--hdr2)}
 /* SEARCH */
 .sbar{background:var(--hdr);border-bottom:2px solid var(--bd);padding:5px 10px}
 .sw{position:relative;max-width:320px}
-.sw input{width:100%;border:0;border-radius:4px;padding:5px 10px 5px 28px;font-family:Verdana,sans-serif;font-size:12px;outline:none;background:#4a4a4b;color:#fff}
+.sw input{width:100%;border:0;padding:5px 10px 5px 28px;font-family:Verdana,sans-serif;font-size:12px;outline:none;background:#4a4a4b;color:#fff}
 .sw input:focus{outline:1px solid #fff}
 .sw::before{content:'🔍';position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:11px;pointer-events:none}
 .srdrop{position:absolute;top:calc(100% + 3px);left:0;right:0;background:var(--card);border:2px solid var(--hdr3);z-index:200;max-height:300px;overflow-y:auto;display:none}
@@ -302,19 +302,19 @@ table.fs th,table.fs td{border:1px solid #3e4447;padding:3px 5px;text-align:cent
 
 <!-- RACE -->
 <div id="tab-race" style="display:none">
-  <div style="background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.25);border-radius:6px;padding:10px 14px;font-size:12px;color:var(--bonus);margin-bottom:12px;line-height:1.7">
+  <div style="background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.25);padding:10px 14px;font-size:12px;color:var(--bonus);margin-bottom:12px;line-height:1.7">
     <strong>🏆 Bonus place rule:</strong> The 2 associations earning the most Y1 points this season each receive an extra European starting place for 2027-28.
   </div>
   <div class="twrap">
-    <table style="width:100%;border-collapse:collapse;font-size:12px">
-      <thead><tr style="background:var(--bg);border-bottom:1px solid var(--bd2)">
-        <th style="padding:6px 8px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;width:36px;text-align:center">#</th>
-        <th style="padding:6px 8px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;text-align:left">Country</th>
-        <th style="padding:6px 8px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;text-align:right">Y1 pts</th>
-        <th style="padding:6px 8px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;text-align:right">Gap ▲</th>
-        <th style="padding:6px 8px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;text-align:right">Gap ▼</th>
-        <th style="padding:6px 8px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Active clubs</th>
-        <th style="padding:6px 8px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Status</th>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;font-family:Verdana,sans-serif">
+      <thead><tr style="background:var(--hdr3);border-bottom:2px solid var(--hdr3)">
+        <th style="padding:5px 7px;font-size:11px;font-weight:700;color:#fff;border-right:1px solid var(--bd);width:36px;text-align:center">#</th>
+        <th style="padding:5px 7px;font-size:11px;font-weight:700;color:#fff;border-right:1px solid var(--bd);text-align:left">Country</th>
+        <th style="padding:5px 7px;font-size:11px;font-weight:700;color:#fff;border-right:1px solid var(--bd);text-align:right">Y1 pts</th>
+        <th style="padding:5px 7px;font-size:11px;font-weight:700;color:#fff;border-right:1px solid var(--bd);text-align:right">Gap ▲</th>
+        <th style="padding:5px 7px;font-size:11px;font-weight:700;color:#fff;border-right:1px solid var(--bd);text-align:right">Gap ▼</th>
+        <th style="padding:5px 7px;font-size:11px;font-weight:700;color:#fff;border-right:1px solid var(--bd)">Active clubs</th>
+        <th style="padding:5px 7px;font-size:11px;font-weight:700;color:#fff">Status</th>
       </tr></thead>
       <tbody id="racetb"></tbody>
     </table>
@@ -324,7 +324,7 @@ table.fs th,table.fs td{border:1px solid #3e4447;padding:3px 5px;text-align:cent
 
 <!-- CLUBS -->
 <div id="tab-clubs" style="display:none">
-  <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:6px;padding:8px 14px;font-size:12px;color:var(--cl3);margin-bottom:10px">
+  <div style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);padding:8px 14px;font-size:12px;color:var(--cl3);margin-bottom:10px">
     <strong>Club ranking (5 seasons)</strong> — clubs from all 5 seasons. Pts = total points earned that season.
   </div>
   <div class="cfilters">
@@ -372,10 +372,10 @@ table.fs th,table.fs td{border:1px solid #3e4447;padding:3px 5px;text-align:cent
   </div>
   <div style="font-size:12px;font-weight:700;color:var(--muted2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">⚖️ Side-by-side comparison</div>
   <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
-    <select id="cmpa" style="flex:1;min-width:150px;border:1px solid var(--bd2);border-radius:4px;padding:6px 8px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;background:var(--card);color:var(--text)"></select>
+    <select id="cmpa" style="flex:1;min-width:150px;border:1px solid var(--bd2);padding:6px 8px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;background:var(--card);color:var(--text)"></select>
     <span style="align-self:center;font-weight:700;color:var(--muted);flex-shrink:0">vs</span>
-    <select id="cmpb" style="flex:1;min-width:150px;border:1px solid var(--bd2);border-radius:4px;padding:6px 8px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;background:var(--card);color:var(--text)"></select>
-    <button onclick="renderCompare()" style="background:var(--cl);color:#fff;border:none;border-radius:4px;padding:6px 18px;cursor:pointer;font-size:13px;font-family:inherit;font-weight:600;flex-shrink:0">Compare</button>
+    <select id="cmpb" style="flex:1;min-width:150px;border:1px solid var(--bd2);padding:6px 8px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;background:var(--card);color:var(--text)"></select>
+    <button onclick="renderCompare()" style="background:var(--cl);color:#fff;border:none;padding:6px 18px;cursor:pointer;font-size:13px;font-family:inherit;font-weight:600;flex-shrink:0">Compare</button>
   </div>
   <div id="cmpout"></div>
 </div>
@@ -394,7 +394,7 @@ table.fs th,table.fs td{border:1px solid #3e4447;padding:3px 5px;text-align:cent
   <div class="wid">
     <div class="wh" style="background:var(--card);cursor:default"><h3>🔮 End-of-season rank prediction (Monte Carlo)</h3></div>
     <div style="padding:14px;border-top:1px solid var(--bd)">
-      <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:4px;padding:9px 14px;font-size:12px;color:#fcd34d;margin-bottom:14px;line-height:1.7">
+      <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);padding:9px 14px;font-size:12px;color:#fcd34d;margin-bottom:14px;line-height:1.7">
         <strong>Methodology:</strong> Remaining pts estimated from avg pts/match × expected remaining matches. 1 000 Monte Carlo simulations.
       </div>
       <div style="overflow-x:auto">
@@ -684,7 +684,9 @@ function renderClubs(){
     const trophyIcon=isActive?(cl.comp==='CL'?'🥇':cl.comp==='EL'?'🥈':'🥉'):'';
     const seasonCols=y5.map(s=>{
       const pts=cl.seasons&&cl.seasons[s];
-      return`<td style="text-align:right;padding:4px 7px;border-right:1px solid var(--bd);font-style:italic;color:${pts?'var(--muted2)':'#444'};font-size:11px">${pts?pts.toFixed(0):''}</td>`;
+      const loaded=allClubsBySeason[s]!==undefined;
+      if(!loaded) return`<td style="text-align:right;padding:4px 7px;border-right:1px solid var(--bd);color:#333;font-size:11px;font-style:italic">n/a</td>`;
+      return`<td style="text-align:right;padding:4px 7px;border-right:1px solid var(--bd);font-style:italic;color:${pts?'var(--muted2)':'#555'};font-size:11px">${pts?pts.toFixed(0):''}</td>`;
     }).join('');
     return`<tr class="${rowCls} ${q&&cl.name.toLowerCase().includes(q)?'chl':''}" style="border-bottom:1px solid var(--bd);cursor:default">
       <td style="text-align:center;font-weight:700;color:var(--muted);padding:4px 7px;font-size:11px;border-right:1px solid var(--bd)">${cl.rank}</td>
@@ -735,9 +737,27 @@ function zoneColor(r,z){
   if(r<=z.ecl_qual)return'#22c55e';
   return'#2a2e38';
 }
+// Convertir heure UTC du JSON → heure locale Europe (UTC+1 hiver / UTC+2 été)
+function utcToLocal(timeStr){
+  if(!timeStr)return timeStr;
+  const[h,m]=timeStr.split(':').map(Number);
+  const now=new Date();
+  const offset=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTimezoneOffset();
+  const localOffset=offset<0?Math.abs(offset)/60:0; // France = +1 ou +2
+  const localH=(h+Math.max(1,localOffset))%24;
+  return `${String(localH).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+}
 function getLive(){
-  const now=new Date(),today=now.toISOString().slice(0,10),nm=now.getUTCHours()*60+now.getUTCMinutes(),s=new Set();
-  FIXTURES.forEach(f=>{if(f.date!==today)return;const[fh,fm]=f.time.split(':').map(Number),start=fh*60+fm;if(nm>=start&&nm<=start+110){s.add(f.home);s.add(f.away);}});
+  const now=new Date();
+  const today=now.toISOString().slice(0,10);
+  const nm=now.getUTCHours()*60+now.getUTCMinutes();
+  const s=new Set();
+  FIXTURES.forEach(f=>{
+    if(f.date!==today)return;
+    const[fh,fm]=f.time.split(':').map(Number);
+    const start=fh*60+fm; // heure UTC stockée
+    if(nm>=start&&nm<=start+110){s.add(f.home);s.add(f.away);}
+  });
   return s;
 }
 
@@ -775,11 +795,14 @@ const COMP_LABEL_FS={CL:'Champions League',EL:'Europa League',ECL:'Europa Confer
 const COMP_CLS_FS={CL:'cl',EL:'el',ECL:'ecl'};
 
 function detectComp(cl){
-  if(!cl.rounds)return cl.comp||'ECL';
-  for(const c of['CL','EL','ECL']){
-    const r=cl.rounds[c];
-    if(r&&Object.entries(r).some(([k,v])=>k!=='last_round'&&typeof v==='number'&&v>0))return c;
+  // Priorité : trouver la comp qui a des rounds joués
+  if(cl.rounds){
+    for(const c of['CL','EL','ECL']){
+      const r=cl.rounds[c];
+      if(r&&Object.entries(r).some(([k,v])=>k!=='last_round'&&typeof v==='number'&&v>0))return c;
+    }
   }
+  // Sinon utiliser le comp du JSON (plus fiable que ECL par défaut)
   return cl.comp||'ECL';
 }
 
@@ -794,7 +817,11 @@ function buildFSTable(clubs,live){
     byComp[comp].forEach(cl=>{
       const r=cl.rounds&&cl.rounds[comp];
       if(!r)return;
-      Object.entries(r).forEach(([k,v])=>{if(typeof v==='number'&&v>0&&k!=='last_round')keys.add(k);});
+      // Inclure toutes les clés numériques (même 0 ou 1)
+      Object.entries(r).forEach(([k,v])=>{
+        if(typeof v==='number'&&k!=='last_round')keys.add(k);
+      });
+      // Toujours inclure jusqu'au last_round
       const lr=cl.rounds.last_round&&cl.rounds.last_round[comp];
       if(lr)keys.add(lr);
     });
@@ -824,7 +851,20 @@ function buildFSTable(clubs,live){
         if(v===null){cells+=`<td class="fs-v-n">-</td>`;return;}
         if(v>=2){sig+=v;colSums[comp][col]+=v;compTotals[comp]+=v;cells+=`<td class="fs-v-w">${v}</td>`;}
         else if(v===1){sig+=v;colSums[comp][col]+=v;compTotals[comp]+=v;cells+=`<td class="fs-v-d">${v}</td>`;}
-        else{if(lr&&lrIdx>=0&&colIdx<=lrIdx)cells+=`<td class="fs-v-l">0</td>`;else cells+=`<td class="fs-v-n">-</td>`;}
+        else{
+          // 0 rouge seulement si ce round a été joué (colIdx <= lrIdx)
+          // ET que ce n'est pas un round KO pas encore atteint
+          const knockoutCols=['FI','SF','QF','R16'];
+          const isKO=knockoutCols.includes(col);
+          if(lr&&lrIdx>=0&&colIdx<=lrIdx&&!isKO){
+            cells+=`<td class="fs-v-l">0</td>`;
+          } else if(lr&&lrIdx>=0&&colIdx<=lrIdx&&isKO&&lrIdx<=ROUND_ORDER.indexOf(col)){
+            // KO joué et perdu
+            cells+=`<td class="fs-v-l">0</td>`;
+          } else {
+            cells+=`<td class="fs-v-n">-</td>`;
+          }
+        }
       });
     });
     grand+=sig;
@@ -915,10 +955,10 @@ function renderRace(){
     const bb=below!=null?`<span class="gb ${below<0.5?'gd':below<2?'gw':'gs'}">${below.toFixed(3)}</span>`:'—';
     const active=(c.clubs||[]).filter(x=>x.active).map(cl=>`<span class="comp-badge ${cl.comp.toLowerCase()}">${cl.name}</span>`).join(' ')||`<span style="color:var(--muted);font-size:11px">—</span>`;
     const isB=i<2;
-    return`<tr style="${isB?'background:rgba(167,139,250,.06)':''}" onmouseenter="this.style.background='${isB?'rgba(167,139,250,.1)':'rgba(255,255,255,.02)'}'" onmouseleave="this.style.background='${isB?'rgba(167,139,250,.06)':''}'">
+    return`<tr class="${i%2===0?'even':'odd'}" style="${isB?'background:rgba(167,139,250,.06)':''}" onmouseenter="this.style.background='${isB?'rgba(167,139,250,.15)':'var(--row-hover)'}'" onmouseleave="this.style.background='${isB?'rgba(167,139,250,.06)':''}'">
       <td style="text-align:center;font-weight:700;padding:5px 8px;color:${isB?'var(--bonus)':'var(--muted)'}">${i+1}</td>
       <td style="padding:5px 8px"><span style="font-size:14px">${c.flag}</span> <strong>${c.name}</strong> <span style="color:var(--muted);font-size:11px">(#${c.rank})</span></td>
-      <td style="text-align:right;padding:5px 8px;font-weight:700;font-family:'JetBrains Mono',monospace;color:${isB?'var(--bonus)':'var(--text)'}">${c.y1.toFixed(3)}</td>
+      <td style="text-align:right;padding:5px 8px;font-weight:700;font-family:Verdana,monospace;color:${isB?'var(--bonus)':'var(--text)'}">${c.y1.toFixed(3)}</td>
       <td style="text-align:right;padding:5px 8px">${ab}</td>
       <td style="text-align:right;padding:5px 8px">${bb}</td>
       <td style="padding:5px 8px;font-size:11px;display:flex;flex-wrap:wrap;gap:3px">${active}</td>
@@ -940,7 +980,7 @@ function renderFixtures(){
     html+=upcoming.map(f=>{
       const isL=live.has(f.home)||live.has(f.away);
       const ds=new Date(f.date+'T12:00:00Z').toLocaleDateString('en-GB',{weekday:'short',day:'2-digit',month:'short'});
-      return`<div class="mrow"><span class="mcomp ${f.comp.toLowerCase()}">${f.comp}</span><span class="mtime">${ds} ${f.time}</span><span class="mteams">${f.homeFlag||''} ${f.home} <span class="vs">vs</span> ${f.away} ${f.awayFlag||''}</span><span class="mscore" style="color:var(--muted);font-size:11px">${f.time}</span>${isL?'<span style="font-size:9px;color:var(--red);font-weight:700;animation:blink .9s infinite">⚽LIVE</span>':''}<span style="font-size:10px;color:var(--muted);flex-shrink:0">${f.round||''}</span></div>`;
+      return`<div class="mrow"><span class="mcomp ${f.comp.toLowerCase()}">${f.comp}</span><span class="mtime">${ds} ${utcToLocal(f.time)}</span><span class="mteams">${f.homeFlag||''} ${f.home} <span class="vs">vs</span> ${f.away} ${f.awayFlag||''}</span><span class="mscore" style="color:var(--muted);font-size:11px">${utcToLocal(f.time)}</span>${isL?'<span style="font-size:9px;color:var(--red);font-weight:700;animation:blink .9s infinite">⚽LIVE</span>':''}<span style="font-size:10px;color:var(--muted);flex-shrink:0">${f.round||''}</span></div>`;
     }).join('');
   }
   if(recent.length){
@@ -1044,14 +1084,14 @@ function renderCompare(){
     const fmt=v=>typeof v==='number'?(key==='rank'||key==='clubs_total'||key==='clubs_active'?v:v.toFixed(3)):v;
     return`<div class="srow"><span class="slabel">${label}</span><span class="sval ${better?'better':worse?'worse':''}">${fmt(av)}</span></div>`;
   }).join('');
-  const clubsHtml=c=>(c.clubs||[]).slice().sort((a,b)=>b.pts-a.pts).map(cl=>`<span class="chip ${cl.active?'':'out'}" style="margin:2px"><span class="ctag ${cl.comp.toLowerCase()}">${cl.comp}</span>${cl.name}<strong style="font-family:'JetBrains Mono',monospace;font-size:11px;color:${cl.active?'var(--green)':'var(--muted)'}">${(+cl.pts||0).toFixed(0)}</strong>${cl.active?'<span style="color:var(--green);font-size:9px">●</span>':'<span style="color:var(--red);font-size:9px">●</span>'}</span>`).join('');
+  const clubsHtml=c=>(c.clubs||[]).slice().sort((a,b)=>b.pts-a.pts).map(cl=>`<span class="chip ${cl.active?'':'out'}" style="margin:2px"><span class="ctag ${cl.comp.toLowerCase()}">${cl.comp}</span>${cl.name}<strong style="font-family:Verdana,monospace;font-size:11px;color:${cl.active?'var(--green)':'var(--muted)'}">${(+cl.pts||0).toFixed(0)}</strong>${cl.active?'<span style="color:var(--green);font-size:9px">●</span>':'<span style="color:var(--red);font-size:9px">●</span>'}</span>`).join('');
   const chartId='cmpchart_'+Date.now();
   document.getElementById('cmpout').innerHTML=`
     <div class="statgrid">
       <div class="scard"><h3><span style="font-size:20px">${ca.flag}</span>${ca.name} <span style="color:var(--muted);font-size:12px">#${ca.rank}</span></h3>${statsHtml(ca2,cb2)}<div style="margin-top:12px"><div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Clubs</div><div style="display:flex;flex-wrap:wrap;gap:3px">${clubsHtml(ca)}</div></div></div>
       <div class="scard"><h3><span style="font-size:20px">${cb.flag}</span>${cb.name} <span style="color:var(--muted);font-size:12px">#${cb.rank}</span></h3>${statsHtml(cb2,ca2)}<div style="margin-top:12px"><div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Clubs</div><div style="display:flex;flex-wrap:wrap;gap:3px">${clubsHtml(cb)}</div></div></div>
     </div>
-    <div style="background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:14px;margin-top:14px"><h3 style="font-size:13px;font-weight:700;margin-bottom:12px">Year-by-year comparison</h3><div style="position:relative;height:220px"><canvas id="${chartId}"></canvas></div></div>`;
+    <div style="background:var(--card);border:1px solid var(--bd);padding:14px;margin-top:14px"><h3 style="font-size:13px;font-weight:700;margin-bottom:12px">Year-by-year comparison</h3><div style="position:relative;height:220px"><canvas id="${chartId}"></canvas></div></div>`;
   if(cmpChart)cmpChart.destroy();
   cmpChart=new Chart(document.getElementById(chartId).getContext('2d'),{type:'bar',data:{labels:['Y1','Y2','Y3','Y4','Y5'],datasets:[{label:ca.name,data:[ca.y1,ca.y2,ca.y3,ca.y4,ca.y5],backgroundColor:'#3b82f640',borderColor:'#3b82f6',borderWidth:2},{label:cb.name,data:[cb.y1,cb.y2,cb.y3,cb.y4,cb.y5],backgroundColor:'#f9731640',borderColor:'#f97316',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:12},boxWidth:14,color:'#8b92b3'}},tooltip:{callbacks:{label:v=>v.dataset.label+': '+v.raw.toFixed(3)}}},scales:{y:{ticks:{font:{size:11},color:'#5c6480'},grid:{color:'rgba(255,255,255,.05)'}},x:{ticks:{font:{size:11},color:'#5c6480'},grid:{display:false}}}}});
 }
@@ -1061,7 +1101,7 @@ function renderSim(){
   const el=document.getElementById('simmatches');
   const all=[...FIXTURES,...(RESULTS||[])].slice(0,16);
   if(!all.length){el.innerHTML='<em style="color:var(--muted);font-size:12px">Loading matches…</em>';return;}
-  el.innerHTML=all.map((f,i)=>{const st=simState[i]||null;return`<div class="smatch"><span class="mcomp ${f.comp.toLowerCase()}" style="flex-shrink:0">${f.comp}</span><span class="steam">${f.homeFlag||''} ${f.home}</span><div class="sbts"><button class="sb ${st==='W'?'aw':''}" onclick="setSim(${i},'W')">W</button><button class="sb ${st==='D'?'dr':''}" onclick="setSim(${i},'D')">D</button><button class="sb ${st==='L'?'lw':''}" onclick="setSim(${i},'L')">L</button></div><span class="steam away">${f.away} ${f.awayFlag||''}</span>${f.score?`<span style="font-size:10px;font-weight:700;color:var(--muted);font-family:'JetBrains Mono',monospace">${f.score}</span>`:''}</div>`;}).join('');
+  el.innerHTML=all.map((f,i)=>{const st=simState[i]||null;return`<div class="smatch"><span class="mcomp ${f.comp.toLowerCase()}" style="flex-shrink:0">${f.comp}</span><span class="steam">${f.homeFlag||''} ${f.home}</span><div class="sbts"><button class="sb ${st==='W'?'aw':''}" onclick="setSim(${i},'W')">W</button><button class="sb ${st==='D'?'dr':''}" onclick="setSim(${i},'D')">D</button><button class="sb ${st==='L'?'lw':''}" onclick="setSim(${i},'L')">L</button></div><span class="steam away">${f.away} ${f.awayFlag||''}</span>${f.score?`<span style="font-size:10px;font-weight:700;color:var(--muted);font-family:Verdana,monospace">${f.score}</span>`:''}</div>`;}).join('');
   renderSimImpact();
 }
 function setSim(i,r){simState[i]=simState[i]===r?null:r;renderSim();}
@@ -1110,7 +1150,7 @@ function renderPrediction(){
     const t5=Object.entries(r).filter(([k])=>+k<=5).reduce((s,[,v])=>s+v,0)/N*100;
     const t10=Object.entries(r).filter(([k])=>+k<=10).reduce((s,[,v])=>s+v,0)/N*100;
     const d=c.rank-(i+1),dH=d>0?`<span class="cup">▲${d}</span>`:d<0?`<span class="cdn">▼${Math.abs(d)}</span>`:`<span class="csm">—</span>`;
-    return`<tr class="${i%2===0?'even':'odd'}"><td style="text-align:center;font-weight:700;color:var(--muted)">${c.rank}</td><td><span style="font-size:14px">${c.flag}</span> <strong>${c.name}</strong></td><td style="text-align:right;font-family:'JetBrains Mono',monospace">${c.total.toFixed(3)}</td><td style="text-align:right"><strong style="color:var(--cl);font-family:'JetBrains Mono',monospace">${c.proj.toFixed(3)}</strong></td><td style="text-align:right;font-weight:700">${i+1} ${dH}</td><td><span class="pbar" style="width:${Math.max(4,t5)}px;background:${t5>60?'var(--green)':t5>30?'var(--el)':'var(--cl)'}"></span> <span style="font-size:11px;font-weight:700;color:${t5>60?'var(--green)':t5>30?'var(--el)':'var(--cl)'}">${t5.toFixed(0)}%</span></td><td><span class="pbar" style="width:${Math.max(4,t10*.8)}px;background:${t10>70?'var(--green)':t10>40?'var(--el)':'var(--cl)'}"></span> <span style="font-size:11px;font-weight:700;color:${t10>70?'var(--green)':t10>40?'var(--el)':'var(--cl)'}">${t10.toFixed(0)}%</span></td></tr>`;
+    return`<tr class="${i%2===0?'even':'odd'}"><td style="text-align:center;font-weight:700;color:var(--muted)">${c.rank}</td><td><span style="font-size:14px">${c.flag}</span> <strong>${c.name}</strong></td><td style="text-align:right;font-family:Verdana,monospace">${c.total.toFixed(3)}</td><td style="text-align:right"><strong style="color:var(--cl);font-family:Verdana,monospace">${c.proj.toFixed(3)}</strong></td><td style="text-align:right;font-weight:700">${i+1} ${dH}</td><td><span class="pbar" style="width:${Math.max(4,t5)}px;background:${t5>60?'var(--green)':t5>30?'var(--el)':'var(--cl)'}"></span> <span style="font-size:11px;font-weight:700;color:${t5>60?'var(--green)':t5>30?'var(--el)':'var(--cl)'}">${t5.toFixed(0)}%</span></td><td><span class="pbar" style="width:${Math.max(4,t10*.8)}px;background:${t10>70?'var(--green)':t10>40?'var(--el)':'var(--cl)'}"></span> <span style="font-size:11px;font-weight:700;color:${t10>70?'var(--green)':t10>40?'var(--el)':'var(--cl)'}">${t10.toFixed(0)}%</span></td></tr>`;
   }).join('');
 }
 
