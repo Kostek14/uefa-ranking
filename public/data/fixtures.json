@@ -1,30 +1,17 @@
 {
-  "updated": "2026-03-16T22:58:24.430999+00:00",
+  "updated": "2026-03-17T18:01:51.073235+00:00",
   "upcoming": [
-    {
-      "date": "2026-03-17",
-      "time": "17:45",
-      "comp": "CL",
-      "round": "Round of 16 Champions League",
-      "home": "Sporting CP",
-      "homeFlag": "🇵🇹",
-      "homeCountry": "Portugal",
-      "away": "Bodø/Glimt",
-      "awayFlag": "🇳🇴",
-      "awayCountry": "Norway",
-      "score": null
-    },
     {
       "date": "2026-03-17",
       "time": "20:00",
       "comp": "CL",
       "round": "Round of 16 Champions League",
-      "home": "Chelsea",
+      "home": "Arsenal",
       "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeCountry": "England",
-      "away": "Paris SG",
-      "awayFlag": "🇫🇷",
-      "awayCountry": "France",
+      "away": "Leverkusen",
+      "awayFlag": "🇩🇪",
+      "awayCountry": "Germany",
       "score": null
     },
     {
@@ -45,12 +32,12 @@
       "time": "20:00",
       "comp": "CL",
       "round": "Round of 16 Champions League",
-      "home": "Arsenal",
+      "home": "Chelsea",
       "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeCountry": "England",
-      "away": "Leverkusen",
-      "awayFlag": "🇩🇪",
-      "awayCountry": "Germany",
+      "away": "Paris SG",
+      "awayFlag": "🇫🇷",
+      "awayCountry": "France",
       "score": null
     },
     {
@@ -104,9 +91,35 @@
       "awayFlag": "🇪🇸",
       "awayCountry": "Spain",
       "score": null
+    },
+    {
+      "date": "2026-03-18",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Round of 16 Champions League",
+      "home": "Liverpool",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Galatasaray",
+      "awayFlag": "🇹🇷",
+      "awayCountry": "Türkiye",
+      "score": null
     }
   ],
   "results": [
+    {
+      "date": "2026-03-17",
+      "time": "17:45",
+      "comp": "CL",
+      "round": "Round of 16 Champions League",
+      "home": "Sporting CP",
+      "homeFlag": "🇵🇹",
+      "homeCountry": "Portugal",
+      "away": "Bodø/Glimt",
+      "awayFlag": "🇳🇴",
+      "awayCountry": "Norway",
+      "score": "0:0"
+    },
     {
       "date": "2026-03-12",
       "time": "20:00",
@@ -197,19 +210,6 @@
       "awayFlag": "🇫🇷",
       "awayCountry": "France",
       "score": "1:1"
-    },
-    {
-      "date": "2026-03-12",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "Ferencváros",
-      "homeFlag": "🇭🇺",
-      "homeCountry": "Hungary",
-      "away": "SC Braga",
-      "awayFlag": "🇵🇹",
-      "awayCountry": "Portugal",
-      "score": "2:0"
     }
   ]
 }
