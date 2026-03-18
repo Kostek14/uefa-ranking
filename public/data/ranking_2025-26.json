@@ -1,6 +1,6 @@
 {
   "season": "2025-26",
-  "updated": "2026-03-18T21:02:17.678866+00:00",
+  "updated": "2026-03-18T22:58:23.676088+00:00",
   "zone_thresholds": {
     "cl_direct": 4,
     "cl_qual": 10,
@@ -15,8 +15,8 @@
       "name": "England",
       "code": "ENG",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "total": 114.131,
-      "y1": 23.292,
+      "total": 114.353,
+      "y1": 23.514,
       "y2": 27.464,
       "y3": 19.607,
       "y4": 20.892,
@@ -565,8 +565,8 @@
       "name": "Italy",
       "code": "ITA",
       "flag": "🇮🇹",
-      "total": 99.017,
-      "y1": 18.071,
+      "total": 98.875,
+      "y1": 17.929,
       "y2": 18.071,
       "y3": 20.071,
       "y4": 21.071,
@@ -997,8 +997,8 @@
       "name": "Spain",
       "code": "ESP",
       "flag": "🇪🇸",
-      "total": 93.987,
-      "y1": 19.031,
+      "total": 93.862,
+      "y1": 18.906,
       "y2": 27.928,
       "y3": 19.071,
       "y4": 21.0,
@@ -1488,8 +1488,8 @@
       "name": "Germany",
       "code": "GER",
       "flag": "🇩🇪",
-      "total": 89.404,
-      "y1": 18.286,
+      "total": 89.547,
+      "y1": 18.429,
       "y2": 17.5,
       "y3": 18.748,
       "y4": 18.0,
@@ -3351,74 +3351,15 @@
       "name": "Türkiye",
       "code": "TUR",
       "flag": "🇹🇷",
-      "total": 51.675,
-      "y1": 10.875,
+      "total": 51.475,
+      "y1": 10.675,
       "y2": 7.8,
       "y3": 7.2,
       "y4": 13.5,
       "y5": 12.3,
       "clubs_total": 5,
-      "clubs_active": 2,
+      "clubs_active": 1,
       "clubs": [
-        {
-          "name": "Galatasaray",
-          "pts": 19.75,
-          "active": true,
-          "comp": "CL",
-          "team_id": 236,
-          "team_slug": "galatasaray",
-          "rounds": {
-            "CL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 2.0,
-              "PO": 2.0,
-              "G8": 0,
-              "G7": 0,
-              "G6": 0.0,
-              "G5": 1.0,
-              "G4": 0.0,
-              "G3": 0.0,
-              "G2": 2.0,
-              "G1": 2.0,
-              "Q": 0
-            },
-            "EL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0,
-              "PO": 0,
-              "G6": 0,
-              "G5": 0,
-              "G4": 0,
-              "G3": 0,
-              "G2": 0,
-              "G1": 0,
-              "Q": 0
-            },
-            "ECL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0,
-              "PO": 0,
-              "G6": 0,
-              "G5": 0,
-              "G4": 0,
-              "G3": 0,
-              "G2": 0,
-              "G1": 0,
-              "Q": 0
-            },
-            "last_round": {
-              "CL": "R16",
-              "EL": "",
-              "ECL": ""
-            }
-          }
-        },
         {
           "name": "Samsunspor",
           "pts": 13.625,
@@ -3475,6 +3416,65 @@
               "CL": "",
               "EL": "",
               "ECL": "R16"
+            }
+          }
+        },
+        {
+          "name": "Galatasaray",
+          "pts": 19.75,
+          "active": false,
+          "comp": "ECL",
+          "team_id": 236,
+          "team_slug": "galatasaray",
+          "rounds": {
+            "CL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 2.0,
+              "PO": 2.0,
+              "G8": 0,
+              "G7": 0,
+              "G6": 0.0,
+              "G5": 1.0,
+              "G4": 0.0,
+              "G3": 0.0,
+              "G2": 2.0,
+              "G1": 2.0,
+              "Q": 0
+            },
+            "EL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0,
+              "PO": 0,
+              "G6": 0,
+              "G5": 0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0,
+              "G1": 0,
+              "Q": 0
+            },
+            "ECL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0,
+              "PO": 0,
+              "G6": 0,
+              "G5": 0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0,
+              "G1": 0,
+              "Q": 0
+            },
+            "last_round": {
+              "CL": "R16",
+              "EL": "",
+              "ECL": ""
             }
           }
         },
@@ -5547,12 +5547,12 @@
           }
         },
         {
-          "name": "Servette",
+          "name": "FC Lugano",
           "pts": 1.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 515,
-          "team_slug": "servette-geneve",
+          "team_id": 350,
+          "team_slug": "fc-lugano",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -5606,12 +5606,12 @@
           }
         },
         {
-          "name": "FC Lugano",
+          "name": "Servette",
           "pts": 1.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 350,
-          "team_slug": "fc-lugano",
+          "team_id": 515,
+          "team_slug": "servette-geneve",
           "rounds": {
             "CL": {
               "FI": 0,
