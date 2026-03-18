@@ -1,45 +1,6 @@
 {
-  "updated": "2026-03-17T23:02:28.160783+00:00",
+  "updated": "2026-03-18T18:02:15.283443+00:00",
   "upcoming": [
-    {
-      "date": "2026-03-18",
-      "time": "15:30",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "SC Braga",
-      "homeFlag": "🇵🇹",
-      "homeCountry": "Portugal",
-      "away": "Ferencváros",
-      "awayFlag": "🇭🇺",
-      "awayCountry": "Hungary",
-      "score": null
-    },
-    {
-      "date": "2026-03-18",
-      "time": "17:45",
-      "comp": "CL",
-      "round": "Round of 16 Champions League",
-      "home": "Barcelona",
-      "homeFlag": "🇪🇸",
-      "homeCountry": "Spain",
-      "away": "Newcastle",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
-      "score": null
-    },
-    {
-      "date": "2026-03-18",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "Round of 16 Champions League",
-      "home": "Tottenham",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "Atlético Madrid",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
-      "score": null
-    },
     {
       "date": "2026-03-18",
       "time": "20:00",
@@ -67,14 +28,27 @@
       "score": null
     },
     {
+      "date": "2026-03-18",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Round of 16 Champions League",
+      "home": "Tottenham",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Atlético Madrid",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": null
+    },
+    {
       "date": "2026-03-19",
       "time": "17:45",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "Midtjylland",
-      "homeFlag": "🇩🇰",
-      "homeCountry": "Denmark",
-      "away": "Nottingham",
+      "comp": "ECL",
+      "round": "Round of 16 Conference League",
+      "home": "AEK Larnaca",
+      "homeFlag": "🇨🇾",
+      "homeCountry": "Cyprus",
+      "away": "C. Palace",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "awayCountry": "England",
       "score": null
@@ -104,9 +78,61 @@
       "awayFlag": "🇧🇪",
       "awayCountry": "Belgium",
       "score": null
+    },
+    {
+      "date": "2026-03-19",
+      "time": "17:45",
+      "comp": "EL",
+      "round": "Round of 16 Europa League",
+      "home": "Midtjylland",
+      "homeFlag": "🇩🇰",
+      "homeCountry": "Denmark",
+      "away": "Nottingham",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": null
+    },
+    {
+      "date": "2026-03-19",
+      "time": "17:45",
+      "comp": "ECL",
+      "round": "Round of 16 Conference League",
+      "home": "Raków",
+      "homeFlag": "🇵🇱",
+      "homeCountry": "Poland",
+      "away": "Fiorentina",
+      "awayFlag": "🇮🇹",
+      "awayCountry": "Italy",
+      "score": null
     }
   ],
   "results": [
+    {
+      "date": "2026-03-18",
+      "time": "17:45",
+      "comp": "CL",
+      "round": "Round of 16 Champions League",
+      "home": "Barcelona",
+      "homeFlag": "🇪🇸",
+      "homeCountry": "Spain",
+      "away": "Newcastle",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": "1:0"
+    },
+    {
+      "date": "2026-03-18",
+      "time": "15:30",
+      "comp": "EL",
+      "round": "Round of 16 Europa League",
+      "home": "SC Braga",
+      "homeFlag": "🇵🇹",
+      "homeCountry": "Portugal",
+      "away": "Ferencváros",
+      "awayFlag": "🇭🇺",
+      "awayCountry": "Hungary",
+      "score": "4:0"
+    },
     {
       "date": "2026-03-17",
       "time": "20:00",
@@ -184,32 +210,6 @@
       "awayFlag": "🇩🇰",
       "awayCountry": "Denmark",
       "score": "0:1"
-    },
-    {
-      "date": "2026-03-12",
-      "time": "20:00",
-      "comp": "ECL",
-      "round": "Round of 16 Conference League",
-      "home": "NK Celje",
-      "homeFlag": "🇸🇮",
-      "homeCountry": "Slovenia",
-      "away": "AEK Athens",
-      "awayFlag": "🇬🇷",
-      "awayCountry": "Greece",
-      "score": "0:4"
-    },
-    {
-      "date": "2026-03-12",
-      "time": "20:00",
-      "comp": "ECL",
-      "round": "Round of 16 Conference League",
-      "home": "S. Olomouc",
-      "homeFlag": "🇨🇿",
-      "homeCountry": "Czechia",
-      "away": "Mainz",
-      "awayFlag": "🇩🇪",
-      "awayCountry": "Germany",
-      "score": "0:0"
     }
   ]
 }
