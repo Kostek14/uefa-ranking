@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-19T21:02:10.264420+00:00",
+  "updated": "2026-03-19T22:57:50.799176+00:00",
   "upcoming": [
     {
       "date": "2026-04-07",
@@ -40,7 +40,7 @@
       "away": "Samsunspor",
       "awayFlag": "🇹🇷",
       "awayCountry": "Türkiye",
-      "score": "0:0"
+      "score": "0:1"
     },
     {
       "date": "2026-03-19",
@@ -53,7 +53,7 @@
       "away": "AZ Alkmaar",
       "awayFlag": "🇳🇱",
       "awayCountry": "Netherlands",
-      "score": "0:1"
+      "score": "0:4"
     },
     {
       "date": "2026-03-19",
@@ -66,7 +66,7 @@
       "away": "HNK Rijeka",
       "awayFlag": "🇭🇷",
       "awayCountry": "Croatia",
-      "score": "0:1"
+      "score": "1:1"
     },
     {
       "date": "2026-03-19",
@@ -79,7 +79,7 @@
       "away": "Panathinaikos",
       "awayFlag": "🇬🇷",
       "awayCountry": "Greece",
-      "score": "2:0"
+      "score": "4:0"
     },
     {
       "date": "2026-03-19",
@@ -92,7 +92,7 @@
       "away": "Bologna FC",
       "awayFlag": "🇮🇹",
       "awayCountry": "Italy",
-      "score": "1:2"
+      "score": "3:3"
     },
     {
       "date": "2026-03-19",
@@ -105,7 +105,7 @@
       "away": "VfB Stuttgart",
       "awayFlag": "🇩🇪",
       "awayCountry": "Germany",
-      "score": "1:0"
+      "score": "2:0"
     },
     {
       "date": "2026-03-19",
@@ -118,7 +118,7 @@
       "away": "Lech Poznan",
       "awayFlag": "🇵🇱",
       "awayCountry": "Poland",
-      "score": "0:2"
+      "score": "1:2"
     },
     {
       "date": "2026-03-19",
@@ -131,7 +131,7 @@
       "away": "LOSC",
       "awayFlag": "🇫🇷",
       "awayCountry": "France",
-      "score": "0:0"
+      "score": "2:0"
     }
   ]
 }
