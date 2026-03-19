@@ -1,57 +1,46 @@
 {
-  "updated": "2026-03-19T19:27:03.116979+00:00",
+  "updated": "2026-03-19T21:02:10.264420+00:00",
   "upcoming": [
     {
-      "date": "2026-03-19",
+      "date": "2026-04-07",
       "time": "20:00",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "Aston Villa",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "LOSC",
-      "awayFlag": "🇫🇷",
-      "awayCountry": "France",
-      "score": null
-    },
-    {
-      "date": "2026-03-19",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "AS Roma",
-      "homeFlag": "🇮🇹",
-      "homeCountry": "Italy",
-      "away": "Bologna FC",
-      "awayFlag": "🇮🇹",
-      "awayCountry": "Italy",
-      "score": null
-    },
-    {
-      "date": "2026-03-19",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "FC Porto",
+      "comp": "CL",
+      "round": "Quarter-finals Champions League",
+      "home": "Sporting CP",
       "homeFlag": "🇵🇹",
       "homeCountry": "Portugal",
-      "away": "VfB Stuttgart",
-      "awayFlag": "🇩🇪",
-      "awayCountry": "Germany",
+      "away": "Arsenal",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
       "score": null
     },
     {
+      "date": "2026-04-14",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Quarter-finals Champions League",
+      "home": "Arsenal",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Sporting CP",
+      "awayFlag": "🇵🇹",
+      "awayCountry": "Portugal",
+      "score": null
+    }
+  ],
+  "results": [
+    {
       "date": "2026-03-19",
       "time": "20:00",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "Real Betis",
+      "comp": "ECL",
+      "round": "Round of 16 Conference League",
+      "home": "Vallecano",
       "homeFlag": "🇪🇸",
       "homeCountry": "Spain",
-      "away": "Panathinaikos",
-      "awayFlag": "🇬🇷",
-      "awayCountry": "Greece",
-      "score": null
+      "away": "Samsunspor",
+      "awayFlag": "🇹🇷",
+      "awayCountry": "Türkiye",
+      "score": "0:0"
     },
     {
       "date": "2026-03-19",
@@ -64,20 +53,7 @@
       "away": "AZ Alkmaar",
       "awayFlag": "🇳🇱",
       "awayCountry": "Netherlands",
-      "score": null
-    },
-    {
-      "date": "2026-03-19",
-      "time": "20:00",
-      "comp": "ECL",
-      "round": "Round of 16 Conference League",
-      "home": "Vallecano",
-      "homeFlag": "🇪🇸",
-      "homeCountry": "Spain",
-      "away": "Samsunspor",
-      "awayFlag": "🇹🇷",
-      "awayCountry": "Türkiye",
-      "score": null
+      "score": "0:1"
     },
     {
       "date": "2026-03-19",
@@ -90,7 +66,46 @@
       "away": "HNK Rijeka",
       "awayFlag": "🇭🇷",
       "awayCountry": "Croatia",
-      "score": null
+      "score": "0:1"
+    },
+    {
+      "date": "2026-03-19",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Round of 16 Europa League",
+      "home": "Real Betis",
+      "homeFlag": "🇪🇸",
+      "homeCountry": "Spain",
+      "away": "Panathinaikos",
+      "awayFlag": "🇬🇷",
+      "awayCountry": "Greece",
+      "score": "2:0"
+    },
+    {
+      "date": "2026-03-19",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Round of 16 Europa League",
+      "home": "AS Roma",
+      "homeFlag": "🇮🇹",
+      "homeCountry": "Italy",
+      "away": "Bologna FC",
+      "awayFlag": "🇮🇹",
+      "awayCountry": "Italy",
+      "score": "1:2"
+    },
+    {
+      "date": "2026-03-19",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Round of 16 Europa League",
+      "home": "FC Porto",
+      "homeFlag": "🇵🇹",
+      "homeCountry": "Portugal",
+      "away": "VfB Stuttgart",
+      "awayFlag": "🇩🇪",
+      "awayCountry": "Germany",
+      "score": "1:0"
     },
     {
       "date": "2026-03-19",
@@ -103,113 +118,20 @@
       "away": "Lech Poznan",
       "awayFlag": "🇵🇱",
       "awayCountry": "Poland",
-      "score": null
-    }
-  ],
-  "results": [
-    {
-      "date": "2026-03-19",
-      "time": "17:45",
-      "comp": "ECL",
-      "round": "Round of 16 Conference League",
-      "home": "AEK Larnaca",
-      "homeFlag": "🇨🇾",
-      "homeCountry": "Cyprus",
-      "away": "C. Palace",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
-      "score": "1:1"
-    },
-    {
-      "date": "2026-03-19",
-      "time": "17:45",
-      "comp": "ECL",
-      "round": "Round of 16 Conference League",
-      "home": "Mainz",
-      "homeFlag": "🇩🇪",
-      "homeCountry": "Germany",
-      "away": "S. Olomouc",
-      "awayFlag": "🇨🇿",
-      "awayCountry": "Czechia",
-      "score": "1:0"
-    },
-    {
-      "date": "2026-03-19",
-      "time": "17:45",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "Midtjylland",
-      "homeFlag": "🇩🇰",
-      "homeCountry": "Denmark",
-      "away": "Nottingham",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
-      "score": "1:2"
-    },
-    {
-      "date": "2026-03-19",
-      "time": "17:45",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "SC Freiburg",
-      "homeFlag": "🇩🇪",
-      "homeCountry": "Germany",
-      "away": "Genk",
-      "awayFlag": "🇧🇪",
-      "awayCountry": "Belgium",
-      "score": "4:1"
-    },
-    {
-      "date": "2026-03-19",
-      "time": "17:45",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "Lyon",
-      "homeFlag": "🇫🇷",
-      "homeCountry": "France",
-      "away": "Celta de Vigo",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
-      "score": "0:1"
-    },
-    {
-      "date": "2026-03-19",
-      "time": "17:45",
-      "comp": "ECL",
-      "round": "Round of 16 Conference League",
-      "home": "Raków",
-      "homeFlag": "🇵🇱",
-      "homeCountry": "Poland",
-      "away": "Fiorentina",
-      "awayFlag": "🇮🇹",
-      "awayCountry": "Italy",
-      "score": "1:1"
-    },
-    {
-      "date": "2026-03-19",
-      "time": "17:45",
-      "comp": "ECL",
-      "round": "Round of 16 Conference League",
-      "home": "AEK Athens",
-      "homeFlag": "🇬🇷",
-      "homeCountry": "Greece",
-      "away": "NK Celje",
-      "awayFlag": "🇸🇮",
-      "awayCountry": "Slovenia",
       "score": "0:2"
     },
     {
-      "date": "2026-03-18",
+      "date": "2026-03-19",
       "time": "20:00",
-      "comp": "CL",
-      "round": "Round of 16 Champions League",
-      "home": "Bayern",
-      "homeFlag": "🇩🇪",
-      "homeCountry": "Germany",
-      "away": "Atalanta BC",
-      "awayFlag": "🇮🇹",
-      "awayCountry": "Italy",
-      "score": "4:1"
+      "comp": "EL",
+      "round": "Round of 16 Europa League",
+      "home": "Aston Villa",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "LOSC",
+      "awayFlag": "🇫🇷",
+      "awayCountry": "France",
+      "score": "0:0"
     }
   ]
 }
