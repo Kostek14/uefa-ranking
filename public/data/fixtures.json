@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-20T22:57:15.330338+00:00",
+  "updated": "2026-03-21T17:30:46.580007+00:00",
   "upcoming": [
     {
       "date": "2026-04-07",
@@ -15,16 +15,94 @@
       "score": null
     },
     {
-      "date": "2026-04-14",
+      "date": "2026-04-07",
       "time": "20:00",
       "comp": "CL",
       "round": "Quarter-finals Champions League",
-      "home": "Arsenal",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "Sporting CP",
-      "awayFlag": "🇵🇹",
-      "awayCountry": "Portugal",
+      "home": "Real Madrid",
+      "homeFlag": "🇪🇸",
+      "homeCountry": "Spain",
+      "away": "Bayern",
+      "awayFlag": "🇩🇪",
+      "awayCountry": "Germany",
+      "score": null
+    },
+    {
+      "date": "2026-04-08",
+      "time": "17:45",
+      "comp": "EL",
+      "round": "Quarter-finals Europa League",
+      "home": "SC Braga",
+      "homeFlag": "🇵🇹",
+      "homeCountry": "Portugal",
+      "away": "Real Betis",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": null
+    },
+    {
+      "date": "2026-04-08",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Quarter-finals Champions League",
+      "home": "Barcelona",
+      "homeFlag": "🇪🇸",
+      "homeCountry": "Spain",
+      "away": "Atlético Madrid",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": null
+    },
+    {
+      "date": "2026-04-08",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Quarter-finals Champions League",
+      "home": "Paris SG",
+      "homeFlag": "🇫🇷",
+      "homeCountry": "France",
+      "away": "Liverpool",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": null
+    },
+    {
+      "date": "2026-04-09",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Quarter-finals Europa League",
+      "home": "Bologna FC",
+      "homeFlag": "🇮🇹",
+      "homeCountry": "Italy",
+      "away": "Aston Villa",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": null
+    },
+    {
+      "date": "2026-04-09",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Quarter-finals Europa League",
+      "home": "FC Porto",
+      "homeFlag": "🇵🇹",
+      "homeCountry": "Portugal",
+      "away": "Nottingham",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": null
+    },
+    {
+      "date": "2026-04-09",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Quarter-finals Europa League",
+      "home": "SC Freiburg",
+      "homeFlag": "🇩🇪",
+      "homeCountry": "Germany",
+      "away": "Celta de Vigo",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
       "score": null
     }
   ],
