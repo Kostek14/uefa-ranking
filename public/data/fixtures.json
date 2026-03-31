@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-30T23:05:37.301176+00:00",
+  "updated": "2026-03-31T17:58:06.323361+00:00",
   "upcoming": [
     {
       "date": "2026-04-07",
@@ -68,6 +68,19 @@
     },
     {
       "date": "2026-04-09",
+      "time": "17:45",
+      "comp": "ECL",
+      "round": "Quarter-finals Conference League",
+      "home": "Vallecano",
+      "homeFlag": "🇪🇸",
+      "homeCountry": "Spain",
+      "away": "AEK Athens",
+      "awayFlag": "🇬🇷",
+      "awayCountry": "Greece",
+      "score": null
+    },
+    {
+      "date": "2026-04-09",
       "time": "20:00",
       "comp": "EL",
       "round": "Quarter-finals Europa League",
@@ -90,19 +103,6 @@
       "away": "Nottingham",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "awayCountry": "England",
-      "score": null
-    },
-    {
-      "date": "2026-04-09",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Quarter-finals Europa League",
-      "home": "SC Freiburg",
-      "homeFlag": "🇩🇪",
-      "homeCountry": "Germany",
-      "away": "Celta de Vigo",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
       "score": null
     }
   ],
