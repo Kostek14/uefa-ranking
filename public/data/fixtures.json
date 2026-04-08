@@ -1,19 +1,6 @@
 {
-  "updated": "2026-04-07T23:08:29.216389+00:00",
+  "updated": "2026-04-08T18:10:00.619944+00:00",
   "upcoming": [
-    {
-      "date": "2026-04-08",
-      "time": "17:45",
-      "comp": "EL",
-      "round": "Quarter-finals Europa League",
-      "home": "SC Braga",
-      "homeFlag": "🇵🇹",
-      "homeCountry": "Portugal",
-      "away": "Real Betis",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
-      "score": null
-    },
     {
       "date": "2026-04-08",
       "time": "20:00",
@@ -58,12 +45,12 @@
       "time": "20:00",
       "comp": "ECL",
       "round": "Quarter-finals Conference League",
-      "home": "C. Palace",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "Fiorentina",
-      "awayFlag": "🇮🇹",
-      "awayCountry": "Italy",
+      "home": "Mainz",
+      "homeFlag": "🇩🇪",
+      "homeCountry": "Germany",
+      "away": "Strasbourg",
+      "awayFlag": "🇫🇷",
+      "awayCountry": "France",
       "score": null
     },
     {
@@ -71,12 +58,12 @@
       "time": "20:00",
       "comp": "EL",
       "round": "Quarter-finals Europa League",
-      "home": "FC Porto",
-      "homeFlag": "🇵🇹",
-      "homeCountry": "Portugal",
-      "away": "Nottingham",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
+      "home": "SC Freiburg",
+      "homeFlag": "🇩🇪",
+      "homeCountry": "Germany",
+      "away": "Celta de Vigo",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
       "score": null
     },
     {
@@ -97,16 +84,42 @@
       "time": "20:00",
       "comp": "EL",
       "round": "Quarter-finals Europa League",
-      "home": "SC Freiburg",
-      "homeFlag": "🇩🇪",
-      "homeCountry": "Germany",
-      "away": "Celta de Vigo",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
+      "home": "FC Porto",
+      "homeFlag": "🇵🇹",
+      "homeCountry": "Portugal",
+      "away": "Nottingham",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": null
+    },
+    {
+      "date": "2026-04-09",
+      "time": "20:00",
+      "comp": "ECL",
+      "round": "Quarter-finals Conference League",
+      "home": "C. Palace",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Fiorentina",
+      "awayFlag": "🇮🇹",
+      "awayCountry": "Italy",
       "score": null
     }
   ],
   "results": [
+    {
+      "date": "2026-04-08",
+      "time": "17:45",
+      "comp": "EL",
+      "round": "Quarter-finals Europa League",
+      "home": "SC Braga",
+      "homeFlag": "🇵🇹",
+      "homeCountry": "Portugal",
+      "away": "Real Betis",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": "1:0"
+    },
     {
       "date": "2026-04-07",
       "time": "20:00",
@@ -197,19 +210,6 @@
       "awayFlag": "🇮🇹",
       "awayCountry": "Italy",
       "score": "3:4"
-    },
-    {
-      "date": "2026-03-19",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "FC Porto",
-      "homeFlag": "🇵🇹",
-      "homeCountry": "Portugal",
-      "away": "VfB Stuttgart",
-      "awayFlag": "🇩🇪",
-      "awayCountry": "Germany",
-      "score": "2:0"
     }
   ]
 }
