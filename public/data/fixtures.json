@@ -1,32 +1,6 @@
 {
-  "updated": "2026-04-08T18:10:00.619944+00:00",
+  "updated": "2026-04-08T19:45:09.063060+00:00",
   "upcoming": [
-    {
-      "date": "2026-04-08",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "Quarter-finals Champions League",
-      "home": "Paris SG",
-      "homeFlag": "🇫🇷",
-      "homeCountry": "France",
-      "away": "Liverpool",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
-      "score": null
-    },
-    {
-      "date": "2026-04-08",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "Quarter-finals Champions League",
-      "home": "Barcelona",
-      "homeFlag": "🇪🇸",
-      "homeCountry": "Spain",
-      "away": "Atlético Madrid",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
-      "score": null
-    },
     {
       "date": "2026-04-09",
       "time": "17:45",
@@ -56,14 +30,14 @@
     {
       "date": "2026-04-09",
       "time": "20:00",
-      "comp": "EL",
-      "round": "Quarter-finals Europa League",
-      "home": "SC Freiburg",
-      "homeFlag": "🇩🇪",
-      "homeCountry": "Germany",
-      "away": "Celta de Vigo",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
+      "comp": "ECL",
+      "round": "Quarter-finals Conference League",
+      "home": "C. Palace",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Fiorentina",
+      "awayFlag": "🇮🇹",
+      "awayCountry": "Italy",
       "score": null
     },
     {
@@ -95,18 +69,70 @@
     {
       "date": "2026-04-09",
       "time": "20:00",
+      "comp": "EL",
+      "round": "Quarter-finals Europa League",
+      "home": "SC Freiburg",
+      "homeFlag": "🇩🇪",
+      "homeCountry": "Germany",
+      "away": "Celta de Vigo",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": null
+    },
+    {
+      "date": "2026-04-09",
+      "time": "20:00",
       "comp": "ECL",
       "round": "Quarter-finals Conference League",
-      "home": "C. Palace",
+      "home": "Shakhtar",
+      "homeFlag": "🇺🇦",
+      "homeCountry": "Ukraine",
+      "away": "AZ Alkmaar",
+      "awayFlag": "🇳🇱",
+      "awayCountry": "Netherlands",
+      "score": null
+    },
+    {
+      "date": "2026-04-14",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Quarter-finals Champions League",
+      "home": "Liverpool",
       "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeCountry": "England",
-      "away": "Fiorentina",
-      "awayFlag": "🇮🇹",
-      "awayCountry": "Italy",
+      "away": "Paris SG",
+      "awayFlag": "🇫🇷",
+      "awayCountry": "France",
       "score": null
     }
   ],
   "results": [
+    {
+      "date": "2026-04-08",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Quarter-finals Champions League",
+      "home": "Paris SG",
+      "homeFlag": "🇫🇷",
+      "homeCountry": "France",
+      "away": "Liverpool",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": "1:0"
+    },
+    {
+      "date": "2026-04-08",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Quarter-finals Champions League",
+      "home": "Barcelona",
+      "homeFlag": "🇪🇸",
+      "homeCountry": "Spain",
+      "away": "Atlético Madrid",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": "0:0"
+    },
     {
       "date": "2026-04-08",
       "time": "17:45",
@@ -118,7 +144,7 @@
       "away": "Real Betis",
       "awayFlag": "🇪🇸",
       "awayCountry": "Spain",
-      "score": "1:0"
+      "score": "1:1"
     },
     {
       "date": "2026-04-07",
@@ -184,32 +210,6 @@
       "awayFlag": "🇭🇷",
       "awayCountry": "Croatia",
       "score": "1:1"
-    },
-    {
-      "date": "2026-03-19",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "Real Betis",
-      "homeFlag": "🇪🇸",
-      "homeCountry": "Spain",
-      "away": "Panathinaikos",
-      "awayFlag": "🇬🇷",
-      "awayCountry": "Greece",
-      "score": "4:0"
-    },
-    {
-      "date": "2026-03-19",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Round of 16 Europa League",
-      "home": "AS Roma",
-      "homeFlag": "🇮🇹",
-      "homeCountry": "Italy",
-      "away": "Bologna FC",
-      "awayFlag": "🇮🇹",
-      "awayCountry": "Italy",
-      "score": "3:4"
     }
   ]
 }

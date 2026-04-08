@@ -1,6 +1,6 @@
 {
   "season": "2025-26",
-  "updated": "2026-04-08T18:10:00.614147+00:00",
+  "updated": "2026-04-08T19:45:09.056182+00:00",
   "zone_thresholds": {
     "cl_direct": 4,
     "cl_qual": 10,
@@ -94,7 +94,7 @@
             "CL": {
               "FI": 0,
               "SF": 0,
-              "QF": 0,
+              "QF": 0.0,
               "R16": 2.0,
               "PO": 0,
               "G8": 0,
@@ -136,7 +136,7 @@
               "Q": 0
             },
             "last_round": {
-              "CL": "R16",
+              "CL": "QF",
               "EL": "",
               "ECL": ""
             }
@@ -995,8 +995,8 @@
       "name": "Spain",
       "code": "ESP",
       "flag": "🇪🇸",
-      "total": 95.237,
-      "y1": 20.281,
+      "total": 95.612,
+      "y1": 20.656,
       "y2": 27.928,
       "y3": 19.071,
       "y4": 21.0,
@@ -1065,7 +1065,7 @@
         },
         {
           "name": "Barcelona",
-          "pts": 28.0,
+          "pts": 29.0,
           "active": true,
           "comp": "CL",
           "team_id": 1,
@@ -1074,7 +1074,7 @@
             "CL": {
               "FI": 0,
               "SF": 0,
-              "QF": 0,
+              "QF": 1.0,
               "R16": 3.0,
               "PO": 0,
               "G8": 0,
@@ -1116,7 +1116,7 @@
               "Q": 0
             },
             "last_round": {
-              "CL": "R16",
+              "CL": "QF",
               "EL": "",
               "ECL": ""
             }
@@ -1124,7 +1124,7 @@
         },
         {
           "name": "Atlético Madrid",
-          "pts": 25.75,
+          "pts": 26.75,
           "active": true,
           "comp": "CL",
           "team_id": 2,
@@ -1133,7 +1133,7 @@
             "CL": {
               "FI": 0,
               "SF": 0,
-              "QF": 0,
+              "QF": 1.0,
               "R16": 2.0,
               "PO": 3.0,
               "G8": 0,
@@ -1175,7 +1175,7 @@
               "Q": 0
             },
             "last_round": {
-              "CL": "R16",
+              "CL": "QF",
               "EL": "",
               "ECL": ""
             }
@@ -1183,7 +1183,7 @@
         },
         {
           "name": "Real Betis",
-          "pts": 21.25,
+          "pts": 22.25,
           "active": true,
           "comp": "EL",
           "team_id": 247,
@@ -1208,7 +1208,7 @@
             "EL": {
               "FI": 0,
               "SF": 0,
-              "QF": 0.0,
+              "QF": 1.0,
               "R16": 2.0,
               "PO": 0,
               "G6": 2.0,
@@ -1914,8 +1914,8 @@
       "name": "France",
       "code": "FRA",
       "flag": "🇫🇷",
-      "total": 81.572,
-      "y1": 16.393,
+      "total": 81.858,
+      "y1": 16.679,
       "y2": 13.666,
       "y3": 13.333,
       "y4": 18.38,
@@ -1925,7 +1925,7 @@
       "clubs": [
         {
           "name": "Paris SG",
-          "pts": 29.5,
+          "pts": 31.5,
           "active": true,
           "comp": "CL",
           "team_id": 28,
@@ -1934,7 +1934,7 @@
             "CL": {
               "FI": 0,
               "SF": 0,
-              "QF": 0,
+              "QF": 2.0,
               "R16": 4.0,
               "PO": 3.0,
               "G8": 0,
@@ -1976,7 +1976,7 @@
               "Q": 0
             },
             "last_round": {
-              "CL": "R16",
+              "CL": "QF",
               "EL": "",
               "ECL": ""
             }
@@ -2346,8 +2346,8 @@
       "name": "Portugal",
       "code": "POR",
       "flag": "🇵🇹",
-      "total": 71.967,
-      "y1": 19.3,
+      "total": 71.767,
+      "y1": 19.1,
       "y2": 13.8,
       "y3": 12.4,
       "y4": 13.2,
@@ -2416,7 +2416,7 @@
         },
         {
           "name": "SC Braga",
-          "pts": 28.25,
+          "pts": 27.25,
           "active": true,
           "comp": "EL",
           "team_id": 37,
@@ -2441,7 +2441,7 @@
             "EL": {
               "FI": 0,
               "SF": 0,
-              "QF": 2.0,
+              "QF": 1.0,
               "R16": 2.0,
               "PO": 0,
               "G6": 1.0,
@@ -10866,12 +10866,12 @@
           }
         },
         {
-          "name": "FK Sarajevo",
+          "name": "B. Banja Luka",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 321,
-          "team_slug": "fk-sarajevo",
+          "team_id": 502,
+          "team_slug": "borac-banja-luka",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -10925,12 +10925,12 @@
           }
         },
         {
-          "name": "B. Banja Luka",
+          "name": "FK Sarajevo",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 502,
-          "team_slug": "borac-banja-luka",
+          "team_id": 321,
+          "team_slug": "fk-sarajevo",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -13666,12 +13666,12 @@
           }
         },
         {
-          "name": "UNA Strassen",
+          "name": "RFCU Luxemburg",
           "pts": 0.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 822,
-          "team_slug": "una-strassen",
+          "team_id": 818,
+          "team_slug": "rfcu-luxemburg",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -13725,12 +13725,12 @@
           }
         },
         {
-          "name": "RFCU Luxemburg",
+          "name": "UNA Strassen",
           "pts": 0.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 818,
-          "team_slug": "rfcu-luxemburg",
+          "team_id": 822,
+          "team_slug": "una-strassen",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14501,12 +14501,12 @@
       "clubs_active": 0,
       "clubs": [
         {
-          "name": "TNS",
+          "name": "Penybont FC",
           "pts": 0.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 219,
-          "team_slug": "tns",
+          "team_id": 1000,
+          "team_slug": "penybont-fc",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14560,12 +14560,12 @@
           }
         },
         {
-          "name": "Penybont FC",
+          "name": "TNS",
           "pts": 0.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 1000,
-          "team_slug": "penybont-fc",
+          "team_id": 219,
+          "team_slug": "tns",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14695,12 +14695,12 @@
       "clubs_active": 0,
       "clubs": [
         {
-          "name": "SS Virtus",
+          "name": "SP Tre Fiori",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 1092,
-          "team_slug": "ss-virtus",
+          "team_id": 838,
+          "team_slug": "sp-tre-fiori",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14754,12 +14754,12 @@
           }
         },
         {
-          "name": "SP Tre Fiori",
+          "name": "SS Virtus",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 838,
-          "team_slug": "sp-tre-fiori",
+          "team_id": 1092,
+          "team_slug": "ss-virtus",
           "rounds": {
             "CL": {
               "FI": 0,
