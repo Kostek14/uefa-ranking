@@ -1,6 +1,6 @@
 {
   "season": "2025-26",
-  "updated": "2026-04-09T19:44:38.336184+00:00",
+  "updated": "2026-04-09T21:07:05.263991+00:00",
   "zone_thresholds": {
     "cl_direct": 4,
     "cl_qual": 10,
@@ -15,8 +15,8 @@
       "name": "England",
       "code": "ENG",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "total": 116.075,
-      "y1": 25.236,
+      "total": 116.408,
+      "y1": 25.569,
       "y2": 27.464,
       "y3": 19.607,
       "y4": 20.892,
@@ -144,7 +144,7 @@
         },
         {
           "name": "Aston Villa",
-          "pts": 26.75,
+          "pts": 27.75,
           "active": true,
           "comp": "EL",
           "team_id": 958,
@@ -169,7 +169,7 @@
             "EL": {
               "FI": 0,
               "SF": 0,
-              "QF": 1.0,
+              "QF": 2.0,
               "R16": 4.0,
               "PO": 0,
               "G6": 2.0,
@@ -563,8 +563,8 @@
       "name": "Italy",
       "code": "ITA",
       "flag": "🇮🇹",
-      "total": 99.946,
-      "y1": 19.0,
+      "total": 99.66,
+      "y1": 18.714,
       "y2": 18.071,
       "y3": 20.071,
       "y4": 21.071,
@@ -574,7 +574,7 @@
       "clubs": [
         {
           "name": "Bologna FC",
-          "pts": 24.75,
+          "pts": 23.75,
           "active": true,
           "comp": "EL",
           "team_id": 654,
@@ -599,7 +599,7 @@
             "EL": {
               "FI": 0,
               "SF": 0,
-              "QF": 1.0,
+              "QF": 0.0,
               "R16": 3.0,
               "PO": 4.0,
               "G6": 0,
@@ -2346,8 +2346,8 @@
       "name": "Portugal",
       "code": "POR",
       "flag": "🇵🇹",
-      "total": 72.167,
-      "y1": 19.5,
+      "total": 71.967,
+      "y1": 19.3,
       "y2": 13.8,
       "y3": 12.4,
       "y4": 13.2,
@@ -2669,7 +2669,7 @@
       "clubs": [
         {
           "name": "AZ Alkmaar",
-          "pts": 21.375,
+          "pts": 20.375,
           "active": true,
           "comp": "ECL",
           "team_id": 73,
@@ -2708,7 +2708,7 @@
             "ECL": {
               "FI": 0,
               "SF": 0,
-              "QF": 1.0,
+              "QF": 0.0,
               "R16": 4.0,
               "PO": 2.0,
               "G6": 0,
@@ -5537,12 +5537,12 @@
           }
         },
         {
-          "name": "FC Lugano",
+          "name": "Servette",
           "pts": 1.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 350,
-          "team_slug": "fc-lugano",
+          "team_id": 515,
+          "team_slug": "servette-geneve",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -5596,12 +5596,12 @@
           }
         },
         {
-          "name": "Servette",
+          "name": "FC Lugano",
           "pts": 1.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 515,
-          "team_slug": "servette-geneve",
+          "team_id": 350,
+          "team_slug": "fc-lugano",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -6296,12 +6296,12 @@
       "clubs_active": 0,
       "clubs": [
         {
-          "name": "Malmö FF",
+          "name": "Häcken",
           "pts": 7.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 319,
-          "team_slug": "malmoe-ff",
+          "team_id": 99,
+          "team_slug": "haecken",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -6355,12 +6355,12 @@
           }
         },
         {
-          "name": "Häcken",
+          "name": "Malmö FF",
           "pts": 7.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 99,
-          "team_slug": "haecken",
+          "team_id": 319,
+          "team_slug": "malmoe-ff",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -7562,7 +7562,7 @@
       "clubs": [
         {
           "name": "Shakhtar",
-          "pts": 21.75,
+          "pts": 22.75,
           "active": true,
           "comp": "ECL",
           "team_id": 46,
@@ -7601,7 +7601,7 @@
             "ECL": {
               "FI": 0,
               "SF": 0,
-              "QF": 1.0,
+              "QF": 2.0,
               "R16": 2.0,
               "PO": 0,
               "G6": 1.0,
@@ -10866,12 +10866,12 @@
           }
         },
         {
-          "name": "FK Sarajevo",
+          "name": "B. Banja Luka",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 321,
-          "team_slug": "fk-sarajevo",
+          "team_id": 502,
+          "team_slug": "borac-banja-luka",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -10925,12 +10925,12 @@
           }
         },
         {
-          "name": "B. Banja Luka",
+          "name": "FK Sarajevo",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 502,
-          "team_slug": "borac-banja-luka",
+          "team_id": 321,
+          "team_slug": "fk-sarajevo",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -11954,12 +11954,12 @@
           }
         },
         {
-          "name": "Kalju",
+          "name": "Paide.",
           "pts": 2.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 190,
-          "team_slug": "kalju",
+          "team_id": 592,
+          "team_slug": "paide-linnameeskond",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -12013,12 +12013,12 @@
           }
         },
         {
-          "name": "Paide.",
+          "name": "Kalju",
           "pts": 2.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 592,
-          "team_slug": "paide-linnameeskond",
+          "team_id": 190,
+          "team_slug": "kalju",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -13919,12 +13919,12 @@
           }
         },
         {
-          "name": "Dudelange",
+          "name": "RFCU Luxemburg",
           "pts": 0.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 202,
-          "team_slug": "dudelange",
+          "team_id": 818,
+          "team_slug": "rfcu-luxemburg",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -13978,12 +13978,12 @@
           }
         },
         {
-          "name": "RFCU Luxemburg",
+          "name": "Dudelange",
           "pts": 0.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 818,
-          "team_slug": "rfcu-luxemburg",
+          "team_id": 202,
+          "team_slug": "dudelange",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14113,12 +14113,12 @@
           }
         },
         {
-          "name": "FK Sutjeska",
+          "name": "FK Dečić Tuzi",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 282,
-          "team_slug": "fk-sutjeska",
+          "team_id": 707,
+          "team_slug": "fk-decic-tuzi",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14172,12 +14172,12 @@
           }
         },
         {
-          "name": "FK Dečić Tuzi",
+          "name": "FK Sutjeska",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 707,
-          "team_slug": "fk-decic-tuzi",
+          "team_id": 282,
+          "team_slug": "fk-sutjeska",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14501,12 +14501,12 @@
       "clubs_active": 0,
       "clubs": [
         {
-          "name": "Penybont FC",
+          "name": "TNS",
           "pts": 0.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 1000,
-          "team_slug": "penybont-fc",
+          "team_id": 219,
+          "team_slug": "tns",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14560,12 +14560,12 @@
           }
         },
         {
-          "name": "TNS",
+          "name": "Penybont FC",
           "pts": 0.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 219,
-          "team_slug": "tns",
+          "team_id": 1000,
+          "team_slug": "penybont-fc",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14695,12 +14695,12 @@
       "clubs_active": 0,
       "clubs": [
         {
-          "name": "SS Virtus",
+          "name": "SP Tre Fiori",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 1092,
-          "team_slug": "ss-virtus",
+          "team_id": 838,
+          "team_slug": "sp-tre-fiori",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14754,12 +14754,12 @@
           }
         },
         {
-          "name": "SP Tre Fiori",
+          "name": "SS Virtus",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 838,
-          "team_slug": "sp-tre-fiori",
+          "team_id": 1092,
+          "team_slug": "ss-virtus",
           "rounds": {
             "CL": {
               "FI": 0,
