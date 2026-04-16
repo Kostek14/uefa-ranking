@@ -1,30 +1,17 @@
 {
-  "updated": "2026-04-15T21:11:59.124114+00:00",
+  "updated": "2026-04-16T18:11:13.000416+00:00",
   "upcoming": [
     {
       "date": "2026-04-16",
-      "time": "17:45",
-      "comp": "ECL",
-      "round": "Quarter-finals Conference League",
-      "home": "AZ Alkmaar",
-      "homeFlag": "🇳🇱",
-      "homeCountry": "Netherlands",
-      "away": "Shakhtar",
-      "awayFlag": "🇺🇦",
-      "awayCountry": "Ukraine",
-      "score": null
-    },
-    {
-      "date": "2026-04-16",
-      "time": "17:45",
+      "time": "20:00",
       "comp": "EL",
       "round": "Quarter-finals Europa League",
-      "home": "Celta de Vigo",
-      "homeFlag": "🇪🇸",
-      "homeCountry": "Spain",
-      "away": "SC Freiburg",
-      "awayFlag": "🇩🇪",
-      "awayCountry": "Germany",
+      "home": "Aston Villa",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Bologna FC",
+      "awayFlag": "🇮🇹",
+      "awayCountry": "Italy",
       "score": null
     },
     {
@@ -91,22 +78,35 @@
       "awayFlag": "🇩🇪",
       "awayCountry": "Germany",
       "score": null
-    },
-    {
-      "date": "2026-04-16",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Quarter-finals Europa League",
-      "home": "Aston Villa",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "Bologna FC",
-      "awayFlag": "🇮🇹",
-      "awayCountry": "Italy",
-      "score": null
     }
   ],
   "results": [
+    {
+      "date": "2026-04-16",
+      "time": "17:45",
+      "comp": "EL",
+      "round": "Quarter-finals Europa League",
+      "home": "Celta de Vigo",
+      "homeFlag": "🇪🇸",
+      "homeCountry": "Spain",
+      "away": "SC Freiburg",
+      "awayFlag": "🇩🇪",
+      "awayCountry": "Germany",
+      "score": "0:3"
+    },
+    {
+      "date": "2026-04-16",
+      "time": "17:45",
+      "comp": "ECL",
+      "round": "Quarter-finals Conference League",
+      "home": "AZ Alkmaar",
+      "homeFlag": "🇳🇱",
+      "homeCountry": "Netherlands",
+      "away": "Shakhtar",
+      "awayFlag": "🇺🇦",
+      "awayCountry": "Ukraine",
+      "score": "0:0"
+    },
     {
       "date": "2026-04-15",
       "time": "20:00",
@@ -118,7 +118,7 @@
       "away": "Real Madrid",
       "awayFlag": "🇪🇸",
       "awayCountry": "Spain",
-      "score": "2:3"
+      "score": "4:3"
     },
     {
       "date": "2026-04-15",
@@ -184,32 +184,6 @@
       "awayFlag": "🇫🇷",
       "awayCountry": "France",
       "score": "2:0"
-    },
-    {
-      "date": "2026-04-09",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Quarter-finals Europa League",
-      "home": "SC Freiburg",
-      "homeFlag": "🇩🇪",
-      "homeCountry": "Germany",
-      "away": "Celta de Vigo",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
-      "score": "3:0"
-    },
-    {
-      "date": "2026-04-09",
-      "time": "20:00",
-      "comp": "ECL",
-      "round": "Quarter-finals Conference League",
-      "home": "Shakhtar",
-      "homeFlag": "🇺🇦",
-      "homeCountry": "Ukraine",
-      "away": "AZ Alkmaar",
-      "awayFlag": "🇳🇱",
-      "awayCountry": "Netherlands",
-      "score": "3:0"
     }
   ]
 }
