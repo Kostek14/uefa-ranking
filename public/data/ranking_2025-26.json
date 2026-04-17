@@ -1,6 +1,6 @@
 {
   "season": "2025-26",
-  "updated": "2026-04-16T23:11:22.099691+00:00",
+  "updated": "2026-04-17T17:53:53.989950+00:00",
   "zone_thresholds": {
     "cl_direct": 4,
     "cl_qual": 10,
@@ -15,8 +15,8 @@
       "name": "England",
       "code": "ENG",
       "flag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "total": 116.964,
-      "y1": 26.125,
+      "total": 117.131,
+      "y1": 26.292,
       "y2": 27.464,
       "y3": 19.607,
       "y4": 20.892,
@@ -26,7 +26,7 @@
       "clubs": [
         {
           "name": "Arsenal",
-          "pts": 37.0,
+          "pts": 38.5,
           "active": true,
           "comp": "CL",
           "team_id": 17,
@@ -40,8 +40,8 @@
               "PO": 0,
               "G8": 0,
               "G7": 0,
-              "G6": 2.0,
-              "G5": 2.0,
+              "G6": 0,
+              "G5": 0,
               "G4": 2.0,
               "G3": 2.0,
               "G2": 2.0,
@@ -995,8 +995,8 @@
       "name": "Spain",
       "code": "ESP",
       "flag": "🇪🇸",
-      "total": 96.112,
-      "y1": 21.156,
+      "total": 96.3,
+      "y1": 21.344,
       "y2": 27.928,
       "y3": 19.071,
       "y4": 21.0,
@@ -1006,7 +1006,7 @@
       "clubs": [
         {
           "name": "Atlético Madrid",
-          "pts": 27.75,
+          "pts": 29.25,
           "active": true,
           "comp": "CL",
           "team_id": 2,
@@ -1022,10 +1022,10 @@
               "G7": 0,
               "G6": 0,
               "G5": 0,
-              "G4": 0.0,
-              "G3": 1.0,
-              "G2": 2.0,
-              "G1": 2.0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0.0,
+              "G1": 1.0,
               "Q": 0
             },
             "EL": {
@@ -1484,8 +1484,8 @@
       "name": "Germany",
       "code": "GER",
       "flag": "🇩🇪",
-      "total": 91.975,
-      "y1": 20.857,
+      "total": 92.189,
+      "y1": 21.071,
       "y2": 17.5,
       "y3": 18.748,
       "y4": 18.0,
@@ -1495,7 +1495,7 @@
       "clubs": [
         {
           "name": "Bayern",
-          "pts": 36.75,
+          "pts": 38.25,
           "active": true,
           "comp": "CL",
           "team_id": 8,
@@ -1509,12 +1509,12 @@
               "PO": 0,
               "G8": 0,
               "G7": 0,
-              "G6": 2.0,
-              "G5": 2.0,
+              "G6": 0,
+              "G5": 0,
               "G4": 2.0,
-              "G3": 0.0,
+              "G3": 2.0,
               "G2": 2.0,
-              "G1": 2.0,
+              "G1": 0.0,
               "Q": 0
             },
             "EL": {
@@ -1914,8 +1914,8 @@
       "name": "France",
       "code": "FRA",
       "flag": "🇫🇷",
-      "total": 82.429,
-      "y1": 17.25,
+      "total": 82.643,
+      "y1": 17.464,
       "y2": 13.666,
       "y3": 13.333,
       "y4": 18.38,
@@ -1925,7 +1925,7 @@
       "clubs": [
         {
           "name": "Paris SG",
-          "pts": 33.5,
+          "pts": 35.0,
           "active": true,
           "comp": "CL",
           "team_id": 28,
@@ -1941,10 +1941,10 @@
               "G7": 0,
               "G6": 0,
               "G5": 0,
-              "G4": 1.0,
-              "G3": 0.0,
+              "G4": 0,
+              "G3": 0,
               "G2": 1.0,
-              "G1": 2.0,
+              "G1": 0.0,
               "Q": 0
             },
             "EL": {
@@ -6296,12 +6296,12 @@
       "clubs_active": 0,
       "clubs": [
         {
-          "name": "Häcken",
+          "name": "Malmö FF",
           "pts": 7.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 99,
-          "team_slug": "haecken",
+          "team_id": 319,
+          "team_slug": "malmoe-ff",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -6355,12 +6355,12 @@
           }
         },
         {
-          "name": "Malmö FF",
+          "name": "Häcken",
           "pts": 7.5,
           "active": false,
           "comp": "ECL",
-          "team_id": 319,
-          "team_slug": "malmoe-ff",
+          "team_id": 99,
+          "team_slug": "haecken",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -7114,12 +7114,12 @@
           }
         },
         {
-          "name": "Győri ETO",
+          "name": "Paksi SE",
           "pts": 3.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 448,
-          "team_slug": "gyori-eto",
+          "team_id": 633,
+          "team_slug": "paksi-se",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -7173,12 +7173,12 @@
           }
         },
         {
-          "name": "Paksi SE",
+          "name": "Győri ETO",
           "pts": 3.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 633,
-          "team_slug": "paksi-se",
+          "team_id": 448,
+          "team_slug": "gyori-eto",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -11178,12 +11178,12 @@
           }
         },
         {
-          "name": "Auda",
+          "name": "Daugava.",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 1504,
-          "team_slug": "auda",
+          "team_id": 455,
+          "team_slug": "daugava-daugavpils",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -11237,12 +11237,12 @@
           }
         },
         {
-          "name": "Daugava.",
+          "name": "Auda",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 455,
-          "team_slug": "daugava-daugavpils",
+          "team_id": 1504,
+          "team_slug": "auda",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -11372,12 +11372,12 @@
           }
         },
         {
-          "name": "NSÍ Runavík",
+          "name": "Vikingur",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 223,
-          "team_slug": "nsi-runavik",
+          "team_id": 224,
+          "team_slug": "vikingur",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -11431,12 +11431,12 @@
           }
         },
         {
-          "name": "Vikingur",
+          "name": "NSÍ Runavík",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 224,
-          "team_slug": "vikingur",
+          "team_id": 223,
+          "team_slug": "nsi-runavik",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -13666,12 +13666,12 @@
           }
         },
         {
-          "name": "UNA Strassen",
+          "name": "Dudelange",
           "pts": 0.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 822,
-          "team_slug": "una-strassen",
+          "team_id": 202,
+          "team_slug": "dudelange",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -13725,12 +13725,12 @@
           }
         },
         {
-          "name": "Dudelange",
+          "name": "UNA Strassen",
           "pts": 0.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 202,
-          "team_slug": "dudelange",
+          "team_id": 822,
+          "team_slug": "una-strassen",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14054,6 +14054,65 @@
       "clubs_active": 0,
       "clubs": [
         {
+          "name": "FK Sutjeska",
+          "pts": 1.0,
+          "active": false,
+          "comp": "ECL",
+          "team_id": 282,
+          "team_slug": "fk-sutjeska",
+          "rounds": {
+            "CL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0,
+              "PO": 0,
+              "G8": 0,
+              "G7": 0,
+              "G6": 0,
+              "G5": 0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0,
+              "G1": 0,
+              "Q": 0
+            },
+            "EL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0,
+              "PO": 0,
+              "G6": 0,
+              "G5": 0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0,
+              "G1": 0,
+              "Q": 0
+            },
+            "ECL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0,
+              "PO": 0,
+              "G6": 0,
+              "G5": 0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0,
+              "G1": 0,
+              "Q": 0
+            },
+            "last_round": {
+              "CL": "",
+              "EL": "",
+              "ECL": ""
+            }
+          }
+        },
+        {
           "name": "Podgorica",
           "pts": 1.0,
           "active": false,
@@ -14119,65 +14178,6 @@
           "comp": "ECL",
           "team_id": 707,
           "team_slug": "fk-decic-tuzi",
-          "rounds": {
-            "CL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0,
-              "PO": 0,
-              "G8": 0,
-              "G7": 0,
-              "G6": 0,
-              "G5": 0,
-              "G4": 0,
-              "G3": 0,
-              "G2": 0,
-              "G1": 0,
-              "Q": 0
-            },
-            "EL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0,
-              "PO": 0,
-              "G6": 0,
-              "G5": 0,
-              "G4": 0,
-              "G3": 0,
-              "G2": 0,
-              "G1": 0,
-              "Q": 0
-            },
-            "ECL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0,
-              "PO": 0,
-              "G6": 0,
-              "G5": 0,
-              "G4": 0,
-              "G3": 0,
-              "G2": 0,
-              "G1": 0,
-              "Q": 0
-            },
-            "last_round": {
-              "CL": "",
-              "EL": "",
-              "ECL": ""
-            }
-          }
-        },
-        {
-          "name": "FK Sutjeska",
-          "pts": 1.0,
-          "active": false,
-          "comp": "ECL",
-          "team_id": 282,
-          "team_slug": "fk-sutjeska",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14695,12 +14695,12 @@
       "clubs_active": 0,
       "clubs": [
         {
-          "name": "SS Virtus",
+          "name": "SP Tre Fiori",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 1092,
-          "team_slug": "ss-virtus",
+          "team_id": 838,
+          "team_slug": "sp-tre-fiori",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14754,12 +14754,12 @@
           }
         },
         {
-          "name": "SP Tre Fiori",
+          "name": "SS Virtus",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 838,
-          "team_slug": "sp-tre-fiori",
+          "team_id": 1092,
+          "team_slug": "ss-virtus",
           "rounds": {
             "CL": {
               "FI": 0,

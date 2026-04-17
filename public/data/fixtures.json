@@ -1,6 +1,59 @@
 {
-  "updated": "2026-04-16T23:11:22.104810+00:00",
-  "upcoming": [],
+  "updated": "2026-04-17T17:53:53.995566+00:00",
+  "upcoming": [
+    {
+      "date": "2026-04-28",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Semi-finals Champions League",
+      "home": "Paris SG",
+      "homeFlag": "🇫🇷",
+      "homeCountry": "France",
+      "away": "Bayern",
+      "awayFlag": "🇩🇪",
+      "awayCountry": "Germany",
+      "score": null
+    },
+    {
+      "date": "2026-04-29",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Semi-finals Champions League",
+      "home": "Atlético Madrid",
+      "homeFlag": "🇪🇸",
+      "homeCountry": "Spain",
+      "away": "Arsenal",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": null
+    },
+    {
+      "date": "2026-05-05",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Semi-finals Champions League",
+      "home": "Arsenal",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Atlético Madrid",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": null
+    },
+    {
+      "date": "2026-05-06",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Semi-finals Champions League",
+      "home": "Bayern",
+      "homeFlag": "🇩🇪",
+      "homeCountry": "Germany",
+      "away": "Paris SG",
+      "awayFlag": "🇫🇷",
+      "awayCountry": "France",
+      "score": null
+    }
+  ],
   "results": [
     {
       "date": "2026-04-16",
