@@ -1,6 +1,6 @@
 {
   "season": "2025-26",
-  "updated": "2026-04-30T19:55:36.395139+00:00",
+  "updated": "2026-04-30T21:31:33.332160+00:00",
   "zone_thresholds": {
     "cl_direct": 4,
     "cl_qual": 10,
@@ -85,7 +85,7 @@
         },
         {
           "name": "Aston Villa",
-          "pts": 31.75,
+          "pts": 30.75,
           "active": true,
           "comp": "EL",
           "team_id": 958,
@@ -109,7 +109,7 @@
             },
             "EL": {
               "FI": 0,
-              "SF": 1.0,
+              "SF": 0.0,
               "QF": 4.0,
               "R16": 4.0,
               "PO": 0,
@@ -144,7 +144,7 @@
         },
         {
           "name": "Nottingham",
-          "pts": 24.0,
+          "pts": 25.0,
           "active": true,
           "comp": "EL",
           "team_id": 1491,
@@ -168,7 +168,7 @@
             },
             "EL": {
               "FI": 0,
-              "SF": 1.0,
+              "SF": 2.0,
               "QF": 3.0,
               "R16": 2.0,
               "PO": 2.0,
@@ -632,65 +632,6 @@
           }
         },
         {
-          "name": "Atalanta BC",
-          "pts": 21.0,
-          "active": false,
-          "comp": "ECL",
-          "team_id": 349,
-          "team_slug": "atalanta-bc",
-          "rounds": {
-            "CL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0.0,
-              "PO": 2.0,
-              "G8": 0,
-              "G7": 0,
-              "G6": 0.0,
-              "G5": 0.0,
-              "G4": 2.0,
-              "G3": 2.0,
-              "G2": 2.0,
-              "G1": 1.0,
-              "Q": 0
-            },
-            "EL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0,
-              "PO": 0,
-              "G6": 0,
-              "G5": 0,
-              "G4": 0,
-              "G3": 0,
-              "G2": 0,
-              "G1": 0,
-              "Q": 0
-            },
-            "ECL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0,
-              "PO": 0,
-              "G6": 0,
-              "G5": 0,
-              "G4": 0,
-              "G3": 0,
-              "G2": 0,
-              "G1": 0,
-              "Q": 0
-            },
-            "last_round": {
-              "CL": "R16",
-              "EL": "",
-              "ECL": ""
-            }
-          }
-        },
-        {
           "name": "Juventus",
           "pts": 21.0,
           "active": false,
@@ -744,6 +685,65 @@
             },
             "last_round": {
               "CL": "",
+              "EL": "",
+              "ECL": ""
+            }
+          }
+        },
+        {
+          "name": "Atalanta BC",
+          "pts": 21.0,
+          "active": false,
+          "comp": "ECL",
+          "team_id": 349,
+          "team_slug": "atalanta-bc",
+          "rounds": {
+            "CL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0.0,
+              "PO": 2.0,
+              "G8": 0,
+              "G7": 0,
+              "G6": 0.0,
+              "G5": 0.0,
+              "G4": 2.0,
+              "G3": 2.0,
+              "G2": 2.0,
+              "G1": 1.0,
+              "Q": 0
+            },
+            "EL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0,
+              "PO": 0,
+              "G6": 0,
+              "G5": 0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0,
+              "G1": 0,
+              "Q": 0
+            },
+            "ECL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0,
+              "PO": 0,
+              "G6": 0,
+              "G5": 0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0,
+              "G1": 0,
+              "Q": 0
+            },
+            "last_round": {
+              "CL": "R16",
               "EL": "",
               "ECL": ""
             }
@@ -995,8 +995,8 @@
       "name": "Spain",
       "code": "ESP",
       "flag": "🇪🇸",
-      "total": 96.612,
-      "y1": 21.656,
+      "total": 96.737,
+      "y1": 21.781,
       "y2": 27.928,
       "y3": 19.071,
       "y4": 21.0,
@@ -1065,7 +1065,7 @@
         },
         {
           "name": "Vallecano",
-          "pts": 20.5,
+          "pts": 21.5,
           "active": true,
           "comp": "ECL",
           "team_id": 904,
@@ -1103,7 +1103,7 @@
             },
             "ECL": {
               "FI": 0,
-              "SF": 1.0,
+              "SF": 2.0,
               "QF": 2.0,
               "R16": 2.0,
               "PO": 0,
@@ -1554,7 +1554,7 @@
         },
         {
           "name": "SC Freiburg",
-          "pts": 26.5,
+          "pts": 25.5,
           "active": true,
           "comp": "EL",
           "team_id": 338,
@@ -1578,7 +1578,7 @@
             },
             "EL": {
               "FI": 0,
-              "SF": 1.0,
+              "SF": 0.0,
               "QF": 4.0,
               "R16": 2.0,
               "PO": 0,
@@ -1914,8 +1914,8 @@
       "name": "France",
       "code": "FRA",
       "flag": "🇫🇷",
-      "total": 83.143,
-      "y1": 17.964,
+      "total": 83.0,
+      "y1": 17.821,
       "y2": 13.666,
       "y3": 13.333,
       "y4": 18.38,
@@ -1984,7 +1984,7 @@
         },
         {
           "name": "Strasbourg",
-          "pts": 24.0,
+          "pts": 23.0,
           "active": true,
           "comp": "ECL",
           "team_id": 608,
@@ -2022,7 +2022,7 @@
             },
             "ECL": {
               "FI": 0,
-              "SF": 1.0,
+              "SF": 0.0,
               "QF": 2.0,
               "R16": 3.0,
               "PO": 0,
@@ -2357,7 +2357,7 @@
       "clubs": [
         {
           "name": "SC Braga",
-          "pts": 31.25,
+          "pts": 32.25,
           "active": true,
           "comp": "EL",
           "team_id": 37,
@@ -2381,7 +2381,7 @@
             },
             "EL": {
               "FI": 0,
-              "SF": 1.0,
+              "SF": 2.0,
               "QF": 3.0,
               "R16": 2.0,
               "PO": 0,
@@ -2904,12 +2904,12 @@
           }
         },
         {
-          "name": "Feyenoord",
+          "name": "Ahead Eagles",
           "pts": 5.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 72,
-          "team_slug": "feyenoord-rotterdam",
+          "team_id": 289,
+          "team_slug": "go-ahead-eagles",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -2963,12 +2963,12 @@
           }
         },
         {
-          "name": "Ahead Eagles",
+          "name": "Feyenoord",
           "pts": 5.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 289,
-          "team_slug": "go-ahead-eagles",
+          "team_id": 72,
+          "team_slug": "feyenoord-rotterdam",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -7114,12 +7114,12 @@
           }
         },
         {
-          "name": "Győri ETO",
+          "name": "Paksi SE",
           "pts": 3.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 448,
-          "team_slug": "gyori-eto",
+          "team_id": 633,
+          "team_slug": "paksi-se",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -7173,12 +7173,12 @@
           }
         },
         {
-          "name": "Paksi SE",
+          "name": "Győri ETO",
           "pts": 3.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 633,
-          "team_slug": "paksi-se",
+          "team_id": 448,
+          "team_slug": "gyori-eto",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -11372,12 +11372,12 @@
           }
         },
         {
-          "name": "NSÍ Runavík",
+          "name": "Vikingur",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 223,
-          "team_slug": "nsi-runavik",
+          "team_id": 224,
+          "team_slug": "vikingur",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -11431,12 +11431,12 @@
           }
         },
         {
-          "name": "Vikingur",
+          "name": "NSÍ Runavík",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 224,
-          "team_slug": "vikingur",
+          "team_id": 223,
+          "team_slug": "nsi-runavik",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -13860,12 +13860,12 @@
           }
         },
         {
-          "name": "Dudelange",
+          "name": "RFCU Luxemburg",
           "pts": 0.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 202,
-          "team_slug": "dudelange",
+          "team_id": 818,
+          "team_slug": "rfcu-luxemburg",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -13919,12 +13919,12 @@
           }
         },
         {
-          "name": "RFCU Luxemburg",
+          "name": "Dudelange",
           "pts": 0.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 818,
-          "team_slug": "rfcu-luxemburg",
+          "team_id": 202,
+          "team_slug": "dudelange",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14054,6 +14054,65 @@
       "clubs_active": 0,
       "clubs": [
         {
+          "name": "Podgorica",
+          "pts": 1.0,
+          "active": false,
+          "comp": "ECL",
+          "team_id": 194,
+          "team_slug": "buducnost-podgorica",
+          "rounds": {
+            "CL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0,
+              "PO": 0,
+              "G8": 0,
+              "G7": 0,
+              "G6": 0,
+              "G5": 0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0,
+              "G1": 0,
+              "Q": 0
+            },
+            "EL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0,
+              "PO": 0,
+              "G6": 0,
+              "G5": 0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0,
+              "G1": 0,
+              "Q": 0
+            },
+            "ECL": {
+              "FI": 0,
+              "SF": 0,
+              "QF": 0,
+              "R16": 0,
+              "PO": 0,
+              "G6": 0,
+              "G5": 0,
+              "G4": 0,
+              "G3": 0,
+              "G2": 0,
+              "G1": 0,
+              "Q": 0
+            },
+            "last_round": {
+              "CL": "",
+              "EL": "",
+              "ECL": ""
+            }
+          }
+        },
+        {
           "name": "FK Dečić Tuzi",
           "pts": 1.0,
           "active": false,
@@ -14119,65 +14178,6 @@
           "comp": "ECL",
           "team_id": 282,
           "team_slug": "fk-sutjeska",
-          "rounds": {
-            "CL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0,
-              "PO": 0,
-              "G8": 0,
-              "G7": 0,
-              "G6": 0,
-              "G5": 0,
-              "G4": 0,
-              "G3": 0,
-              "G2": 0,
-              "G1": 0,
-              "Q": 0
-            },
-            "EL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0,
-              "PO": 0,
-              "G6": 0,
-              "G5": 0,
-              "G4": 0,
-              "G3": 0,
-              "G2": 0,
-              "G1": 0,
-              "Q": 0
-            },
-            "ECL": {
-              "FI": 0,
-              "SF": 0,
-              "QF": 0,
-              "R16": 0,
-              "PO": 0,
-              "G6": 0,
-              "G5": 0,
-              "G4": 0,
-              "G3": 0,
-              "G2": 0,
-              "G1": 0,
-              "Q": 0
-            },
-            "last_round": {
-              "CL": "",
-              "EL": "",
-              "ECL": ""
-            }
-          }
-        },
-        {
-          "name": "Podgorica",
-          "pts": 1.0,
-          "active": false,
-          "comp": "ECL",
-          "team_id": 194,
-          "team_slug": "buducnost-podgorica",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14695,12 +14695,12 @@
       "clubs_active": 0,
       "clubs": [
         {
-          "name": "SP Tre Fiori",
+          "name": "SS Virtus",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 838,
-          "team_slug": "sp-tre-fiori",
+          "team_id": 1092,
+          "team_slug": "ss-virtus",
           "rounds": {
             "CL": {
               "FI": 0,
@@ -14754,12 +14754,12 @@
           }
         },
         {
-          "name": "SS Virtus",
+          "name": "SP Tre Fiori",
           "pts": 1.0,
           "active": false,
           "comp": "ECL",
-          "team_id": 1092,
-          "team_slug": "ss-virtus",
+          "team_id": 838,
+          "team_slug": "sp-tre-fiori",
           "rounds": {
             "CL": {
               "FI": 0,
