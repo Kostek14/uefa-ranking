@@ -1,19 +1,6 @@
 {
-  "updated": "2026-05-05T18:15:22.562057+00:00",
+  "updated": "2026-05-05T19:56:28.637000+00:00",
   "upcoming": [
-    {
-      "date": "2026-05-05",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "Semi-finals Champions League",
-      "home": "Arsenal",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "Atlético Madrid",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
-      "score": null
-    },
     {
       "date": "2026-05-06",
       "time": "20:00",
@@ -81,6 +68,19 @@
     }
   ],
   "results": [
+    {
+      "date": "2026-05-05",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Semi-finals Champions League",
+      "home": "Arsenal",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Atlético Madrid",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": "1:0"
+    },
     {
       "date": "2026-04-30",
       "time": "20:00",
@@ -171,19 +171,6 @@
       "awayFlag": "🇵🇹",
       "awayCountry": "Portugal",
       "score": "2:4"
-    },
-    {
-      "date": "2026-04-16",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Quarter-finals Europa League",
-      "home": "Nottingham",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "FC Porto",
-      "awayFlag": "🇵🇹",
-      "awayCountry": "Portugal",
-      "score": "1:0"
     }
   ]
 }
