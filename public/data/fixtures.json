@@ -1,19 +1,6 @@
 {
-  "updated": "2026-05-06T18:21:55.069891+00:00",
+  "updated": "2026-05-06T20:08:25.350392+00:00",
   "upcoming": [
-    {
-      "date": "2026-05-06",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "Semi-finals Champions League",
-      "home": "Bayern",
-      "homeFlag": "🇩🇪",
-      "homeCountry": "Germany",
-      "away": "Paris SG",
-      "awayFlag": "🇫🇷",
-      "awayCountry": "France",
-      "score": null
-    },
     {
       "date": "2026-05-07",
       "time": "20:00",
@@ -68,6 +55,19 @@
     }
   ],
   "results": [
+    {
+      "date": "2026-05-06",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Semi-finals Champions League",
+      "home": "Bayern",
+      "homeFlag": "🇩🇪",
+      "homeCountry": "Germany",
+      "away": "Paris SG",
+      "awayFlag": "🇫🇷",
+      "awayCountry": "France",
+      "score": "0:1"
+    },
     {
       "date": "2026-05-05",
       "time": "20:00",
@@ -158,19 +158,6 @@
       "awayFlag": "🇩🇪",
       "awayCountry": "Germany",
       "score": "5:4"
-    },
-    {
-      "date": "2026-04-16",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Quarter-finals Europa League",
-      "home": "Real Betis",
-      "homeFlag": "🇪🇸",
-      "homeCountry": "Spain",
-      "away": "SC Braga",
-      "awayFlag": "🇵🇹",
-      "awayCountry": "Portugal",
-      "score": "2:4"
     }
   ]
 }
