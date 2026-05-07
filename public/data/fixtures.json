@@ -1,31 +1,19 @@
 {
-  "updated": "2026-05-07T18:48:06.415999+00:00",
-  "upcoming": [
+  "updated": "2026-05-07T19:58:04.504292+00:00",
+  "upcoming": [],
+  "results": [
     {
       "date": "2026-05-07",
       "time": "20:00",
-      "comp": "EL",
-      "round": "Semi-finals Europa League",
-      "home": "Aston Villa",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "Nottingham",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
-      "score": null
-    },
-    {
-      "date": "2026-05-07",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Semi-finals Europa League",
-      "home": "SC Freiburg",
-      "homeFlag": "🇩🇪",
-      "homeCountry": "Germany",
-      "away": "SC Braga",
-      "awayFlag": "🇵🇹",
-      "awayCountry": "Portugal",
-      "score": null
+      "comp": "ECL",
+      "round": "Semi-finals Conference League",
+      "home": "Strasbourg",
+      "homeFlag": "🇫🇷",
+      "homeCountry": "France",
+      "away": "Vallecano",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": "0:0"
     },
     {
       "date": "2026-05-07",
@@ -38,23 +26,34 @@
       "away": "Shakhtar",
       "awayFlag": "🇺🇦",
       "awayCountry": "Ukraine",
-      "score": null
+      "score": "1:1"
     },
     {
       "date": "2026-05-07",
       "time": "20:00",
-      "comp": "ECL",
-      "round": "Semi-finals Conference League",
-      "home": "Strasbourg",
-      "homeFlag": "🇫🇷",
-      "homeCountry": "France",
-      "away": "Vallecano",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
-      "score": null
-    }
-  ],
-  "results": [
+      "comp": "EL",
+      "round": "Semi-finals Europa League",
+      "home": "SC Freiburg",
+      "homeFlag": "🇩🇪",
+      "homeCountry": "Germany",
+      "away": "SC Braga",
+      "awayFlag": "🇵🇹",
+      "awayCountry": "Portugal",
+      "score": "2:0"
+    },
+    {
+      "date": "2026-05-07",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Semi-finals Europa League",
+      "home": "Aston Villa",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Nottingham",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": "1:0"
+    },
     {
       "date": "2026-05-06",
       "time": "20:00",
@@ -106,58 +105,6 @@
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "awayCountry": "England",
       "score": "1:3"
-    },
-    {
-      "date": "2026-04-30",
-      "time": "20:00",
-      "comp": "ECL",
-      "round": "Semi-finals Conference League",
-      "home": "Vallecano",
-      "homeFlag": "🇪🇸",
-      "homeCountry": "Spain",
-      "away": "Strasbourg",
-      "awayFlag": "🇫🇷",
-      "awayCountry": "France",
-      "score": "1:0"
-    },
-    {
-      "date": "2026-04-30",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Semi-finals Europa League",
-      "home": "Nottingham",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "Aston Villa",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
-      "score": "1:0"
-    },
-    {
-      "date": "2026-04-29",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "Semi-finals Champions League",
-      "home": "Atlético Madrid",
-      "homeFlag": "🇪🇸",
-      "homeCountry": "Spain",
-      "away": "Arsenal",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
-      "score": "1:1"
-    },
-    {
-      "date": "2026-04-28",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "Semi-finals Champions League",
-      "home": "Paris SG",
-      "homeFlag": "🇫🇷",
-      "homeCountry": "France",
-      "away": "Bayern",
-      "awayFlag": "🇩🇪",
-      "awayCountry": "Germany",
-      "score": "5:4"
     }
   ]
 }
