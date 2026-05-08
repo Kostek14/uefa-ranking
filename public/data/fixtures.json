@@ -1,6 +1,20 @@
 {
-  "updated": "2026-05-07T23:28:31.701814+00:00",
-  "upcoming": [],
+  "updated": "2026-05-08T18:13:51.068184+00:00",
+  "upcoming": [
+    {
+      "date": "2026-05-30",
+      "time": "17:00",
+      "comp": "CL",
+      "round": "Final Champions League",
+      "home": "Paris SG",
+      "homeFlag": "🇫🇷",
+      "homeCountry": "France",
+      "away": "Arsenal",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": null
+    }
+  ],
   "results": [
     {
       "date": "2026-05-07",
