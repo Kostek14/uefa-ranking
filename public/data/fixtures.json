@@ -1,6 +1,32 @@
 {
-  "updated": "2026-05-08T23:30:30.129152+00:00",
+  "updated": "2026-05-09T17:53:30.856384+00:00",
   "upcoming": [
+    {
+      "date": "2026-05-20",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Final Europa League",
+      "home": "SC Freiburg",
+      "homeFlag": "🇩🇪",
+      "homeCountry": "Germany",
+      "away": "Aston Villa",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": null
+    },
+    {
+      "date": "2026-05-27",
+      "time": "20:00",
+      "comp": "ECL",
+      "round": "Final Conference League",
+      "home": "C. Palace",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Vallecano",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": null
+    },
     {
       "date": "2026-05-30",
       "time": "17:00",
