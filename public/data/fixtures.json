@@ -1,19 +1,6 @@
 {
-  "updated": "2026-05-19T23:41:46.308838+00:00",
+  "updated": "2026-05-20T19:29:48.153583+00:00",
   "upcoming": [
-    {
-      "date": "2026-05-20",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Final Europa League",
-      "home": "SC Freiburg",
-      "homeFlag": "🇩🇪",
-      "homeCountry": "Germany",
-      "away": "Aston Villa",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
-      "score": null
-    },
     {
       "date": "2026-05-27",
       "time": "20:00",
@@ -42,6 +29,19 @@
     }
   ],
   "results": [
+    {
+      "date": "2026-05-20",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Final Europa League",
+      "home": "SC Freiburg",
+      "homeFlag": "🇩🇪",
+      "homeCountry": "Germany",
+      "away": "Aston Villa",
+      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "awayCountry": "England",
+      "score": "0:0"
+    },
     {
       "date": "2026-05-07",
       "time": "20:00",
@@ -132,19 +132,6 @@
       "awayFlag": "🇩🇪",
       "awayCountry": "Germany",
       "score": "2:1"
-    },
-    {
-      "date": "2026-04-30",
-      "time": "20:00",
-      "comp": "ECL",
-      "round": "Semi-finals Conference League",
-      "home": "Shakhtar",
-      "homeFlag": "🇺🇦",
-      "homeCountry": "Ukraine",
-      "away": "C. Palace",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
-      "score": "1:3"
     }
   ]
 }
