@@ -1,19 +1,6 @@
 {
-  "updated": "2026-05-26T23:42:14.635553+00:00",
+  "updated": "2026-05-27T19:28:31.612578+00:00",
   "upcoming": [
-    {
-      "date": "2026-05-27",
-      "time": "20:00",
-      "comp": "ECL",
-      "round": "Final Conference League",
-      "home": "C. Palace",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "Vallecano",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
-      "score": null
-    },
     {
       "date": "2026-05-30",
       "time": "17:00",
@@ -29,6 +16,19 @@
     }
   ],
   "results": [
+    {
+      "date": "2026-05-27",
+      "time": "20:00",
+      "comp": "ECL",
+      "round": "Final Conference League",
+      "home": "C. Palace",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
+      "away": "Vallecano",
+      "awayFlag": "🇪🇸",
+      "awayCountry": "Spain",
+      "score": "0:0"
+    },
     {
       "date": "2026-05-20",
       "time": "20:00",
@@ -119,19 +119,6 @@
       "awayFlag": "🇪🇸",
       "awayCountry": "Spain",
       "score": "1:0"
-    },
-    {
-      "date": "2026-04-30",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Semi-finals Europa League",
-      "home": "SC Braga",
-      "homeFlag": "🇵🇹",
-      "homeCountry": "Portugal",
-      "away": "SC Freiburg",
-      "awayFlag": "🇩🇪",
-      "awayCountry": "Germany",
-      "score": "2:1"
     }
   ]
 }
