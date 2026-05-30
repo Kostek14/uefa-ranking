@@ -1,6 +1,7 @@
 {
-  "updated": "2026-05-29T23:50:31.728263+00:00",
-  "upcoming": [
+  "updated": "2026-05-30T18:04:53.588075+00:00",
+  "upcoming": [],
+  "results": [
     {
       "date": "2026-05-30",
       "time": "17:00",
@@ -12,10 +13,8 @@
       "away": "Arsenal",
       "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "awayCountry": "England",
-      "score": null
-    }
-  ],
-  "results": [
+      "score": "1:1"
+    },
     {
       "date": "2026-05-27",
       "time": "20:00",
@@ -106,19 +105,6 @@
       "awayFlag": "🇫🇷",
       "awayCountry": "France",
       "score": "1:1"
-    },
-    {
-      "date": "2026-05-05",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "Semi-finals Champions League",
-      "home": "Arsenal",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
-      "away": "Atlético Madrid",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
-      "score": "1:0"
     }
   ]
 }
