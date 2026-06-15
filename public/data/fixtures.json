@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-14T21:49:49.384326+00:00",
+  "updated": "2026-06-15T22:33:07.322335+00:00",
   "upcoming": [],
   "results": [
     {
@@ -21,11 +21,11 @@
       "comp": "ECL",
       "round": "Final Conference League",
       "home": "C. Palace",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
+      "homeFlag": "",
+      "homeCountry": "",
       "away": "Vallecano",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
+      "awayFlag": "",
+      "awayCountry": "",
       "score": "1:0"
     },
     {
@@ -47,11 +47,11 @@
       "comp": "ECL",
       "round": "Semi-finals Conference League",
       "home": "Strasbourg",
-      "homeFlag": "🇫🇷",
-      "homeCountry": "France",
+      "homeFlag": "",
+      "homeCountry": "",
       "away": "Vallecano",
-      "awayFlag": "🇪🇸",
-      "awayCountry": "Spain",
+      "awayFlag": "",
+      "awayCountry": "",
       "score": "0:1"
     },
     {
@@ -60,8 +60,8 @@
       "comp": "ECL",
       "round": "Semi-finals Conference League",
       "home": "C. Palace",
-      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "homeCountry": "England",
+      "homeFlag": "",
+      "homeCountry": "",
       "away": "Shakhtar",
       "awayFlag": "🇺🇦",
       "awayCountry": "Ukraine",
@@ -89,8 +89,8 @@
       "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       "homeCountry": "England",
       "away": "Nottingham",
-      "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      "awayCountry": "England",
+      "awayFlag": "",
+      "awayCountry": "",
       "score": "4:0"
     },
     {
