@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-15T22:33:07.322335+00:00",
+  "updated": "2026-06-16T21:24:02.884192+00:00",
   "upcoming": [],
   "results": [
     {
@@ -21,8 +21,8 @@
       "comp": "ECL",
       "round": "Final Conference League",
       "home": "C. Palace",
-      "homeFlag": "",
-      "homeCountry": "",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
       "away": "Vallecano",
       "awayFlag": "",
       "awayCountry": "",
@@ -60,8 +60,8 @@
       "comp": "ECL",
       "round": "Semi-finals Conference League",
       "home": "C. Palace",
-      "homeFlag": "",
-      "homeCountry": "",
+      "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      "homeCountry": "England",
       "away": "Shakhtar",
       "awayFlag": "🇺🇦",
       "awayCountry": "Ukraine",
