@@ -1,56 +1,17 @@
 {
-  "updated": "2026-07-15T18:12:12.187469+00:00",
+  "updated": "2026-07-15T19:43:55.571356+00:00",
   "upcoming": [
     {
-      "date": "2026-07-15",
-      "time": "19:15",
-      "comp": "CL",
-      "round": "First qualifying round Champions League",
-      "home": "Atert Bissen",
-      "homeFlag": "🇱🇺",
-      "homeCountry": "Luxembourg",
-      "away": "KI Klaksvik",
-      "awayFlag": "🇫🇴",
-      "awayCountry": "Faroe Islands",
-      "score": null
-    },
-    {
-      "date": "2026-07-15",
-      "time": "19:30",
+      "date": "2026-07-16",
+      "time": "16:00",
       "comp": "ECL",
       "round": "First qualifying round Conference League",
-      "home": "FK Dečić Tuzi",
-      "homeFlag": "🇲🇪",
-      "homeCountry": "Montenegro",
-      "away": "Liepāja",
-      "awayFlag": "🇱🇻",
-      "awayCountry": "Latvia",
-      "score": null
-    },
-    {
-      "date": "2026-07-15",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "First qualifying round Champions League",
-      "home": "FK Sutjeska",
-      "homeFlag": "🇲🇪",
-      "homeCountry": "Montenegro",
-      "away": "Kairat",
-      "awayFlag": "🇰🇿",
-      "awayCountry": "Kazakhstan",
-      "score": null
-    },
-    {
-      "date": "2026-07-15",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "First qualifying round Champions League",
-      "home": "Egnatia",
-      "homeFlag": "🇦🇱",
-      "homeCountry": "Albania",
-      "away": "CS Petrocub",
-      "awayFlag": "🇲🇩",
-      "awayCountry": "Moldova",
+      "home": "Astana",
+      "homeFlag": "🇰🇿",
+      "homeCountry": "Kazakhstan",
+      "away": "Dinamo Tiranë",
+      "awayFlag": "🇦🇱",
+      "awayCountry": "Albania",
       "score": null
     },
     {
@@ -71,25 +32,51 @@
       "time": "16:00",
       "comp": "ECL",
       "round": "First qualifying round Conference League",
-      "home": "Astana",
-      "homeFlag": "🇰🇿",
-      "homeCountry": "Kazakhstan",
-      "away": "Dinamo Tiranë",
-      "awayFlag": "🇦🇱",
-      "awayCountry": "Albania",
-      "score": null
-    },
-    {
-      "date": "2026-07-16",
-      "time": "16:00",
-      "comp": "ECL",
-      "round": "First qualifying round Conference League",
       "home": "Yelimay Semey",
       "homeFlag": "🇰🇿",
       "homeCountry": "Kazakhstan",
       "away": "Alashkert",
       "awayFlag": "🇦🇲",
       "awayCountry": "Armenia",
+      "score": null
+    },
+    {
+      "date": "2026-07-16",
+      "time": "17:00",
+      "comp": "ECL",
+      "round": "First qualifying round Conference League",
+      "home": "Torpedo Kutaisi",
+      "homeFlag": "🇬🇪",
+      "homeCountry": "Georgia",
+      "away": "Zira FK",
+      "awayFlag": "🇦🇿",
+      "awayCountry": "Azerbaijan",
+      "score": null
+    },
+    {
+      "date": "2026-07-16",
+      "time": "17:00",
+      "comp": "ECL",
+      "round": "First qualifying round Conference League",
+      "home": "St. Joseph's FC",
+      "homeFlag": "🇬🇮",
+      "homeCountry": "Gibraltar",
+      "away": "Bohemian FC",
+      "awayFlag": "🇮🇪",
+      "awayCountry": "Ireland",
+      "score": null
+    },
+    {
+      "date": "2026-07-16",
+      "time": "17:00",
+      "comp": "ECL",
+      "round": "First qualifying round Conference League",
+      "home": "Pyunik",
+      "homeFlag": "🇦🇲",
+      "homeCountry": "Armenia",
+      "away": "Marsaxlokk",
+      "awayFlag": "🇲🇹",
+      "awayCountry": "Malta",
       "score": null
     },
     {
@@ -104,9 +91,74 @@
       "awayFlag": "🇱🇺",
       "awayCountry": "Luxembourg",
       "score": null
+    },
+    {
+      "date": "2026-07-16",
+      "time": "17:00",
+      "comp": "ECL",
+      "round": "First qualifying round Conference League",
+      "home": "Paide Linnameeskond",
+      "homeFlag": "",
+      "homeCountry": "",
+      "away": "Hegelmann",
+      "awayFlag": "🇱🇹",
+      "awayCountry": "Lithuania",
+      "score": null
     }
   ],
   "results": [
+    {
+      "date": "2026-07-15",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "First qualifying round Champions League",
+      "home": "Egnatia",
+      "homeFlag": "🇦🇱",
+      "homeCountry": "Albania",
+      "away": "CS Petrocub",
+      "awayFlag": "🇲🇩",
+      "awayCountry": "Moldova",
+      "score": "1:0"
+    },
+    {
+      "date": "2026-07-15",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "First qualifying round Champions League",
+      "home": "FK Sutjeska",
+      "homeFlag": "🇲🇪",
+      "homeCountry": "Montenegro",
+      "away": "Kairat",
+      "awayFlag": "🇰🇿",
+      "awayCountry": "Kazakhstan",
+      "score": "0:0"
+    },
+    {
+      "date": "2026-07-15",
+      "time": "19:30",
+      "comp": "ECL",
+      "round": "First qualifying round Conference League",
+      "home": "FK Dečić Tuzi",
+      "homeFlag": "🇲🇪",
+      "homeCountry": "Montenegro",
+      "away": "Liepāja",
+      "awayFlag": "🇱🇻",
+      "awayCountry": "Latvia",
+      "score": "1:1"
+    },
+    {
+      "date": "2026-07-15",
+      "time": "19:15",
+      "comp": "CL",
+      "round": "First qualifying round Champions League",
+      "home": "Atert Bissen",
+      "homeFlag": "🇱🇺",
+      "homeCountry": "Luxembourg",
+      "away": "KI Klaksvik",
+      "awayFlag": "🇫🇴",
+      "awayCountry": "Faroe Islands",
+      "score": "1:1"
+    },
     {
       "date": "2026-07-15",
       "time": "18:30",
@@ -118,7 +170,7 @@
       "away": "MKK-Dnepr",
       "awayFlag": "🇧🇾",
       "awayCountry": "Belarus",
-      "score": "0:0"
+      "score": "1:0"
     },
     {
       "date": "2026-07-15",
@@ -158,58 +210,6 @@
       "awayFlag": "🇸🇲",
       "awayCountry": "San Marino",
       "score": "2:1"
-    },
-    {
-      "date": "2026-07-14",
-      "time": "20:00",
-      "comp": "ECL",
-      "round": "First qualifying round Conference League",
-      "home": "La Fiorita",
-      "homeFlag": "🇸🇲",
-      "homeCountry": "San Marino",
-      "away": "UNA Strassen",
-      "awayFlag": "🇱🇺",
-      "awayCountry": "Luxembourg",
-      "score": "0:2"
-    },
-    {
-      "date": "2026-07-14",
-      "time": "19:00",
-      "comp": "CL",
-      "round": "First qualifying round Champions League",
-      "home": "Drita Gjilan",
-      "homeFlag": "🇽🇰",
-      "homeCountry": "Kosovo",
-      "away": "Kauno Žalgiris",
-      "awayFlag": "🇱🇹",
-      "awayCountry": "Lithuania",
-      "score": "2:3"
-    },
-    {
-      "date": "2026-07-14",
-      "time": "18:30",
-      "comp": "CL",
-      "round": "First qualifying round Champions League",
-      "home": "Levski",
-      "homeFlag": "🇧🇬",
-      "homeCountry": "Bulgaria",
-      "away": "B. Banja Luka",
-      "awayFlag": "🇧🇦",
-      "awayCountry": "Bosnia-Herzegovina",
-      "score": "4:0"
-    },
-    {
-      "date": "2026-07-14",
-      "time": "18:30",
-      "comp": "CL",
-      "round": "First qualifying round Champions League",
-      "home": "TNS",
-      "homeFlag": "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
-      "homeCountry": "Wales",
-      "away": "Sabah FK",
-      "awayFlag": "🇦🇿",
-      "awayCountry": "Azerbaijan",
-      "score": "1:2"
     }
   ]
 }
