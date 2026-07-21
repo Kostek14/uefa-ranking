@@ -1,71 +1,6 @@
 {
-  "updated": "2026-07-21T18:18:13.985588+00:00",
+  "updated": "2026-07-21T19:58:27.444416+00:00",
   "upcoming": [
-    {
-      "date": "2026-07-21",
-      "time": "19:15",
-      "comp": "ECL",
-      "round": "Second qualifying round Conference League",
-      "home": "Atert Bissen",
-      "homeFlag": "🇱🇺",
-      "homeCountry": "Luxembourg",
-      "away": "Győri ETO",
-      "awayFlag": "🇭🇺",
-      "awayCountry": "Hungary",
-      "score": null
-    },
-    {
-      "date": "2026-07-21",
-      "time": "19:30",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Sturm Graz",
-      "homeFlag": "🇦🇹",
-      "homeCountry": "Austria",
-      "away": "Hearts",
-      "awayFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-      "awayCountry": "Scotland",
-      "score": null
-    },
-    {
-      "date": "2026-07-21",
-      "time": "19:45",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "KI Klaksvik",
-      "homeFlag": "🇫🇴",
-      "homeCountry": "Faroe Islands",
-      "away": "Kauno Žalgiris",
-      "awayFlag": "🇱🇹",
-      "awayCountry": "Lithuania",
-      "score": null
-    },
-    {
-      "date": "2026-07-21",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Víkingur",
-      "homeFlag": "🇮🇸",
-      "homeCountry": "Iceland",
-      "away": "H. Beer-Sheva",
-      "awayFlag": "🇮🇱",
-      "awayCountry": "Israel",
-      "score": null
-    },
-    {
-      "date": "2026-07-21",
-      "time": "20:00",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Larne FC",
-      "homeFlag": "🏳️",
-      "homeCountry": "Northern Ireland",
-      "away": "Crvena Zvezda",
-      "awayFlag": "🇷🇸",
-      "awayCountry": "Serbia",
-      "score": null
-    },
     {
       "date": "2026-07-22",
       "time": "17:00",
@@ -77,6 +12,19 @@
       "away": "Dinamo Minsk",
       "awayFlag": "🇧🇾",
       "awayCountry": "Belarus",
+      "score": null
+    },
+    {
+      "date": "2026-07-22",
+      "time": "18:00",
+      "comp": "CL",
+      "round": "Second qualifying round Champions League",
+      "home": "Omonia",
+      "homeFlag": "🇨🇾",
+      "homeCountry": "Cyprus",
+      "away": "Kairat",
+      "awayFlag": "🇰🇿",
+      "awayCountry": "Kazakhstan",
       "score": null
     },
     {
@@ -94,19 +42,136 @@
     },
     {
       "date": "2026-07-22",
-      "time": "18:00",
+      "time": "18:30",
       "comp": "CL",
       "round": "Second qualifying round Champions League",
-      "home": "Omonia",
-      "homeFlag": "🇨🇾",
-      "homeCountry": "Cyprus",
-      "away": "Kairat",
-      "awayFlag": "🇰🇿",
-      "awayCountry": "Kazakhstan",
+      "home": "Levski",
+      "homeFlag": "🇧🇬",
+      "homeCountry": "Bulgaria",
+      "away": "CS Craiova",
+      "awayFlag": "🇷🇴",
+      "awayCountry": "Romania",
+      "score": null
+    },
+    {
+      "date": "2026-07-22",
+      "time": "18:45",
+      "comp": "ECL",
+      "round": "Second qualifying round Conference League",
+      "home": "Başakşehir",
+      "homeFlag": "🇹🇷",
+      "homeCountry": "Türkiye",
+      "away": "Inter Turku",
+      "awayFlag": "🇫🇮",
+      "awayCountry": "Finland",
+      "score": null
+    },
+    {
+      "date": "2026-07-22",
+      "time": "19:00",
+      "comp": "ECL",
+      "round": "Second qualifying round Conference League",
+      "home": "FK Vardar",
+      "homeFlag": "🇲🇰",
+      "homeCountry": "North Macedonia",
+      "away": "Riga FC",
+      "awayFlag": "🇱🇻",
+      "awayCountry": "Latvia",
+      "score": null
+    },
+    {
+      "date": "2026-07-22",
+      "time": "19:30",
+      "comp": "ECL",
+      "round": "Second qualifying round Conference League",
+      "home": "Spartak Trnava",
+      "homeFlag": "🇸🇰",
+      "homeCountry": "Slovakia",
+      "away": "FC CSKA 1948 Sofia",
+      "awayFlag": "",
+      "awayCountry": "",
+      "score": null
+    },
+    {
+      "date": "2026-07-22",
+      "time": "20:00",
+      "comp": "ECL",
+      "round": "Second qualifying round Conference League",
+      "home": "Železničar Pančevo",
+      "homeFlag": "",
+      "homeCountry": "",
+      "away": "SC Braga",
+      "awayFlag": "🇵🇹",
+      "awayCountry": "Portugal",
       "score": null
     }
   ],
   "results": [
+    {
+      "date": "2026-07-21",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Second qualifying round Champions League",
+      "home": "Víkingur",
+      "homeFlag": "🇮🇸",
+      "homeCountry": "Iceland",
+      "away": "H. Beer-Sheva",
+      "awayFlag": "🇮🇱",
+      "awayCountry": "Israel",
+      "score": "0:0"
+    },
+    {
+      "date": "2026-07-21",
+      "time": "20:00",
+      "comp": "CL",
+      "round": "Second qualifying round Champions League",
+      "home": "Larne FC",
+      "homeFlag": "🏳️",
+      "homeCountry": "Northern Ireland",
+      "away": "Crvena Zvezda",
+      "awayFlag": "🇷🇸",
+      "awayCountry": "Serbia",
+      "score": "0:1"
+    },
+    {
+      "date": "2026-07-21",
+      "time": "19:45",
+      "comp": "CL",
+      "round": "Second qualifying round Champions League",
+      "home": "KI Klaksvik",
+      "homeFlag": "🇫🇴",
+      "homeCountry": "Faroe Islands",
+      "away": "Kauno Žalgiris",
+      "awayFlag": "🇱🇹",
+      "awayCountry": "Lithuania",
+      "score": "0:0"
+    },
+    {
+      "date": "2026-07-21",
+      "time": "19:30",
+      "comp": "CL",
+      "round": "Second qualifying round Champions League",
+      "home": "Sturm Graz",
+      "homeFlag": "🇦🇹",
+      "homeCountry": "Austria",
+      "away": "Hearts",
+      "awayFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+      "awayCountry": "Scotland",
+      "score": "3:0"
+    },
+    {
+      "date": "2026-07-21",
+      "time": "19:15",
+      "comp": "ECL",
+      "round": "Second qualifying round Conference League",
+      "home": "Atert Bissen",
+      "homeFlag": "🇱🇺",
+      "homeCountry": "Luxembourg",
+      "away": "Győri ETO",
+      "awayFlag": "🇭🇺",
+      "awayCountry": "Hungary",
+      "score": "1:4"
+    },
     {
       "date": "2026-07-21",
       "time": "19:00",
@@ -118,7 +183,7 @@
       "away": "Górnik Zabrze",
       "awayFlag": "🇵🇱",
       "awayCountry": "Poland",
-      "score": "0:0"
+      "score": "1:0"
     },
     {
       "date": "2026-07-21",
@@ -131,7 +196,7 @@
       "away": "Dinamo Zagreb",
       "awayFlag": "🇭🇷",
       "awayCountry": "Croatia",
-      "score": "0:0"
+      "score": "1:1"
     },
     {
       "date": "2026-07-21",
@@ -144,72 +209,7 @@
       "away": "Drita Gjilan",
       "awayFlag": "🇽🇰",
       "awayCountry": "Kosovo",
-      "score": "0:0"
-    },
-    {
-      "date": "2026-07-21",
-      "time": "18:00",
-      "comp": "ECL",
-      "round": "Second qualifying round Conference League",
-      "home": "Göteborg",
-      "homeFlag": "🇸🇪",
-      "homeCountry": "Sweden",
-      "away": "Levadia",
-      "awayFlag": "🇪🇪",
-      "awayCountry": "Estonia",
-      "score": "0:2"
-    },
-    {
-      "date": "2026-07-21",
-      "time": "18:00",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Aarhus GF",
-      "homeFlag": "🇩🇰",
-      "homeCountry": "Denmark",
-      "away": "Lech Poznan",
-      "awayFlag": "🇵🇱",
-      "awayCountry": "Poland",
-      "score": "0:2"
-    },
-    {
-      "date": "2026-07-21",
-      "time": "17:00",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Sabah FK",
-      "homeFlag": "🇦🇿",
-      "homeCountry": "Azerbaijan",
-      "away": "Kuopion PS",
-      "awayFlag": "🇫🇮",
-      "awayCountry": "Finland",
-      "score": "1:0"
-    },
-    {
-      "date": "2026-07-21",
-      "time": "17:00",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Iberia 1999",
-      "homeFlag": "🇬🇪",
-      "homeCountry": "Georgia",
-      "away": "Slovan Bratislava",
-      "awayFlag": "",
-      "awayCountry": "",
-      "score": "0:2"
-    },
-    {
-      "date": "2026-07-21",
-      "time": "17:00",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Ararat-Armenia",
-      "homeFlag": "🇦🇲",
-      "homeCountry": "Armenia",
-      "away": "Shamrock",
-      "awayFlag": "🇮🇪",
-      "awayCountry": "Ireland",
-      "score": "2:0"
+      "score": "1:1"
     }
   ]
 }
