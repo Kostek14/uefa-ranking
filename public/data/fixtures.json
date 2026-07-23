@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-23T19:53:37.395322+00:00",
+  "updated": "2026-07-23T21:33:34.675857+00:00",
   "upcoming": [
     {
       "date": "2026-07-28",
@@ -118,7 +118,7 @@
       "away": "Zrinjski",
       "awayFlag": "🇧🇦",
       "awayCountry": "Bosnia-Herzegovina",
-      "score": "0:0"
+      "score": "1:0"
     },
     {
       "date": "2026-07-23",
@@ -131,7 +131,7 @@
       "away": "Ilves Tampere",
       "awayFlag": "🇫🇮",
       "awayCountry": "Finland",
-      "score": "0:0"
+      "score": "1:0"
     },
     {
       "date": "2026-07-23",
@@ -144,7 +144,7 @@
       "away": "Paphos FC",
       "awayFlag": "🇨🇾",
       "awayCountry": "Cyprus",
-      "score": "0:0"
+      "score": "2:0"
     },
     {
       "date": "2026-07-23",
@@ -157,7 +157,7 @@
       "away": "UNA Strassen",
       "awayFlag": "🇱🇺",
       "awayCountry": "Luxembourg",
-      "score": "2:0"
+      "score": "4:0"
     },
     {
       "date": "2026-07-23",
@@ -170,7 +170,7 @@
       "away": "FC Koper",
       "awayFlag": "🇸🇮",
       "awayCountry": "Slovenia",
-      "score": "0:0"
+      "score": "0:2"
     },
     {
       "date": "2026-07-23",
@@ -183,7 +183,7 @@
       "away": "Kalju",
       "awayFlag": "🇪🇪",
       "awayCountry": "Estonia",
-      "score": "3:1"
+      "score": "5:2"
     },
     {
       "date": "2026-07-23",
@@ -196,7 +196,7 @@
       "away": "Shkëndija",
       "awayFlag": "🇲🇰",
       "awayCountry": "North Macedonia",
-      "score": "1:1"
+      "score": "2:1"
     },
     {
       "date": "2026-07-23",
@@ -209,7 +209,7 @@
       "away": "Derry City",
       "awayFlag": "🇮🇪",
       "awayCountry": "Ireland",
-      "score": "0:0"
+      "score": "1:0"
     }
   ]
 }
