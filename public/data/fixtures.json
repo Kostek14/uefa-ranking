@@ -1,45 +1,6 @@
 {
-  "updated": "2026-07-29T18:09:46.590849+00:00",
+  "updated": "2026-07-29T19:51:12.700368+00:00",
   "upcoming": [
-    {
-      "date": "2026-07-29",
-      "time": "19:00",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Crvena Zvezda",
-      "homeFlag": "🇷🇸",
-      "homeCountry": "Serbia",
-      "away": "Larne FC",
-      "awayFlag": "🏳️",
-      "awayCountry": "Northern Ireland",
-      "score": null
-    },
-    {
-      "date": "2026-07-29",
-      "time": "19:15",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Slovan Bratislava",
-      "homeFlag": "",
-      "homeCountry": "",
-      "away": "Iberia 1999",
-      "awayFlag": "🇬🇪",
-      "awayCountry": "Georgia",
-      "score": null
-    },
-    {
-      "date": "2026-07-29",
-      "time": "19:30",
-      "comp": "ECL",
-      "round": "Second qualifying round Conference League",
-      "home": "Rapid Wien",
-      "homeFlag": "🇦🇹",
-      "homeCountry": "Austria",
-      "away": "FC Santa Coloma",
-      "awayFlag": "🇦🇩",
-      "awayCountry": "Andorra",
-      "score": null
-    },
     {
       "date": "2026-07-30",
       "time": "15:00",
@@ -64,6 +25,45 @@
       "away": "FK Panevėžys",
       "awayFlag": "🇱🇹",
       "awayCountry": "Lithuania",
+      "score": null
+    },
+    {
+      "date": "2026-07-30",
+      "time": "17:00",
+      "comp": "ECL",
+      "round": "Second qualifying round Conference League",
+      "home": "Ilves Tampere",
+      "homeFlag": "🇫🇮",
+      "homeCountry": "Finland",
+      "away": "UMF Stjarnan",
+      "awayFlag": "🇮🇸",
+      "awayCountry": "Iceland",
+      "score": null
+    },
+    {
+      "date": "2026-07-30",
+      "time": "17:00",
+      "comp": "ECL",
+      "round": "Second qualifying round Conference League",
+      "home": "FC Noah",
+      "homeFlag": "🇦🇲",
+      "homeCountry": "Armenia",
+      "away": "Zimbru",
+      "awayFlag": "🇲🇩",
+      "awayCountry": "Moldova",
+      "score": null
+    },
+    {
+      "date": "2026-07-30",
+      "time": "17:00",
+      "comp": "ECL",
+      "round": "Second qualifying round Conference League",
+      "home": "Auda",
+      "homeFlag": "🇱🇻",
+      "homeCountry": "Latvia",
+      "away": "FCSB",
+      "awayFlag": "🇷🇴",
+      "awayCountry": "Romania",
       "score": null
     },
     {
@@ -97,16 +97,55 @@
       "time": "17:00",
       "comp": "ECL",
       "round": "Second qualifying round Conference League",
-      "home": "FC Noah",
-      "homeFlag": "🇦🇲",
-      "homeCountry": "Armenia",
-      "away": "Zimbru",
-      "awayFlag": "🇲🇩",
-      "awayCountry": "Moldova",
+      "home": "Inter Turku",
+      "homeFlag": "🇫🇮",
+      "homeCountry": "Finland",
+      "away": "Başakşehir",
+      "awayFlag": "🇹🇷",
+      "awayCountry": "Türkiye",
       "score": null
     }
   ],
   "results": [
+    {
+      "date": "2026-07-29",
+      "time": "19:30",
+      "comp": "ECL",
+      "round": "Second qualifying round Conference League",
+      "home": "Rapid Wien",
+      "homeFlag": "🇦🇹",
+      "homeCountry": "Austria",
+      "away": "FC Santa Coloma",
+      "awayFlag": "🇦🇩",
+      "awayCountry": "Andorra",
+      "score": "3:1"
+    },
+    {
+      "date": "2026-07-29",
+      "time": "19:15",
+      "comp": "CL",
+      "round": "Second qualifying round Champions League",
+      "home": "Slovan Bratislava",
+      "homeFlag": "",
+      "homeCountry": "",
+      "away": "Iberia 1999",
+      "awayFlag": "🇬🇪",
+      "awayCountry": "Georgia",
+      "score": "1:1"
+    },
+    {
+      "date": "2026-07-29",
+      "time": "19:00",
+      "comp": "CL",
+      "round": "Second qualifying round Champions League",
+      "home": "Crvena Zvezda",
+      "homeFlag": "🇷🇸",
+      "homeCountry": "Serbia",
+      "away": "Larne FC",
+      "awayFlag": "🏳️",
+      "awayCountry": "Northern Ireland",
+      "score": "5:0"
+    },
     {
       "date": "2026-07-29",
       "time": "19:00",
@@ -118,7 +157,7 @@
       "away": "Fenerbahçe",
       "awayFlag": "🇹🇷",
       "awayCountry": "Türkiye",
-      "score": "0:0"
+      "score": "1:1"
     },
     {
       "date": "2026-07-29",
@@ -131,7 +170,7 @@
       "away": "Víkingur",
       "awayFlag": "🇮🇸",
       "awayCountry": "Iceland",
-      "score": "0:0"
+      "score": "2:0"
     },
     {
       "date": "2026-07-29",
@@ -144,7 +183,7 @@
       "away": "Levski",
       "awayFlag": "🇧🇬",
       "awayCountry": "Bulgaria",
-      "score": "0:2"
+      "score": "2:2"
     },
     {
       "date": "2026-07-29",
@@ -157,7 +196,7 @@
       "away": "Zhytomyr",
       "awayFlag": "🇺🇦",
       "awayCountry": "Ukraine",
-      "score": "1:0"
+      "score": "2:1"
     },
     {
       "date": "2026-07-29",
@@ -170,46 +209,7 @@
       "away": "Aarhus GF",
       "awayFlag": "🇩🇰",
       "awayCountry": "Denmark",
-      "score": "0:1"
-    },
-    {
-      "date": "2026-07-29",
-      "time": "17:00",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Kauno Žalgiris",
-      "homeFlag": "🇱🇹",
-      "homeCountry": "Lithuania",
-      "away": "KI Klaksvik",
-      "awayFlag": "🇫🇴",
-      "awayCountry": "Faroe Islands",
-      "score": "1:0"
-    },
-    {
-      "date": "2026-07-29",
-      "time": "16:00",
-      "comp": "CL",
-      "round": "Second qualifying round Champions League",
-      "home": "Kairat",
-      "homeFlag": "🇰🇿",
-      "homeCountry": "Kazakhstan",
-      "away": "Omonia",
-      "awayFlag": "🇨🇾",
-      "awayCountry": "Cyprus",
-      "score": "1:0(6:5)"
-    },
-    {
-      "date": "2026-07-29",
-      "time": "15:30",
-      "comp": "ECL",
-      "round": "Second qualifying round Conference League",
-      "home": "KF Dukagjini",
-      "homeFlag": "🇽🇰",
-      "homeCountry": "Kosovo",
-      "away": "FC Lugano",
-      "awayFlag": "🇨🇭",
-      "awayCountry": "Switzerland",
-      "score": "1:5"
+      "score": "1:4(1:1)"
     }
   ]
 }
