@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-30T19:59:59.557576+00:00",
+  "updated": "2026-07-30T21:39:50.667564+00:00",
   "upcoming": [
     {
       "date": "2026-08-04",
@@ -118,7 +118,7 @@
       "away": "NK Aluminij",
       "awayFlag": "🇸🇮",
       "awayCountry": "Slovenia",
-      "score": "2:0"
+      "score": "3:0"
     },
     {
       "date": "2026-07-30",
@@ -131,7 +131,7 @@
       "away": "MKK-Dnepr",
       "awayFlag": "🇧🇾",
       "awayCountry": "Belarus",
-      "score": "0:1"
+      "score": "1:2"
     },
     {
       "date": "2026-07-30",
@@ -144,7 +144,7 @@
       "away": "Železničar Pančevo",
       "awayFlag": "",
       "awayCountry": "",
-      "score": "1:0"
+      "score": "4:0"
     },
     {
       "date": "2026-07-30",
@@ -157,7 +157,7 @@
       "away": "FC St Gallen",
       "awayFlag": "🇨🇭",
       "awayCountry": "Switzerland",
-      "score": "1:0"
+      "score": "5:0"
     },
     {
       "date": "2026-07-30",
@@ -170,7 +170,7 @@
       "away": "Malisheva",
       "awayFlag": "🇽🇰",
       "awayCountry": "Kosovo",
-      "score": "3:0"
+      "score": "4:1"
     },
     {
       "date": "2026-07-30",
@@ -183,7 +183,7 @@
       "away": "NSÍ Runavík",
       "awayFlag": "🇫🇴",
       "awayCountry": "Faroe Islands",
-      "score": "0:1"
+      "score": "1:2"
     },
     {
       "date": "2026-07-30",
@@ -196,7 +196,7 @@
       "away": "HJK",
       "awayFlag": "🇫🇮",
       "awayCountry": "Finland",
-      "score": "0:2"
+      "score": "0:3"
     },
     {
       "date": "2026-07-30",
@@ -209,7 +209,7 @@
       "away": "MŠK Žilina",
       "awayFlag": "🇸🇰",
       "awayCountry": "Slovakia",
-      "score": "1:1"
+      "score": "3:1"
     }
   ]
 }
