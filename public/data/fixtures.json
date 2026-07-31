@@ -1,6 +1,19 @@
 {
-  "updated": "2026-07-30T23:33:55.344873+00:00",
+  "updated": "2026-07-31T18:22:51.088330+00:00",
   "upcoming": [
+    {
+      "date": "2026-08-04",
+      "time": "17:00",
+      "comp": "CL",
+      "round": "Third qualifying round Champions League",
+      "home": "Mjällby AIF",
+      "homeFlag": "🇸🇪",
+      "homeCountry": "Sweden",
+      "away": "Slovan Bratislava",
+      "awayFlag": "",
+      "awayCountry": "",
+      "score": null
+    },
     {
       "date": "2026-08-04",
       "time": "17:00",
@@ -12,19 +25,6 @@
       "away": "NK Celje",
       "awayFlag": "🇸🇮",
       "awayCountry": "Slovenia",
-      "score": null
-    },
-    {
-      "date": "2026-08-04",
-      "time": "18:00",
-      "comp": "CL",
-      "round": "Third qualifying round Champions League",
-      "home": "Olympiacos",
-      "homeFlag": "🇬🇷",
-      "homeCountry": "Greece",
-      "away": "NEC Nijmegen",
-      "awayFlag": "🇳🇱",
-      "awayCountry": "Netherlands",
       "score": null
     },
     {
@@ -45,6 +45,19 @@
       "time": "18:00",
       "comp": "CL",
       "round": "Third qualifying round Champions League",
+      "home": "Olympiacos",
+      "homeFlag": "🇬🇷",
+      "homeCountry": "Greece",
+      "away": "NEC Nijmegen",
+      "awayFlag": "🇳🇱",
+      "awayCountry": "Netherlands",
+      "score": null
+    },
+    {
+      "date": "2026-08-04",
+      "time": "18:00",
+      "comp": "CL",
+      "round": "Third qualifying round Champions League",
       "home": "St. Gilloise",
       "homeFlag": "🇧🇪",
       "homeCountry": "Belgium",
@@ -54,55 +67,42 @@
       "score": null
     },
     {
-      "date": "2026-08-06",
-      "time": "18:00",
-      "comp": "ECL",
-      "round": "Third qualifying round Conference League",
-      "home": "SP Tre Fiori",
-      "homeFlag": "🇸🇲",
-      "homeCountry": "San Marino",
-      "away": "Drita Gjilan",
-      "awayFlag": "🇽🇰",
-      "awayCountry": "Kosovo",
-      "score": null
-    },
-    {
-      "date": "2026-08-06",
-      "time": "18:00",
-      "comp": "EL",
-      "round": "Third qualifying round Europa League",
-      "home": "Shamrock",
-      "homeFlag": "🇮🇪",
-      "homeCountry": "Ireland",
-      "away": "Egnatia",
-      "awayFlag": "🇦🇱",
-      "awayCountry": "Albania",
-      "score": null
-    },
-    {
-      "date": "2026-08-06",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Third qualifying round Europa League",
-      "home": "Jagiellonia",
-      "homeFlag": "🇵🇱",
-      "homeCountry": "Poland",
-      "away": "Rangers FC",
-      "awayFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-      "awayCountry": "Scotland",
-      "score": null
-    },
-    {
-      "date": "2026-08-11",
-      "time": "18:00",
+      "date": "2026-08-04",
+      "time": "18:30",
       "comp": "CL",
       "round": "Third qualifying round Champions League",
-      "home": "NEC Nijmegen",
-      "homeFlag": "🇳🇱",
-      "homeCountry": "Netherlands",
-      "away": "Olympiacos",
-      "awayFlag": "🇬🇷",
-      "awayCountry": "Greece",
+      "home": "H. Beer-Sheva",
+      "homeFlag": "🇮🇱",
+      "homeCountry": "Israel",
+      "away": "Crvena Zvezda",
+      "awayFlag": "🇷🇸",
+      "awayCountry": "Serbia",
+      "score": null
+    },
+    {
+      "date": "2026-08-04",
+      "time": "18:30",
+      "comp": "CL",
+      "round": "Third qualifying round Champions League",
+      "home": "Levski",
+      "homeFlag": "🇧🇬",
+      "homeCountry": "Bulgaria",
+      "away": "Kairat",
+      "awayFlag": "🇰🇿",
+      "awayCountry": "Kazakhstan",
+      "score": null
+    },
+    {
+      "date": "2026-08-04",
+      "time": "19:00",
+      "comp": "CL",
+      "round": "Third qualifying round Champions League",
+      "home": "Dinamo Zagreb",
+      "homeFlag": "🇭🇷",
+      "homeCountry": "Croatia",
+      "away": "Kauno Žalgiris",
+      "awayFlag": "🇱🇹",
+      "awayCountry": "Lithuania",
       "score": null
     }
   ],
@@ -183,7 +183,7 @@
       "away": "NSÍ Runavík",
       "awayFlag": "🇫🇴",
       "awayCountry": "Faroe Islands",
-      "score": "1:2"
+      "score": "0:2(3:4)"
     },
     {
       "date": "2026-07-30",
