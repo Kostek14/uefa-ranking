@@ -1,32 +1,6 @@
 {
-  "updated": "2026-08-04T18:41:19.444901+00:00",
+  "updated": "2026-08-04T20:07:38.336196+00:00",
   "upcoming": [
-    {
-      "date": "2026-08-04",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Third qualifying round Europa League",
-      "home": "Larne FC",
-      "homeFlag": "🏳️",
-      "homeCountry": "Northern Ireland",
-      "away": "Iberia 1999",
-      "awayFlag": "🇬🇪",
-      "awayCountry": "Georgia",
-      "score": null
-    },
-    {
-      "date": "2026-08-04",
-      "time": "20:00",
-      "comp": "EL",
-      "round": "Third qualifying round Europa League",
-      "home": "Shamrock",
-      "homeFlag": "🇮🇪",
-      "homeCountry": "Ireland",
-      "away": "Egnatia",
-      "awayFlag": "🇦🇱",
-      "awayCountry": "Albania",
-      "score": null
-    },
     {
       "date": "2026-08-05",
       "time": "17:30",
@@ -104,9 +78,61 @@
       "awayFlag": "🇽🇰",
       "awayCountry": "Kosovo",
       "score": null
+    },
+    {
+      "date": "2026-08-06",
+      "time": "18:00",
+      "comp": "EL",
+      "round": "Third qualifying round Europa League",
+      "home": "Lech Poznan",
+      "homeFlag": "🇵🇱",
+      "homeCountry": "Poland",
+      "away": "KI Klaksvik",
+      "awayFlag": "🇫🇴",
+      "awayCountry": "Faroe Islands",
+      "score": null
+    },
+    {
+      "date": "2026-08-06",
+      "time": "18:00",
+      "comp": "EL",
+      "round": "Third qualifying round Europa League",
+      "home": "Lincoln",
+      "homeFlag": "🇬🇮",
+      "homeCountry": "Gibraltar",
+      "away": "Omonia",
+      "awayFlag": "🇨🇾",
+      "awayCountry": "Cyprus",
+      "score": null
     }
   ],
   "results": [
+    {
+      "date": "2026-08-04",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Third qualifying round Europa League",
+      "home": "Larne FC",
+      "homeFlag": "🏳️",
+      "homeCountry": "Northern Ireland",
+      "away": "Iberia 1999",
+      "awayFlag": "🇬🇪",
+      "awayCountry": "Georgia",
+      "score": "0:0"
+    },
+    {
+      "date": "2026-08-04",
+      "time": "20:00",
+      "comp": "EL",
+      "round": "Third qualifying round Europa League",
+      "home": "Shamrock",
+      "homeFlag": "🇮🇪",
+      "homeCountry": "Ireland",
+      "away": "Egnatia",
+      "awayFlag": "🇦🇱",
+      "awayCountry": "Albania",
+      "score": "1:1"
+    },
     {
       "date": "2026-08-04",
       "time": "19:00",
@@ -118,7 +144,7 @@
       "away": "Kauno Žalgiris",
       "awayFlag": "🇱🇹",
       "awayCountry": "Lithuania",
-      "score": "0:0"
+      "score": "5:0"
     },
     {
       "date": "2026-08-04",
@@ -144,7 +170,7 @@
       "away": "Bodø/Glimt",
       "awayFlag": "🇳🇴",
       "awayCountry": "Norway",
-      "score": "1:2"
+      "score": "3:3"
     },
     {
       "date": "2026-08-04",
@@ -157,7 +183,7 @@
       "away": "Lyon",
       "awayFlag": "🇫🇷",
       "awayCountry": "France",
-      "score": "0:0"
+      "score": "2:1"
     },
     {
       "date": "2026-08-04",
@@ -183,33 +209,7 @@
       "away": "Kairat",
       "awayFlag": "🇰🇿",
       "awayCountry": "Kazakhstan",
-      "score": "0:0"
-    },
-    {
-      "date": "2026-08-04",
-      "time": "17:00",
-      "comp": "ECL",
-      "round": "Third qualifying round Conference League",
-      "home": "Auda",
-      "homeFlag": "🇱🇻",
-      "homeCountry": "Latvia",
-      "away": "Dinamo Tiranë",
-      "awayFlag": "🇦🇱",
-      "awayCountry": "Albania",
       "score": "1:0"
-    },
-    {
-      "date": "2026-08-04",
-      "time": "17:00",
-      "comp": "CL",
-      "round": "Third qualifying round Champions League",
-      "home": "Mjällby AIF",
-      "homeFlag": "🇸🇪",
-      "homeCountry": "Sweden",
-      "away": "Slovan Bratislava",
-      "awayFlag": "",
-      "awayCountry": "",
-      "score": "1:2"
     }
   ]
 }
